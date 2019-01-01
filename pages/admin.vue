@@ -9,8 +9,11 @@
         &#8220;First, solve the problem. Then, write the code.&#8221;
         <footer>
           <small>
-            {{ this.$store.state.localNode.id }}
-            <em>&mdash;John Johnson</em>
+            <ul>
+              <li>User ipfs ID: {{ this.$store.state.database.userIpfsId }}</li>
+              <li>Node ipfs ID: {{ this.$store.state.database.nodeIpfsId }}</li>
+              <li>Node database path: {{ this.$store.state.database.nodeDbPath }}</li>
+            </ul>
           </small>
         </footer>
       </blockquote>

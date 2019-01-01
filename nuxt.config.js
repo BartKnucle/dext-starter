@@ -41,20 +41,20 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/vuetify'},
-    { src: '@/plugins/database' }
+    { src: '@/plugins/vuetify' }
+    //{ src: '@/plugins/database' }
     //{ src: '@/plugins/database', ssr: false }
   ],
 
   router: {
-    middleware: ['node']
+    middleware: ['database']
   },
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    //'~/modules/database'
+    '~/modules/database'
     // Doc: https://github.com/nuxt-community/axios-module#usage
     //'@nuxtjs/axios'/*,
     //'~/modules/database'*/
