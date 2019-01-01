@@ -1,4 +1,3 @@
-
 const express = require('../../../.cache/typescript/2.9/node_modules/@types/express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')

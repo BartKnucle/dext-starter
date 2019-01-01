@@ -81,7 +81,7 @@ dist
 .idea
 
 # Orbit database
-orbitdb/*
+orbitdb/
 
 #data directory
 data

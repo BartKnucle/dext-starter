@@ -47,14 +47,15 @@ module.exports = {
   ],
 
   router: {
-    middleware: ['database']
+    //middleware: ['database']
   },
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/database'
+    '~/modules/database',
+    '~/modules/swarm'
     // Doc: https://github.com/nuxt-community/axios-module#usage
     //'@nuxtjs/axios'/*,
     //'~/modules/database'*/

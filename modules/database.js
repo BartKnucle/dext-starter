@@ -2,11 +2,10 @@ module.exports = async function database() {
   const IPFS = require('ipfs')
   const OrbitDB = require('orbit-db')
   const MulticastDNS = require('libp2p-mdns')
+  var app = this.nuxt.renderer.app
 
-  var thisModule = this
-
-  console.log('Start IPFS Server side')
-  this.ipfs = new IPFS({
+  app.ipfs = new IPFS({
+    repo: 'data/ipfs',
     EXPERIMENTAL: {
       pubsub: true
     },
@@ -27,59 +26,39 @@ module.exports = async function database() {
     }
   })
 
-  this.ipfs.on('error', error => {
-    console.log(error)
-  })
+  var events = require('events')
+  var eventEmitter = new events.EventEmitter()
 
   function waitForIpfsReady() {
     return new Promise(function(resolve) {
-      thisModule.ipfs.on('ready', resolve)
+      eventEmitter.on('ready', resolve)
     })
   }
 
-  this.ipfs.on(
-    'ready',
-    async function() {
-      thisModule.orbitdb = new OrbitDB(thisModule.ipfs)
-      process.env.nodeIpfsId = thisModule.orbitdb.id
-      var dbNode = await this.orbitdb.docs('docs.test', { indexBy: 'name' })
-      process.env.nodeOrbitDbPath = dbNode.id
-      await dbNode.load()
-      await dbNode.put({ name: 'settings', data: { node: 'ce noeud' } })
-      console.log('Database ready')
-    }.bind(this)
-  )
+  app.ipfs.on('error', error => {
+    console.log(error)
+  })
+
+  app.ipfs.on('ready', async function() {
+    app.orbitdb = new OrbitDB(app.ipfs, './data/orbitdb')
+    process.env.nodeIpfsId = app.orbitdb.id
+
+    let dbNode = await app.orbitdb.docs('docs.test', { indexBy: 'name' })
+    process.env.nodeOrbitDbPath = dbNode.id
+    await dbNode.load()
+    await dbNode.put({ name: 'settings', data: { node: 'ce noeud' } })
+
+    console.log('Database ready')
+    eventEmitter.emit('ready')
+  })
 
   const path = require('path')
-  thisModule.addPlugin({
-    src: path.resolve(__dirname, 'database-plug.js'),
-    fileName: 'database-plug.js'
+  this.addPlugin({
+    src: path.resolve(__dirname, 'database-template.js'),
+    fileName: 'database.js'
   })
+
+  await waitForIpfsReady()
+
+  console.log('Database module loaded')
 }
-
-/*
-  ///////// DESTROY
-  if (process.server) {
-
-    const MulticastDNS = require('libp2p-mdns') //Server side only
-    //options server side
-    options.repo = 'data/ipfs'
-    options.config = {
-      Addresses: {
-        Swarm: ['/ip4/0.0.0.0/tcp/3001', '/ip4/127.0.0.1/tcp/9999/ws']
-      },
-      modules: {
-        peerDiscovery: [MulticastDNS]
-      },
-      peerDiscovery: {
-        mdns: {
-          Enabled: true,
-          Interval: 10
-        }
-      },
-      Bootstrap: []
-    }
-  }
-
-
-*/
