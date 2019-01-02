@@ -80,8 +80,5 @@ dist
 # IDE
 .idea
 
-# Orbit database
-orbitdb/
-
 #data directory
-data
+data/

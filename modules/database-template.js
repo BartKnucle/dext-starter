@@ -27,26 +27,30 @@ export default ({ app }) => {
       ipfs.swarm.connect(
         '/ip4/127.0.0.1/tcp/9999/ws/ipfs/' +
           app.store.state.database.nodeIpfsId,
-        function(err) {
+        err => {
           if (err) {
-            throw err
+            console.log(err)
           }
           console.log('connected') // if no err is present, connection is now open
 
           const load = async () => {
-            console.log('open db')
-            var db = await orbitdb.open(
-              '/orbitdb/QmWvMuoxAR7cjfz119Cj3vt6oT8z82GCsUHtTJxhEqz6TM/systemlogstart',
-              { sync: true }
-            )
+            console.log('open db ' + app.store.state.database.nodeDbPath)
+            var db = await orbitdb.open(app.store.state.database.nodeDbPath, {
+              sync: true
+            })
 
             console.log('load db')
             await db.load()
 
             console.log('db loaded')
 
-            db.events.on('ready', () => {
-              console.log('Db loaded')
+            app.store.commit('node/setNodeModules', db.get(''))
+
+            /*db.events.on('ready', () => {
+              
+            })*/
+            db.events.on('replicated', () => {
+              app.store.commit('node/setNodeModules', db.get(''))
             })
 
             db.events.on('replicated', address => {
@@ -56,11 +60,11 @@ export default ({ app }) => {
 
           load()
 
-          ipfs.swarm.peers(function(err, peerInfos) {
+          ipfs.swarm.peers(function(apeerInfos) {
             if (err) {
               throw err
             }
-            //console.log(peerInfos)
+            //console.log(peerInfos)a
             //ipfs.stats.bw((err, stats) => console.log(stats))
           })
         }

@@ -13,6 +13,7 @@
               <li>User ipfs ID: {{ this.$store.state.database.userIpfsId }}</li>
               <li>Node ipfs ID: {{ this.$store.state.database.nodeIpfsId }}</li>
               <li>Node database path: {{ this.$store.state.database.nodeDbPath }}</li>
+              <li>Node modules: {{ this.$store.state.node.nodeModules }}</li>
             </ul>
           </small>
         </footer>

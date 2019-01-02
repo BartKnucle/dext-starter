@@ -39,14 +39,28 @@ module.exports = async function database() {
     console.log(error)
   })
 
+  //Create the module database and return the database path
+  app.registerDatabase = async function(moduleName) {
+    let db = await app.orbitdb.docs('node.modules', { indexBy: 'module' })
+
+    var modulePath = ''
+    if (moduleName === 'node.modules') {
+      modulePath = db.id
+      process.env.nodeOrbitDbPath = db.id
+    } else {
+      var dbModule = await app.orbitdb.docs(moduleName)
+      modulePath = dbModule.id
+    }
+
+    await db.load()
+    await db.put({ module: moduleName, address: modulePath })
+  }
+
   app.ipfs.on('ready', async function() {
     app.orbitdb = new OrbitDB(app.ipfs, './data/orbitdb')
     process.env.nodeIpfsId = app.orbitdb.id
 
-    let dbNode = await app.orbitdb.docs('docs.test', { indexBy: 'name' })
-    process.env.nodeOrbitDbPath = dbNode.id
-    await dbNode.load()
-    await dbNode.put({ name: 'settings', data: { node: 'ce noeud' } })
+    app.registerDatabase('node.modules')
 
     console.log('Database ready')
     eventEmitter.emit('ready')
