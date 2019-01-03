@@ -55,8 +55,9 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/database',
-    '~/modules/swarm'
+    '~/modules/database' //,
+    //'~/modules/node',
+    //'~/modules/swarm'
     // Doc: https://github.com/nuxt-community/axios-module#usage
     //'@nuxtjs/axios'/*,
     //'~/modules/database'*/
