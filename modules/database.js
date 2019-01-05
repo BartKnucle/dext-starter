@@ -6,19 +6,26 @@ module.exports = async function database() {
   const IPFSFactory = require('ipfsd-ctl')
 
   var ipfsConfig = {
-      Addresses: {
-        Swarm: ['/ip4/0.0.0.0/tcp/3001', '/ip4/127.0.0.1/tcp/9999/ws'],
-        API: '/ip4/127.0.0.1/tcp/5002'
-      }
+    Addresses: {
+      Swarm: ['/ip4/0.0.0.0/tcp/3001', '/ip4/127.0.0.1/tcp/9999/ws'],
+      API: '/ip4/127.0.0.1/tcp/5002'
+    }
   }
 
-  IPFSFactory
-    .create({exec: './node_modules/go-ipfs-dep/go-ipfs/ipfs'})
-    .spawn({ disposable: false, config: ipfsConfig, init: true, start:true, args:['--enable-pubsub-experiment'] }, (err, ipfsd) => {
+  IPFSFactory.create({ exec: './node_modules/go-ipfs-dep/go-ipfs/ipfs' }).spawn(
+    {
+      disposable: false,
+      config: ipfsConfig,
+      init: false,
+      start: true,
+      args: ['--enable-pubsub-experiment']
+    },
+    (err, ipfsd) => {
       if (err) {
         throw err
       }
-  })
+    }
+  )
 
   /*var ipfs = new IPFS({
     repo: 'data/ipfs',

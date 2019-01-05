@@ -1,26 +1,37 @@
 <template>
   <v-layout>
-    <v-flex text-xs-center>
-      <img
-        src="/v.png"
-        alt="Vuetify.js"
-        class="mb-5">
-      <blockquote class="blockquote">
-        &#8220;First, solve the problem. Then, write the code.&#8221;
-        <footer>
-          <small>
-            <ul>
-              <li>User ipfs ID: {{ this.$store.state.database.userIpfsId }}</li>
-              <li>Node ipfs ID: {{ this.$store.state.database.nodeIpfsId }}</li>
-              <li>Node database path: {{ this.$store.state.database.nodeDbPath }}</li>
-              <li>Node modules: {{ this.$store.state.node.nodeModules }}</li>
-            </ul>
-          </small>
-        </footer>
-      </blockquote>
+    <v-flex text-xs-left>
+      IPFS
+      <ul>
+        <li>Node ipfs ID: {{ this.$store.state.node.ipfsId }}</li>
+        <li>Node ipfs swarm peers: {{ this.$store.state.node.swarmPeers }}</li>
+      </ul>
+      ORBITDB
+      <ul>
+        <li>Node database list ID: {{ this.$store.state.node.dbListId }}</li>
+        <li>Node database list {{ dbDatabasesList }}</li>
+      </ul>
     </v-flex>
   </v-layout>
 </template>
 <script>
-export default {}
+export default {
+  data: function() {
+    return {
+      dbDatabasesList: []
+    }
+  },
+  mounted: async function() {
+    var addrs = await this.$getNodeSwarmAddrs()
+    this.$store.commit('node/setSwarmPeers', addrs)
+    var dbNodeDatabases = await this.$orbitdb.open(
+      this.$store.state.node.dbListId,
+      {
+        sync: true
+      }
+    )
+    await dbNodeDatabases.load()
+    this.dbDatabasesList = dbNodeDatabases.get('')
+  }
+}
 </SCRIPT>

@@ -42,8 +42,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/vuetify' }
-    //{ src: '@/plugins/database' }
+    { src: '@/plugins/vuetify' },
+    { src: '@/plugins/node' },
+    { src: '@/plugins/user', ssr: false }
     //{ src: '@/plugins/database', ssr: false }
   ],
 
@@ -55,7 +56,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/database' //,
+    '~/modules/node' //,
     //'~/modules/node',
     //'~/modules/swarm'
     // Doc: https://github.com/nuxt-community/axios-module#usage

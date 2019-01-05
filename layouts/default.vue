@@ -94,9 +94,7 @@ export default {
       fixed: false,
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
-        { icon: 'bubble_chart', title: 'Database', to: '/database' },
-        { icon: 'bubble_chart', title: 'Node', to: '/node' },
-        { icon: 'apps', title: 'Swarm', to: '/swarm' }
+        { icon: 'bubble_chart', title: 'Node', to: '/node' }
       ],
       miniVariant: false,
       right: true,
