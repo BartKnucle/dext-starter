@@ -1,9 +1,8 @@
 import Vue from 'vue'
 
 export default async ({ app }) => {
-  var ipfsAPI = require('ipfs-api')
+  const ipfsAPI = require('ipfs-api')
   app.nodeIpfs = ipfsAPI('/ip4/127.0.0.1/tcp/5002')
-
   if (process.server) {
     const OrbitDB = require('orbit-db')
 
@@ -15,14 +14,19 @@ export default async ({ app }) => {
 
     //Set Node database store
     const nodeDb = await app.orbitdb.docs('node.databases', {
-      indexBy: 'address'
+      indexBy: 'path'
     })
     await nodeDb.load()
 
     app.store.commit('node/setDbListId', nodeDb.id)
 
+    //Register a new database inside the main db
     var addDatabase = async function(db) {
-      await nodeDb.put({ address: db.address, type: db.type })
+      await nodeDb.put({
+        path: db.address.path,
+        root: db.address.root,
+        type: db.type
+      })
     }
 
     //set Node start database
