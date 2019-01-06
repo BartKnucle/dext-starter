@@ -43,8 +43,8 @@ module.exports = {
   */
   plugins: [
     { src: '@/plugins/vuetify' },
-    { src: '@/plugins/node' },
-    { src: '@/plugins/user', ssr: false }
+    { src: '@/plugins/node' } //,
+    //{ src: '@/plugins/user', ssr: false }
     //{ src: '@/plugins/database', ssr: false }
   ],
 
