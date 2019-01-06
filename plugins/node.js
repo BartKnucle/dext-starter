@@ -36,9 +36,9 @@ class node {
     const OrbitDB = require('orbit-db')
 
     if (process.server) {
-      this.subscribeHello()
       this.orbitdb = new OrbitDB(this.ipfs, './data/orbitdb')
       this.nodes = await this.loadNodes()
+      this.subscribeHello()
     } else {
       this.ipfs.on('ready', async () => {
         this.orbitdb = new OrbitDB(this.ipfs)
@@ -121,4 +121,9 @@ export default async ({ app }) => {
   } else {
     app.node.connect(app.store.state.server.ipfsId)
   }
+
+  function myFunc() {
+    app.node.sayHello()
+  }
+  setInterval(myFunc, 1500)
 }
