@@ -1,12 +1,10 @@
-import Vue from 'vue'
-
 class node {
-  ipfs
-  orbitdb
-  nodes
-  dbId
-
   constructor() {
+    this.system = {
+      plateform: ''
+    }
+
+    this.peers = []
     this.init()
   }
 
@@ -27,7 +25,14 @@ class node {
           pubsub: true
         },
         config: {
-          Bootstrap: []
+          Bootstrap: [],
+          Discovery: {
+            webRTCStar: { enable: false }
+          },
+          preload: {
+            enabled: false,
+            addresses: []
+          }
         }
       }
       this.ipfs = new IPFS(IpfsBrowseroptions)
@@ -58,7 +63,6 @@ class node {
             if (err) {
               console.log(err)
             }
-            this.sayHello()
           }
         )
       })
@@ -70,7 +74,17 @@ class node {
     this.ipfs.pubsub.subscribe(
       'hello',
       receiveMsg => {
-        console.log(receiveMsg)
+        var peer = {
+          id: receiveMsg.from,
+          dbPath: receiveMsg.data.toString()
+        }
+
+        let foundIndex = this.peers.findIndex(element => element.id === peer.id)
+        if (foundIndex === -1) {
+          this.peers.push(peer) //Add the peer
+        } else {
+          this.peers.splice(foundIndex, 1, peer) //replace the peer
+        }
       },
       err => {
         if (err) {
@@ -82,11 +96,13 @@ class node {
 
   //Say hello to the network and send the database path
   sayHello() {
-    this.ipfs.pubsub.publish('hello', Buffer.from(this.dbId), err => {
-      if (err) {
-        return console.error(err)
-      }
-    })
+    if (this.dbId) {
+      this.ipfs.pubsub.publish('hello', Buffer.from(this.dbId), err => {
+        if (err) {
+          return console.error(err)
+        }
+      })
+    }
   }
 
   //load local nodes record
@@ -97,21 +113,20 @@ class node {
     this.dbId = db.id
   }
 
-  //Sync node record with another peer
-  async syncNodes() {
-    let db = await this.orbitdb.docs('node.db', {
-      indexBy: 'doc'
-    })
+  //Get system information
+  getSysInfo() {
+    if (process.server) {
+      const os = require('os')
+      this.system.platform = os.platform()
+    } else {
+      this.system.platform = navigator.userAgent
+    }
 
-    await db.load()
-    await db.put({
-      doc: 'nodes',
-      nodes: this.nodes
-    })
+    console.log(this.system.platform)
   }
 }
 
-export default async ({ app }) => {
+export default async ({ app }, inject) => {
   app.node = new node()
 
   //signaling server ipfs id and connect browser
@@ -122,8 +137,17 @@ export default async ({ app }) => {
     app.node.connect(app.store.state.server.ipfsId)
   }
 
-  function myFunc() {
+  setInterval(() => {
     app.node.sayHello()
-  }
-  setInterval(myFunc, 1500)
+  }, 15 * 1000)
+
+  app.node.getSysInfo()
+  inject('node', app.node)
+
+  app.node.ipfs.config.get((err, config) => {
+    if (err) {
+      throw err
+    }
+    console.log(config)
+  })
 }

@@ -2,7 +2,7 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-  debug: true,
+  //debug: true,
 
   /*
   ** Headers of the page
@@ -15,8 +15,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
-      { src: '/orbitdb.js' },
-      { src: 'https://unpkg.com/ipfs/dist/index.min.js' }
+      //{ src: '/orbitdb.js' },
+      //{ src: 'https://unpkg.com/ipfs/dist/index.min.js' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -66,9 +66,9 @@ module.exports = {
   /*
   ** Axios module configuration
   */
-  axios: {
+  /*axios: {
     // See https://github.com/nuxt-community/axios-module#options
-  },
+  },*/
   /*
   ** Build configuration
   */
