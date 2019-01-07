@@ -1,22 +1,13 @@
 class node {
   constructor() {
-    this.system = {
-      plateform: ''
-    }
-
+    this.system = {}
     this.peers = []
-    this.init()
   }
 
-  async init() {
+  initIpfs() {
     if (process.server) {
       let ipfsAPI = require('ipfs-api')
       this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5002')
-      this.ipfs.swarm.addrs(function(err, addrs) {
-        if (err) {
-          throw err
-        }
-      })
     } else {
       let IPFS = require('ipfs')
       let IpfsBrowseroptions = {
@@ -37,20 +28,19 @@ class node {
       }
       this.ipfs = new IPFS(IpfsBrowseroptions)
     }
+  }
 
+  async initDatabase() {
     const OrbitDB = require('orbit-db')
+    this.subscribeHello()
 
     if (process.server) {
       this.orbitdb = new OrbitDB(this.ipfs, './data/orbitdb')
-      this.nodes = await this.loadNodes()
-      this.subscribeHello()
     } else {
-      this.ipfs.on('ready', async () => {
-        this.orbitdb = new OrbitDB(this.ipfs)
-        this.nodes = await this.loadNodes()
-        this.subscribeHello()
-      })
+      this.orbitdb = new OrbitDB(this.ipfs)
     }
+    await this.createDatabase()
+    await this.setSysInfo()
   }
 
   //Browser only, connect the IPFS instance to the local node. Thr local node use mDns
@@ -96,8 +86,8 @@ class node {
 
   //Say hello to the network and send the database path
   sayHello() {
-    if (this.dbId) {
-      this.ipfs.pubsub.publish('hello', Buffer.from(this.dbId), err => {
+    if (this.db.id) {
+      this.ipfs.pubsub.publish('hello', Buffer.from(this.db.id), err => {
         if (err) {
           return console.error(err)
         }
@@ -105,16 +95,16 @@ class node {
     }
   }
 
-  //load local nodes record
-  async loadNodes() {
-    let db = await this.orbitdb.docs('node.db', {
+  //create and load node database
+  async createDatabase() {
+    this.db = await this.orbitdb.docs('node.db', {
       indexBy: 'doc'
     })
-    this.dbId = db.id
+    await this.db.load()
   }
 
   //Get system information
-  getSysInfo() {
+  setSysInfo() {
     if (process.server) {
       const os = require('os')
       this.system.platform = os.platform()
@@ -122,12 +112,27 @@ class node {
       this.system.platform = navigator.userAgent
     }
 
-    console.log(this.system.platform)
+    this.db.put({ doc: 'system', infos: this.system })
+  }
+
+  async getSysInfo(nodeDbPath) {
+    return await this.db.get(nodeDbPath)
   }
 }
 
 export default async ({ app }, inject) => {
-  app.node = new node()
+  app.node = new node(app)
+  app.node.initIpfs()
+
+  if (process.server) {
+    app.node.initDatabase()
+  } else {
+    app.node.ipfs.on('ready', async () => {
+      await app.node.initDatabase()
+    })
+  }
+
+  inject('node', app.node)
 
   //signaling server ipfs id and connect browser
   if (process.server) {
@@ -140,14 +145,4 @@ export default async ({ app }, inject) => {
   setInterval(() => {
     app.node.sayHello()
   }, 15 * 1000)
-
-  app.node.getSysInfo()
-  inject('node', app.node)
-
-  app.node.ipfs.config.get((err, config) => {
-    if (err) {
-      throw err
-    }
-    console.log(config)
-  })
 }
