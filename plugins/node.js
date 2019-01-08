@@ -18,7 +18,7 @@ class node {
         config: {
           Bootstrap: [],
           Discovery: {
-            webRTCStar: { enable: false }
+            webRTCStar: { enable: false, Enabled: false }
           },
           preload: {
             enabled: false,
@@ -39,6 +39,7 @@ class node {
     } else {
       this.orbitdb = new OrbitDB(this.ipfs)
     }
+
     await this.createDatabase()
     await this.setSysInfo()
   }
@@ -97,7 +98,7 @@ class node {
 
   //create and load node database
   async createDatabase() {
-    this.db = await this.orbitdb.docs('node.db', {
+    this.db = await this.orbitdb.docs('nodeDb', {
       indexBy: 'doc'
     })
     await this.db.load()

@@ -36,7 +36,7 @@ export default {
         }
       },
       db: {},
-      dbPath: 'node.db'
+      dbPath: 'nodeDb'
     }
   },
   mounted: async function() {
