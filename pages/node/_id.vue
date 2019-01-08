@@ -40,6 +40,11 @@ export default {
     }
   },
   mounted: async function() {
+    this.system = {
+      infos: {
+        platform: ''
+      }
+    }
     this.peers = this.$node.peers
 
     if (this.$route.params.id) {
@@ -52,14 +57,13 @@ export default {
     }
     if (!this.$node.orbitdb) {
       this.$node.ipfs.on('ready', async () => {
-        this.db = await this.$node.orbitdb.docs(this.dbPath, { sync: true })
+        this.db = await this.$node.orbitdb.open(this.dbPath)
         await this.db.load()
         let tmpSystem = await this.db.get('system')
         this.system = tmpSystem[0]
       })
     } else {
-      console.log(this.dbPath)
-      this.db = await this.$node.orbitdb.docs(this.dbPath, { sync: true })
+      this.db = await this.$node.orbitdb.open(this.dbPath)
       await this.db.load()
       let tmpSystem = await this.db.get('system')
       this.system = tmpSystem[0]

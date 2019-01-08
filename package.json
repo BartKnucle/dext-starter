@@ -17,11 +17,10 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
-    "dgram": "^1.0.1",
     "ipfs": "^0.33.1",
     "ipfs-api": "^26.1.2",
     "ipfsd-ctl": "^0.40.2",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.3.4",
     "orbit-db": "^0.19.9",
     "vuetify": "^1.2.4"
   },

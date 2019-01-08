@@ -16,9 +16,14 @@ class node {
           pubsub: true
         },
         config: {
+          Addresses: {
+            Swarm: [
+              '/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star'
+            ]
+          },
           Bootstrap: [],
           Discovery: {
-            webRTCStar: { enable: false, Enabled: false }
+            webRTCStar: { enable: true, Enabled: true }
           },
           preload: {
             enabled: false,
