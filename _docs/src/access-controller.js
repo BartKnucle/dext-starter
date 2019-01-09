@@ -15,7 +15,7 @@ class AccessController {
     // to 'QmPFtHi3cmfZerxtH9ySLdzpg1yFhocYDZgEZywdUXHxFU'
     address = address.toString().replace(/\\/g, '/');
     if (address.indexOf('/ipfs') === 0)
-      address = address.split('/')[2]     
+      address = address.split('/')[2]
   }
   async save () {}
 

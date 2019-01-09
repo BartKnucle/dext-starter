@@ -32,7 +32,7 @@ class OrbitDBAddress {
   static parse (address) {
     if (!address) 
       throw new Error(`Not a valid OrbitDB address: ${address}`)
-    
+
     if (!OrbitDBAddress.isValid(address))
       throw new Error(`Not a valid OrbitDB address: ${address}`)
 

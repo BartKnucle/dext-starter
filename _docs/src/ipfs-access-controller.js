@@ -18,8 +18,8 @@ class IPFSAccessController extends AccessController {
       address = address.split('/')[2]
 
     try {
-      const dag = await this._ipfs.get(address)
-      const obj = JSON.parse(dag[0].content.toString())
+      const dag = await this._ipfs.object.get(address)
+      const obj = JSON.parse(dag.toJSON().data)
       this._access = obj
     } catch (e) {
       console.log("ACCESS ERROR:", e)
@@ -41,9 +41,9 @@ class IPFSAccessController extends AccessController {
           })
         })
       } else {
-        dag = await this._ipfs.add(new Buffer(access))
+        dag = await this._ipfs.object.put(new Buffer(access))
       }
-      hash = dag[0].hash
+      hash = dag.toJSON().multihash.toString()
     } catch (e) {
       console.log("ACCESS ERROR:", e)
     }
