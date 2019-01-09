@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex text-xs-left>
-      NEW PEERS
+      NEW NODES
       <ul>
         <li 
           v-for="item in peers"
@@ -10,13 +10,22 @@
             <li>Node ID: <nuxt-link 
               :to="'/node/' + item.id">
               {{ item.id }}</nuxt-link></li>
-            <li>Node Database Path: {{ item.dbPath }}</li>
+            <li>Node Database Path: {{ item.dbPath }}
+              <v-btn
+                flat
+                icon 
+                color="pink">
+                <v-icon>
+                  save
+                </v-icon>
+              </v-btn>
+            </li>
           </ul>
         </li>
       </ul>
-      SYSTEM
+      SAVED NODE
       <ul>
-        <li>Plateform: {{ system.infos.platform }}</li>
+        <li/>
       </ul>
     </v-flex>
   </v-layout>
@@ -26,17 +35,12 @@ export default {
   data() {
     return {
       peers: [],
-      system: {
-        infos: {
-          platform: ''
-        }
-      },
       db: {},
       dbPath: 'nodeDb'
     }
   },
   mounted: async function() {
-    this.system = {
+    /*this.system = {
       infos: {
         platform: ''
       }
@@ -63,7 +67,7 @@ export default {
       await this.db.load()
       let tmpSystem = await this.db.get('system')
       this.system = tmpSystem[0]
-    }
+    }*/
   }
 }
 </SCRIPT>

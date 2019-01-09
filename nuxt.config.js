@@ -36,7 +36,10 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: '@/plugins/vuetify' }, { src: '@/plugins/node' }],
+  plugins: [
+    { src: '@/plugins/vuetify' },
+    { src: '@/plugins/node' }
+  ],
 
   router: {
     //middleware: ['database']
@@ -45,7 +48,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: ['~/modules/node'],
+  modules: ['~/modules/database'],
   /*
   
   /*

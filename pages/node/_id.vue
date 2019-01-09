@@ -40,7 +40,7 @@ export default {
     }
   },
   mounted: async function() {
-    this.system = {
+    /*this.system = {
       infos: {
         platform: ''
       }
@@ -68,6 +68,7 @@ export default {
       let tmpSystem = await this.db.get('system')
       this.system = tmpSystem[0]
     }
+    */
   }
 }
 </SCRIPT>

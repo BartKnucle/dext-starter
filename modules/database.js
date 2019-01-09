@@ -1,6 +1,6 @@
 module.exports = async function node() {
-  let ipfsExecutable = 'node_modules\\.bin\\jsipfs.cmd' //windows
-  //let ipfsExecutable = './node_modules/.bin/jsipfs' //linux
+  //let ipfsExecutable = 'node_modules\\.bin\\jsipfs.cmd' //windows
+  let ipfsExecutable = './node_modules/.bin/jsipfs' //linux
 
   let ipfsExecutableArgs = ['daemon', '--enable-pubsub-experiment']
 
@@ -18,6 +18,11 @@ module.exports = async function node() {
   ipfsProcess.on('exit', function(code) {
     console.log('child process exited with code ' + code)
   })*/
+  const path = require('path')
+  this.addPlugin({
+    src: path.resolve(__dirname, 'database-template.js'),
+    fileName: 'database.js'
+  })
 
   console.log('Node module loaded')
 }
