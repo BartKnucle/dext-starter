@@ -5,7 +5,6 @@
   "author": "BartKnucle",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --inspect-brk server/index.js --watch server",
     "dev-debug": "node --inspect node_modules/.bin/nuxt dev",
     "dev-debug-win": "node --inspect node_modules/nuxt/bin/nuxt dev",
     "build": "nuxt build",
@@ -15,17 +14,14 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "ipfs": "^0.33.1",
     "ipfs-api": "^26.1.2",
-    "ipfsd-ctl": "^0.40.2",
     "nuxt": "^2.3.4",
     "orbit-db": "^0.19.9",
     "vuetify": "^1.2.4"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "babel-eslint": "^8.2.1",
     "eslint": "^5.0.1",
     "eslint-loader": "^2.0.0",

@@ -2,8 +2,6 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-  //debug: true,
-
   /*
   ** Headers of the page
   */
@@ -14,10 +12,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    script: [
-      //{ src: '/orbitdb.js' },
-      //{ src: 'https://unpkg.com/ipfs/dist/index.min.js' }
-    ],
+    script: [],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
@@ -41,12 +36,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    { src: '@/plugins/vuetify' },
-    { src: '@/plugins/node' } //,
-    //{ src: '@/plugins/user', ssr: false }
-    //{ src: '@/plugins/database', ssr: false }
-  ],
+  plugins: [{ src: '@/plugins/vuetify' }, { src: '@/plugins/node' }],
 
   router: {
     //middleware: ['database']
@@ -55,20 +45,9 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-    '~/modules/node' //,
-    //'~/modules/node',
-    //'~/modules/swarm'
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    //'@nuxtjs/axios'/*,
-    //'~/modules/database'*/
-  ],
+  modules: ['~/modules/node'],
   /*
-  ** Axios module configuration
-  */
-  /*axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },*/
+  
   /*
   ** Build configuration
   */

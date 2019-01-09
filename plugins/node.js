@@ -1,3 +1,7 @@
+const OrbitDB = require('orbit-db')
+const os = require('os')
+const ipfsAPI = require('ipfs-api')
+
 class node {
   constructor() {
     this.system = {}
@@ -6,7 +10,6 @@ class node {
 
   initIpfs() {
     if (process.server) {
-      let ipfsAPI = require('ipfs-api')
       this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5002')
     } else {
       let IPFS = require('ipfs')
@@ -36,7 +39,6 @@ class node {
   }
 
   async initDatabase() {
-    const OrbitDB = require('orbit-db')
     this.subscribeHello()
 
     if (process.server) {
@@ -112,7 +114,6 @@ class node {
   //Get system information
   setSysInfo() {
     if (process.server) {
-      const os = require('os')
       this.system.platform = os.platform()
     } else {
       this.system.platform = navigator.userAgent
@@ -127,7 +128,7 @@ class node {
 }
 
 export default async ({ app }, inject) => {
-  app.node = new node(app)
+  app.node = new node()
   app.node.initIpfs()
 
   if (process.server) {
