@@ -38,7 +38,8 @@ module.exports = {
   */
   plugins: [
     { src: '@/plugins/vuetify' },
-    { src: '@/plugins/node' }
+    { src: '@/plugins/node' },
+    { src: '@/plugins/swarm' }
   ],
 
   router: {

@@ -1,26 +1,41 @@
 class swarm {
-  constructor() {
+  constructor(app) {
+    this.app = app
     this.nodes = []
-    this.savedNodes = []
+    if (process.server) {
+      this.init()
+    } else {
+      this.app.db.ipfs.on('ready', async () => {
+        this.init()
+      })
+    }
   }
 
-  announce() {}
+  init() {
+    this.subscribe()
+    this.createDb()
+  }
+
+  //Anounce the node
+  announce() {
+    setInterval(() => {
+      this.app.db.ipfs.pubsub.publish('swarm', Buffer.from(this.db.id), err => {
+        if (err) {
+          return console.error(err)
+        }
+      })
+    }, 15 * 1000)
+  }
 
   subscribe() {
-    this.ipfs.pubsub.subscribe(
+    this.app.db.ipfs.pubsub.subscribe(
       'hello',
       receiveMsg => {
-        var peer = {
+        var node = {
           id: receiveMsg.from,
-          dbPath: receiveMsg.data.toString()
+          address: receiveMsg.data.toString()
         }
-
-        let foundIndex = this.peers.findIndex(element => element.id === peer.id)
-        if (foundIndex === -1) {
-          this.peers.push(peer) //Add the peer
-        } else {
-          this.peers.splice(foundIndex, 1, peer) //replace the peer
-        }
+        this.addNode(node)
       },
       err => {
         if (err) {
@@ -30,17 +45,35 @@ class swarm {
     )
   }
 
-  createDb() {}
+  async createDb() {
+    this.db = await this.app.db.orbitdb.docs('swarmDb', {
+      indexBy: 'doc'
+    })
+    await this.db.load()
+  }
 
   dropDb() {}
 
-  loadDb(path) {}
+  async getNodes(path) {
+    let tmpNodes = await this.db.get(path)
+    return tmpNodes
+  }
 
-  addNode(id) {}
+  addNode(node) {
+    let foundIndex = this.nodes.findIndex(element => element.id === node.id)
+    if (foundIndex === -1) {
+      this.nodes.push(node) //Add the peer
+    } else {
+      this.nodes.splice(foundIndex, 1, node) //replace the peer
+    }
+
+    this.db.put({ doc: 'nodes', nodes: this.nodes })
+  }
 
   removeNode(id) {}
 }
 
 export default async ({ app }, inject) => {
-  app.swarm = new swarm()
+  app.swarm = new swarm(app)
+  inject('swarm', app.swarm)
 }

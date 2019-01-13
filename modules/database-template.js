@@ -9,16 +9,16 @@ const ipfsBrowserOptions = {
   },
   config: {
     Addresses: {
-      Swarm: ['/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star']
+      //Swarm: ['/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star']
     },
     Bootstrap: [],
     Discovery: {
-      webRTCStar: { enable: true, Enabled: true }
-    },
-    preload: {
-      enabled: false,
-      addresses: []
+      //webRTCStar: { enable: true, Enabled: true }
     }
+  },
+  preload: {
+    enabled: false,
+    addresses: []
   }
 }
 
@@ -33,24 +33,27 @@ class database {
       this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5002')
       //Create OrbitDb
       this.createOrbitDb()
-
-      //signaling server ipfs id
-      let serverIpfsId = await this.ipfs.id()
-      this.app.store.commit('server/setIpfsId', serverIpfsId.id)
     } else {
+      //this.app.store.commit('server/setIpfsId', serverIpfsId.id)
       this.ipfs = new IPFS(ipfsBrowserOptions)
-      this.ipfs.on('ready', async () => {
+      this.ipfs.on('ready', () => {
         this.createOrbitDb()
-        //Connect browser to local ipfs node
-        /*await this.ipfs.swarm.connect(
-          '/ip4/127.0.0.1/tcp/4003/ws/ipfs/' +
-            this.app.store.state.server.ipfsId,
+      })
+    }
+  }
+
+  //Browser only, connect the IPFS instance to the local node. Thr local node use mDns
+  connect(remoteIpfsNode) {
+    if (!process.server) {
+      this.ipfs.on('ready', async () => {
+        await this.ipfs.swarm.connect(
+          '/ip4/127.0.0.1/tcp/4003/ws/ipfs/' + remoteIpfsNode,
           err => {
             if (err) {
               console.log(err)
             }
           }
-        )*/
+        )
       })
     }
   }
@@ -64,8 +67,14 @@ class database {
   }
 }
 
-export default async ({ app }) => {
-  let db = new database(app)
-  app.ipfs = db.ipfs
-  app.orbitdb = db.orbitdb
+export default async ({ app }, inject) => {
+  app.db = new database(app)
+  //signaling server ipfs id and connect browser
+  if (process.server) {
+    let serverIpfsId = await app.db.ipfs.id()
+    app.store.commit('server/setIpfsId', serverIpfsId.id)
+  } else {
+    app.db.connect(app.store.state.server.ipfsId)
+  }
+  inject('db', app.db)
 }

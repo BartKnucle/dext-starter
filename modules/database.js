@@ -7,7 +7,7 @@ module.exports = async function node() {
   const spawn = require('child_process').spawn
   var ipfsProcess = spawn(ipfsExecutable, ipfsExecutableArgs)
 
-  /*ipfsProcess.stdout.on('data', function(data) {
+  ipfsProcess.stdout.on('data', function(data) {
     console.log('stdout: ' + data)
   })
 
@@ -17,7 +17,7 @@ module.exports = async function node() {
 
   ipfsProcess.on('exit', function(code) {
     console.log('child process exited with code ' + code)
-  })*/
+  })
   const path = require('path')
   this.addPlugin({
     src: path.resolve(__dirname, 'database-template.js'),
