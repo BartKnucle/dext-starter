@@ -31,7 +31,6 @@ export default {
     } else {
       path = 'system'
     }
-
     this.system = await this.$node.getSysInfo(path)
   }
 }

@@ -25,20 +25,24 @@ const ipfsBrowserOptions = {
 class database {
   constructor(app) {
     this.app = app
-    this.createIpfs()
+    if (!process.server) {
+      this.createIpfs()
+    }
   }
 
   async createIpfs() {
     this.app.logger.info('Create IPFS')
     if (process.server) {
       this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
+      this.ipfsId = await this.ipfs.id()
       //Create OrbitDb
       this.createOrbitDb()
     } else {
       //this.app.store.commit('server/setIpfsId', serverIpfsId.id)
       this.ipfs = new IPFS(ipfsBrowserOptions)
-      this.ipfs.on('ready', () => {
+      this.ipfs.on('ready', async () => {
         this.createOrbitDb()
+        this.ipfsId = await this.ipfs.id()
       })
     }
   }
@@ -74,9 +78,9 @@ export default async ({ app }, inject) => {
   app.db = new database(app)
   //signaling server ipfs id and connect browser
   if (process.server) {
-    let serverIpfsId = await app.db.ipfs.id()
-    app.store.commit('server/setIpfsId', serverIpfsId.id)
-    app.logger.debug('Storing Ipfs node ID: ' + serverIpfsId.id)
+    await app.db.createIpfs()
+    app.store.commit('server/setIpfsId', app.db.ipfsId.id)
+    app.logger.debug('Storing Ipfs node ID: ' + app.db.ipfsId.id)
   } else {
     app.db.connect(app.store.state.server.ipfsId)
   }

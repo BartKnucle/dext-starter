@@ -33,7 +33,7 @@ class swarm {
       receiveMsg => {
         var node = {
           id: receiveMsg.from,
-          address: receiveMsg.data.toString()
+          dbPath: receiveMsg.data.toString()
         }
         this.addNode(node)
       },
