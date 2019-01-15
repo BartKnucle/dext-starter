@@ -25,12 +25,16 @@ class node {
   //Anounce the node
   announce() {
     setInterval(() => {
-      this.app.db.ipfs.pubsub.publish('hello', Buffer.from(this.db.id), err => {
-        if (err) {
-          this.app.logger.err(err)
+      this.app.db.ipfs.pubsub.publish(
+        'hello',
+        Buffer.from(this.app.db.orbitdbId),
+        err => {
+          if (err) {
+            this.app.logger.err(err)
+          }
+          this.app.logger.debug('Announce node: ' + this.app.db.orbitdbId)
         }
-        this.app.logger.debug('Announce node: ' + this.db.id)
-      })
+      )
     }, 15 * 1000)
   }
 
@@ -58,18 +62,17 @@ class node {
     this.db.put({ doc: 'system', infos: this.system })
   }
 
-  async getSysInfo(nodeID) {
-    console.log(nodeID)
-    console.log(Buffer.from(nodeID, 'hex'))
+  async getSysInfo(nodeDbID) {
+    /*let dbAddress = await this.app.db.orbitdb.determineAddress(
+      'nodeDb',
+      'docs',
+      {
+        write: [nodeDbID]
+      }
+    )
+    console.log(dbAddress)*/
 
-    /*const dbAddress = await orbitdb.determineAddress('user.posts', 'eventlog', {
-      write: [
-        // This could be someone else's public key
-        '042c07044e7ea51a489c02854db5e09f0191690dc59db0afd95328c9db614a2976e088cab7c86d7e48183191258fc59dc699653508ce25bf0369d67f33d5d77839'
-      ]
-    })*/
-
-    this.app.logger.debug('Get node system information for ' + nodeID)
+    this.app.logger.debug('Get node system information for ' + nodeDbID)
     let tmpDb = await this.app.db.orbitdb.docs('nodeDb', {
       indexBy: 'doc'
     })

@@ -33,9 +33,12 @@ class swarm {
       receiveMsg => {
         var node = {
           id: receiveMsg.from,
-          dbPath: receiveMsg.data.toString()
+          dbId: receiveMsg.data.toString()
         }
         this.addNode(node)
+        this.app.logger.debug(
+          'Receive node pubsub from: ' + node.id + ' data: ' + node.dbId
+        )
       },
       err => {
         if (err) {

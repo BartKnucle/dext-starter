@@ -71,6 +71,8 @@ class database {
     } else {
       this.orbitdb = new OrbitDB(this.ipfs)
     }
+    this.orbitdbId = this.orbitdb.key.getPublic('hex')
+    console.log(this.orbitdb)
   }
 }
 

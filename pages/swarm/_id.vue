@@ -8,9 +8,9 @@
           :key="item.id">
           <ul>
             <li>Node ID: <nuxt-link 
-              :to="'/node/' + item.id">
+              :to="'/node/' + item.dbId">
               {{ item.id }}</nuxt-link></li>
-            <li>Node Database Path: {{ item.dbPath }}
+            <li>Node Database Id: {{ item.dbId }}
               <v-btn
                 flat
                 icon 
