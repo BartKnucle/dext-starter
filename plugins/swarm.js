@@ -49,7 +49,7 @@ class swarm {
     this.db = await this.app.db.orbitdb.docs('swarmDb', {
       indexBy: 'doc'
     })
-    await this.db.load()
+    //await this.db.load()
   }
 
   dropDb() {}

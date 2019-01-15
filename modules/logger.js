@@ -10,11 +10,5 @@ module.exports = function logger() {
     transports: [new transports.Console()]
   })
 
-  const path = require('path')
-  this.addPlugin({
-    src: path.resolve(__dirname, 'logger-template.js'),
-    fileName: 'logger.js'
-  })
-
   this.logger.info('Logger Module Started')
 }

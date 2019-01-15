@@ -29,8 +29,9 @@ class database {
   }
 
   async createIpfs() {
+    this.app.logger.info('Create IPFS')
     if (process.server) {
-      this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5002')
+      this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
       //Create OrbitDb
       this.createOrbitDb()
     } else {
@@ -50,8 +51,9 @@ class database {
           '/ip4/127.0.0.1/tcp/4003/ws/ipfs/' + remoteIpfsNode,
           err => {
             if (err) {
-              console.log(err)
+              this.app.logger.error(err)
             }
+            this.app.logger.debug('connected ipfs to: ' + remoteIpfsNode)
           }
         )
       })
@@ -59,6 +61,7 @@ class database {
   }
 
   createOrbitDb() {
+    this.app.logger.info('Create OrbitDb')
     if (process.server) {
       this.orbitdb = new OrbitDB(this.ipfs, './data/orbitdb')
     } else {
@@ -73,6 +76,7 @@ export default async ({ app }, inject) => {
   if (process.server) {
     let serverIpfsId = await app.db.ipfs.id()
     app.store.commit('server/setIpfsId', serverIpfsId.id)
+    app.logger.debug('Storing Ipfs node ID: ' + serverIpfsId.id)
   } else {
     app.db.connect(app.store.state.server.ipfsId)
   }

@@ -19,7 +19,7 @@ class node {
   async init() {
     await this.createDb()
     this.setSysInfo()
-    //his.announce()
+    this.announce()
   }
 
   //Anounce the node
@@ -27,23 +27,26 @@ class node {
     setInterval(() => {
       this.app.db.ipfs.pubsub.publish('hello', Buffer.from(this.db.id), err => {
         if (err) {
-          return console.error(err)
+          this.app.logger.err(err)
         }
+        this.app.logger.debug('Announce node: ' + this.db.id)
       })
     }, 15 * 1000)
   }
 
   async createDb() {
+    this.app.logger.debug('Create nodeDb database')
     this.db = await this.app.db.orbitdb.docs('nodeDb', {
       indexBy: 'doc'
     })
-    await this.db.load()
+    //await this.db.load()
   }
 
   dropDb() {}
 
   //Get system information
   setSysInfo() {
+    this.app.logger.debug('Set node system information')
     if (process.server) {
       this.system.type = 'computer'
       this.system.platform = os.platform()
@@ -53,14 +56,14 @@ class node {
     }
 
     this.db.put({ doc: 'system', infos: this.system })
-    console.log('db created')
   }
 
   async getSysInfo(nodeDbPath) {
+    this.app.logger.debug('Get node system information for ' + nodeDbPath)
     let tmpDb = await this.app.db.orbitdb.docs(nodeDbPath, {
       indexBy: 'doc'
     })
-    await tmpDb.load()
+    //await tmpDb.load()
     let tmpSystem = await this.db.get('system')
     console.log(tmpSystem)
     return tmpSystem[0]
