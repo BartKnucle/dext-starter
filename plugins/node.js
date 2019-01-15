@@ -19,7 +19,7 @@ class node {
   async init() {
     await this.createDb()
     this.setSysInfo()
-    this.announce()
+    //his.announce()
   }
 
   //Anounce the node

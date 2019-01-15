@@ -49,7 +49,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: ['~/modules/database'],
+  modules: ['~/modules/logger', '~/modules/database'],
   /*
   
   /*
@@ -68,6 +68,9 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+      }
+      config.node = { //Used for winston in the browser
+        fs: 'empty'
       }
     }
   }
