@@ -9,11 +9,11 @@ const ipfsBrowserOptions = {
   },
   config: {
     Addresses: {
-      //Swarm: ['/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star']
+      Swarm: ['/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star']
     },
     Bootstrap: [],
     Discovery: {
-      //webRTCStar: { enable: true, Enabled: true }
+      webRTCStar: { enable: true } //, Enabled: true }
     }
   },
   preload: {
@@ -38,7 +38,6 @@ class database {
       //Create OrbitDb
       this.createOrbitDb()
     } else {
-      //this.app.store.commit('server/setIpfsId', serverIpfsId.id)
       this.ipfs = new IPFS(ipfsBrowserOptions)
       this.ipfs.on('ready', async () => {
         this.createOrbitDb()
@@ -52,7 +51,7 @@ class database {
     if (!process.server) {
       this.ipfs.on('ready', async () => {
         await this.ipfs.swarm.connect(
-          '/ip4/127.0.0.1/tcp/4003/ws/ipfs/' + remoteIpfsNode,
+          '/ip4/127.0.0.1/tcp/4001/ws/ipfs/' + remoteIpfsNode,
           err => {
             if (err) {
               this.app.logger.error(err)
@@ -72,7 +71,6 @@ class database {
       this.orbitdb = new OrbitDB(this.ipfs)
     }
     this.orbitdbId = this.orbitdb.key.getPublic('hex')
-    console.log(this.orbitdb)
   }
 }
 

@@ -35,7 +35,6 @@ export default {
   },
   mounted: async function() {
     this.nodes = this.$swarm.nodes
-    console.log(this.nodes)
   }
 }
 </SCRIPT>

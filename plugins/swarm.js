@@ -29,7 +29,7 @@ class swarm {
 
   subscribe() {
     this.app.db.ipfs.pubsub.subscribe(
-      'hello',
+      'nodeDb',
       receiveMsg => {
         var node = {
           id: receiveMsg.from,

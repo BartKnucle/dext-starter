@@ -23,20 +23,8 @@ class node {
 
   //Anounce the node
   announce() {
-    /*setInterval(() => {
-      this.app.db.ipfs.pubsub.publish(
-        'hello',
-        Buffer.from(this.dbId),
-        err => {
-          if (err) {
-            this.app.logger.err(err)
-          }
-          this.app.logger.silly('Announce node: ' + this.db.address.root)
-        }
-      )
-    }, 15 * 1000)*/
     setInterval(() => {
-      this.app.db.ipfs.pubsub.publish('hello', Buffer.from(this.dbId), err => {
+      this.app.db.ipfs.pubsub.publish('nodeDb', Buffer.from(this.dbId), err => {
         if (err) {
           this.app.logger.err(err)
         }
@@ -69,7 +57,6 @@ class node {
       this.system.platform = navigator.userAgent
     }
 
-    console.log(this.db.address.toString())
     this.db.put({ doc: 'system', infos: this.system })
   }
 
@@ -79,11 +66,9 @@ class node {
     }
 
     this.app.logger.debug('Get node system information for ' + nodeDbID)
-    //var tmpDb = await this.app.db.orbitdb.open(nodeDbID)
     var tmpDb = await this.app.db.orbitdb.docs(nodeDbID)
     await tmpDb.load()
-    var tmpSystem = await tmpDb.get('')
-    console.log(tmpSystem)
+    var tmpSystem = await tmpDb.get('system')
     return tmpSystem[0]
   }
 }
