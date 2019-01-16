@@ -29,7 +29,7 @@ export default {
     if (this.$route.params.id) {
       path = this.$route.params.id
     } else {
-      path = 'system'
+      path = 'nodeDb'
     }
     this.system = await this.$node.getSysInfo(path)
   }

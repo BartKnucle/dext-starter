@@ -13,7 +13,7 @@ class swarm {
 
   init() {
     this.subscribe()
-    this.createDb()
+    //this.createDb()
   }
 
   //Anounce the node
@@ -21,7 +21,7 @@ class swarm {
     setInterval(() => {
       this.app.db.ipfs.pubsub.publish('swarm', Buffer.from(this.db.id), err => {
         if (err) {
-          return console.error(err)
+          this.app.logger.error(err)
         }
       })
     }, 15 * 1000)
@@ -36,13 +36,13 @@ class swarm {
           dbId: receiveMsg.data.toString()
         }
         this.addNode(node)
-        this.app.logger.debug(
+        this.app.logger.silly(
           'Receive node pubsub from: ' + node.id + ' data: ' + node.dbId
         )
       },
       err => {
         if (err) {
-          console.error(err)
+          this.app.logger.err(err)
         }
       }
     )
@@ -52,7 +52,6 @@ class swarm {
     this.db = await this.app.db.orbitdb.docs('swarmDb', {
       indexBy: 'doc'
     })
-    //await this.db.load()
   }
 
   dropDb() {}
@@ -70,7 +69,7 @@ class swarm {
       this.nodes.splice(foundIndex, 1, node) //replace the peer
     }
 
-    this.db.put({ doc: 'nodes', nodes: this.nodes })
+    //this.db.put({ doc: 'nodes', nodes: this.nodes })
   }
 
   removeNode(id) {}

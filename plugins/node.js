@@ -18,23 +18,30 @@ class node {
   //Init the object
   async init() {
     await this.createDb()
-    this.setSysInfo()
     this.announce()
   }
 
   //Anounce the node
   announce() {
-    setInterval(() => {
+    /*setInterval(() => {
       this.app.db.ipfs.pubsub.publish(
         'hello',
-        Buffer.from(this.app.db.orbitdbId),
+        Buffer.from(this.dbId),
         err => {
           if (err) {
             this.app.logger.err(err)
           }
-          this.app.logger.debug('Announce node: ' + this.app.db.orbitdbId)
+          this.app.logger.silly('Announce node: ' + this.db.address.root)
         }
       )
+    }, 15 * 1000)*/
+    setInterval(() => {
+      this.app.db.ipfs.pubsub.publish('hello', Buffer.from(this.dbId), err => {
+        if (err) {
+          this.app.logger.err(err)
+        }
+        this.app.logger.silly('Announce node: ' + this.dbId)
+      })
     }, 15 * 1000)
   }
 
@@ -43,7 +50,10 @@ class node {
     this.db = await this.app.db.orbitdb.docs('nodeDb', {
       indexBy: 'doc'
     })
-    //await this.db.load()
+    await this.db.load()
+    this.dbId = this.db.address.root
+    this.app.logger.silly('Node Database ID: ' + this.dbId)
+    this.setSysInfo()
   }
 
   dropDb() {}
@@ -59,25 +69,20 @@ class node {
       this.system.platform = navigator.userAgent
     }
 
+    console.log(this.db.address.toString())
     this.db.put({ doc: 'system', infos: this.system })
   }
 
   async getSysInfo(nodeDbID) {
-    /*let dbAddress = await this.app.db.orbitdb.determineAddress(
-      'nodeDb',
-      'docs',
-      {
-        write: [nodeDbID]
-      }
-    )
-    console.log(dbAddress)*/
+    if (nodeDbID !== 'nodeDb') {
+      nodeDbID = '/orbitdb/' + nodeDbID + '/nodeDb'
+    }
 
     this.app.logger.debug('Get node system information for ' + nodeDbID)
-    let tmpDb = await this.app.db.orbitdb.docs('nodeDb', {
-      indexBy: 'doc'
-    })
-    //await tmpDb.load()
-    let tmpSystem = await this.db.get('system')
+    //var tmpDb = await this.app.db.orbitdb.open(nodeDbID)
+    var tmpDb = await this.app.db.orbitdb.docs(nodeDbID)
+    await tmpDb.load()
+    var tmpSystem = await tmpDb.get('')
     console.log(tmpSystem)
     return tmpSystem[0]
   }
