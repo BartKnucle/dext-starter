@@ -94,8 +94,18 @@ export default {
       fixed: false,
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
-        { icon: 'bubble_chart', title: 'Node', to: '/node' },
-        { icon: 'bubble_chart', title: 'Swarm', to: '/swarm' }
+        { icon: 'all_out', title: 'Node', to: '/node' },
+        { icon: 'group_work', title: 'Swarm', to: '/swarm' },
+        { icon: 'group_work', title: 'Swarm new', to: '/swarm_new' },
+        { icon: 'group', title: 'People', to: '/people' },
+        { icon: 'help', title: 'Help', to: '/help' },
+        { icon: 'face', title: 'Profil', to: '/profil' },
+        {
+          icon: 'bubble_chart',
+          title: 'Software',
+          to: '/soft'
+        },
+        { icon: 'bubble_chart', title: 'Hardware', to: '/hard' }
       ],
       miniVariant: false,
       right: true,

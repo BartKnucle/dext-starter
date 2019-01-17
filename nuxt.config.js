@@ -37,11 +37,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/logger' },
-    { src: '@/plugins/database' },
+//    { src: '@/plugins/logger' },
+//    { src: '@/plugins/database' },
     { src: '@/plugins/vuetify' },
-    { src: '@/plugins/node' },
-    { src: '@/plugins/swarm' }
+//    { src: '@/plugins/node' },
+//    { src: '@/plugins/swarm' }
   ],
 
   router: {
@@ -51,7 +51,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: ['~/modules/logger', '~/modules/database'],
+//  modules: ['~/modules/logger', '~/modules/database'],
   /*
   
   /*
