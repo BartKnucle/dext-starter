@@ -1,8 +1,8 @@
 module.exports = async function database() {
   this.logger.info('Module Database Starting')
 
-  //let ipfsExecutable = 'node_modules\\.bin\\jsipfs.cmd' //windows
-  let ipfsExecutable = './node_modules/.bin/jsipfs' //linux
+  let ipfsExecutable = 'node_modules\\.bin\\jsipfs.cmd' //windows
+  //let ipfsExecutable = './node_modules/.bin/jsipfs' //linux
 
   let ipfsExecutableArgs = ['daemon', '--enable-pubsub-experiment']
 

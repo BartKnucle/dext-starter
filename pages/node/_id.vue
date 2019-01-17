@@ -3,7 +3,17 @@
     <v-flex text-xs-left>
       SERVER IPFS
       <ul>
-        <li>Local ipfs server ID: {{ this.$store.state.server.ipfsId }}</li>
+        <li>Local host ipfs server ID: {{ this.$store.state.server.ipfsId }}</li>
+        <li>
+          Swarm peers:
+          <ul>
+            <li 
+              v-for="item in peers"
+              :key="item.peer.id">
+              {{ item }}
+            </li>
+          </ul>
+        </li>
       </ul>
       SYSTEM
       <ul>
@@ -21,10 +31,22 @@ export default {
         infos: {
           platform: ''
         }
-      }
+      },
+      peers: []
     }
   },
   mounted: async function() {
+    //Get ipfs swarm peers
+    this.$db.ipfs.swarm.peers(
+      function(err, peerInfos) {
+        if (err) {
+          this.app.logger.err(err)
+        }
+        this.peers = peerInfos
+      }.bind(this)
+    )
+
+    //Get system information on local or remote node
     var path = ''
     if (this.$route.params.id) {
       path = this.$route.params.id

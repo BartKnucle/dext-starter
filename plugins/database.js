@@ -24,6 +24,7 @@ const ipfsBrowserOptions = {
 
 class database {
   constructor(app) {
+    this.peers = []
     this.app = app
     if (!process.server) {
       this.createIpfs()
@@ -34,12 +35,14 @@ class database {
     this.app.logger.info('Create IPFS')
     if (process.server) {
       this.ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
+      this.ipfs.pubsub.setMaxListeners(1024) //correct the bug 'MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 nodeDb listeners added. Use emitter.setMaxListeners() to increase limit'
       this.ipfsId = await this.ipfs.id()
       //Create OrbitDb
       this.createOrbitDb()
     } else {
       this.ipfs = new IPFS(ipfsBrowserOptions)
       this.ipfs.on('ready', async () => {
+        this.ipfs.pubsub.setMaxListeners(1024) //correct the bug 'MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 nodeDb listeners added. Use emitter.setMaxListeners() to increase limit'
         this.createOrbitDb()
         this.ipfsId = await this.ipfs.id()
       })
@@ -54,7 +57,7 @@ class database {
           '/ip4/127.0.0.1/tcp/4001/ws/ipfs/' + remoteIpfsNode,
           err => {
             if (err) {
-              this.app.logger.error(err)
+              this.app.logger.err(err)
             }
             this.app.logger.debug('connected ipfs to: ' + remoteIpfsNode)
           }
