@@ -37,21 +37,25 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '@/plugins/_test' },
 //    { src: '@/plugins/logger' },
 //    { src: '@/plugins/database' },
-    { src: '@/plugins/vuetify' },
 //    { src: '@/plugins/node' },
-//    { src: '@/plugins/swarm' }
+//    { src: '@/plugins/swarm' },
+    { src: '@/plugins/vuetify' }
   ],
 
   router: {
     //middleware: ['database']
+    middleware: ['_test']
   },
+  serverMiddleware: ['~/middleware/_test-server'],
 
   /*
   ** Nuxt.js modules
   */
 //  modules: ['~/modules/logger', '~/modules/database'],
+  modules: ['~/modules/_test'],
   /*
   
   /*

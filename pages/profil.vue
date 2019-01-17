@@ -1,57 +1,78 @@
 <template>
-  <v-layout
-    row
-    wrap
-    justify-center
-    align-center>
-    <v-flex
-      xs2
-      sm2
-      md2
-      lg2
-      xl1>
-      <v-avatar
-        slot="activator"
-        :size="avatarSize"
-        color="red"
-      >
-        <img
-          v-if="avatar"
-          :src="avatar"
-          alt="Avatar"
+  <div>
+    <v-layout
+      row
+      wrap
+      justify-center
+      align-center>
+      <v-flex
+        xs2
+        sm2
+        md2
+        lg2
+        xl1>
+        <v-avatar
+          slot="activator"
+          :size="avatarSize"
+          color="red"
         >
-        <span
-          v-else-if="lastName && firstName"
-          class="white--text headline">{{ lastName.charAt(0) + firstName.charAt(0) }}</span>
-        <v-icon
-          v-else
-          :size="avatarSize">
-          face
-        </v-icon>
-      </v-avatar>
-    </v-flex>
-    <v-flex
-      xs12
-      sm4
-      md4
-      lg4
-      xl3>
-      <v-text-field
-        v-model="firstName"
-        :counter="15"
-        :rules="nameRules"
-        label="First name"
-        required
-      />
-      <v-text-field
-        v-model="lastName"
-        :rules="nameRules && lastNameRules"
-        :counter="15"
-        label="Last name"
-        required
-      />
-    </v-flex>
-  </v-layout>
+          <img
+            v-if="avatar"
+            :src="avatar"
+            alt="Avatar"
+          >
+          <span
+            v-else-if="lastName && firstName"
+            class="white--text headline">{{ lastName.charAt(0) + firstName.charAt(0) }}</span>
+          <v-icon
+            v-else
+            :size="avatarSize">
+            face
+          </v-icon>
+        </v-avatar>
+      </v-flex>
+      <v-flex
+        xs12
+        sm4
+        md4
+        lg4
+        xl3>
+        <v-text-field
+          v-model="firstName"
+          :counter="15"
+          :rules="nameRules"
+          label="First name"
+          required
+        />
+        <v-text-field
+          v-model="lastName"
+          :rules="nameRules && lastNameRules"
+          :counter="15"
+          label="Last name"
+          required
+        />
+      </v-flex>
+    </v-layout>
+    <v-layout 
+      row
+      wrap>
+      <v-flex
+        text-xs-right
+        xs7
+        sm4
+        offset-sm5
+        md4
+        lg4
+        offset-lg5
+        xl12>
+        <v-btn
+          left
+          depressed
+          large
+          color="primary">Create</v-btn>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 <script>
 export default {

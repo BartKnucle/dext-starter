@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <load/>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -86,7 +87,11 @@
 </template>
 
 <script>
+import load from '~/components/load.vue'
 export default {
+  components: {
+    load
+  },
   data() {
     return {
       clipped: false,
