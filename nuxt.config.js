@@ -37,25 +37,27 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/_test' },
-//    { src: '@/plugins/logger' },
-//    { src: '@/plugins/database' },
-//    { src: '@/plugins/node' },
-//    { src: '@/plugins/swarm' },
+    { src: '@/plugins/logger' },
+    { src: '@/plugins/_test_ipfs' },
+    { src: '@/plugins/_test_orbitdb' },
     { src: '@/plugins/vuetify' }
   ],
 
   router: {
     //middleware: ['database']
-    middleware: ['_test']
+    //middleware: ['_test']
   },
-  serverMiddleware: ['~/middleware/_test-server'],
+  //serverMiddleware: ['~/middleware/_test-server'],
 
   /*
   ** Nuxt.js modules
   */
-//  modules: ['~/modules/logger', '~/modules/database'],
-  modules: ['~/modules/_test'],
+  modules: [
+    '~/modules/logger',
+    '~/modules/ipfs',
+    '~/modules/orbitdb',
+    '~/modules/node'
+  ],
   /*
   
   /*
@@ -75,8 +77,10 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-      config.node = { //Used for winston in the browser
-        fs: 'empty'
+      //Set server side object to empty on browser
+      config.node = {
+        fs: 'empty',
+        child_process: 'empty'
       }
     }
   }

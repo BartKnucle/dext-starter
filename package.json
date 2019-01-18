@@ -20,6 +20,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "browser-or-node": "^1.1.0",
     "cross-env": "^5.2.0",
     "fs": "0.0.1-security",
     "ipfs": "^0.33.1",

@@ -98,13 +98,12 @@ export default {
       drawer: true,
       fixed: false,
       items: [
+        { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'all_out', title: 'Node', to: '/node' },
-        { icon: 'group_work', title: 'Swarm', to: '/swarm' },
         { icon: 'group_work', title: 'Swarm new', to: '/swarm_new' },
         { icon: 'group', title: 'People', to: '/people' },
         { icon: 'help', title: 'Help', to: '/help' },
-        { icon: 'face', title: 'Profil', to: '/profil' },
         {
           icon: 'bubble_chart',
           title: 'Software',
