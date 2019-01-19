@@ -38,8 +38,9 @@ module.exports = {
   */
   plugins: [
     { src: '@/plugins/logger' },
-    { src: '@/plugins/_test_ipfs' },
-    { src: '@/plugins/_test_orbitdb' },
+    { src: '@/plugins/ipfs' },
+    { src: '@/plugins/orbitdb' },
+    { src: '@/plugins/node' },
     { src: '@/plugins/vuetify' }
   ],
 
