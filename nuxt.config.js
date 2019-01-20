@@ -57,7 +57,8 @@ module.exports = {
     '~/modules/logger',
     '~/modules/ipfs',
     '~/modules/orbitdb',
-    '~/modules/node'
+    '~/modules/node',
+    '~/modules/swarm'
   ],
   /*
   

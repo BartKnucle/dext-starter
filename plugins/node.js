@@ -6,6 +6,7 @@ export default async ({ app }, inject) => {
     app.node = new NODE(app)
     await app.node.loadDb()
     await app.node.setPlateform()
+    app.node.announce()
     inject('node', app.node)
     app.logger.info('Plugin NODE loaded')
   }

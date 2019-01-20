@@ -33,7 +33,7 @@ class node {
     }, 15 * 1000)
   }
 
-  async createDb() {
+  async createDb(nodeDb) {
     this.app.logger.debug('Create nodeDb database')
     this.db = await this.app.db.orbitdb.docs('nodeDb', {
       indexBy: 'doc'
