@@ -3,9 +3,9 @@
     column
     justify-center
     align-center>
-    <nuxt-link :to="'/node/QmawdReAz4zrcbZbLRzYFbqN19s6LjmM6gammSMc1ZuQWx'">Chrome</nuxt-link>
-    <nuxt-link :to="'/node/QmSscJHtVpYJcXfwPTquc17uVq2BGoMNhB2kJ1zc3gSsWs'">Firefox</nuxt-link>
-    <nuxt-link :to="'/node/QmS5DD7uZrEsBLNxRSv9scwVebKM2o74KMFJqiauXfKabt'">Linux</nuxt-link>
+    <nuxt-link :to="'/node/Qma7M7b8ZutrtTU67uesvFZY4CrDNgfjHbmveu4Yekf6Nt'">Qma7M7b8ZutrtTU67uesvFZY4CrDNgfjHbmveu4Yekf6Nt</nuxt-link>
+    <nuxt-link :to="'/node/QmQKPps6cETe7tNLiQQBuLLkQwYKzdwcvCZH3sGjku9Y2x'">QmQKPps6cETe7tNLiQQBuLLkQwYKzdwcvCZH3sGjku9Y2x</nuxt-link>
+    <nuxt-link :to="'/node/QmUoMchRB1xqcdVJJZgLPDR95GcraLPxJgutHmXevMgsmi'">QmUoMchRB1xqcdVJJZgLPDR95GcraLPxJgutHmXevMgsmi</nuxt-link>
     {{ plateform }}
   </v-layout>
 </template>
