@@ -101,7 +101,7 @@ export default {
         { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'all_out', title: 'Node', to: '/node' },
-        { icon: 'group_work', title: 'Swarm new', to: '/swarm_new' },
+        { icon: 'group_work', title: 'Swarm new', to: '/swarm' },
         { icon: 'group', title: 'People', to: '/people' },
         { icon: 'help', title: 'Help', to: '/help' },
         {

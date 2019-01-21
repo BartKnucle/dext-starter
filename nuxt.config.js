@@ -41,6 +41,7 @@ module.exports = {
     { src: '@/plugins/ipfs' },
     { src: '@/plugins/orbitdb' },
     { src: '@/plugins/node' },
+    { src: '@/plugins/swarm' },
     { src: '@/plugins/vuetify' }
   ],
 

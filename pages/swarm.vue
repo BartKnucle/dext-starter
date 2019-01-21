@@ -13,19 +13,17 @@
       <v-list subheader>
         <v-subheader>Swarm nodes</v-subheader>
         <v-list-tile
-          v-for="item in hardware"
-          :key="item.id">
-
+          v-for="item in nodes"
+          :key="item._id">
           <v-list-tile-avatar 
-            :color="getValueColor(item.alive)">
+            :color="getValueColor(item.properties.alive)">
             <v-icon
               color="black">
-              {{ getTypeIcon(item.type) }}
+              {{ getTypeIcon(item.properties.type) }}
             </v-icon>
           </v-list-tile-avatar>
-
           <v-list-tile-content>
-            {{ item.name }}
+            <nuxt-link :to="'/node/' + item._id">{{ item._id }}</nuxt-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -34,9 +32,11 @@
 </template>
 <script>
 import { perc2color } from '../lib/color.js'
+import { NODE } from '../lib/node.js'
 export default {
   data: () => {
     return {
+      nodes: [],
       hardware: [
         { id: '5qsdq123', name: 'PORT0212', alive: true },
         { id: 'qdsqds', name: 'PC12515', alive: false },
@@ -50,15 +50,35 @@ export default {
       ]
     }
   },
+  mounted: async function() {
+    this.db = this.$db //rename to fit the class
+    this.logger = this.$logger //rename to fit the class
+
+    //Load swarm db
+    var nodes = this.$swarm.db.query(doc => doc)
+
+    //Load each node db
+    nodes.forEach(async element => {
+      let node = new NODE(this, element._id.id)
+      await node.loadDb()
+
+      let tmpNode = {
+        _id: element._id.id,
+        properties: await this.node.getDb()
+      }
+
+      this.nodes.push(tmpNode)
+
+      this.node.closeDb()
+    })
+  },
   methods: {
     getTypeIcon(type) {
       switch (type) {
-        case 'laptop':
-          return 'laptop'
-        case 'desktop':
+        case 'user':
+          return 'account_box'
+        case 'computer':
           return 'desktop_windows'
-        case 'printer':
-          return 'print'
       }
     },
     getValueColor(alive) {

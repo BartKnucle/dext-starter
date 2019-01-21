@@ -5,7 +5,7 @@ export default async ({ app }, inject) => {
   if (!isNode) {
     app.node = new NODE(app)
     await app.node.loadDb()
-    await app.node.setPlateform()
+    await app.node.setDb()
     app.node.announce()
     inject('node', app.node)
     app.logger.info('Plugin NODE loaded')

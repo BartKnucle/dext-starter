@@ -3,10 +3,7 @@
     column
     justify-center
     align-center>
-    <nuxt-link :to="'/node/Qma7M7b8ZutrtTU67uesvFZY4CrDNgfjHbmveu4Yekf6Nt'">Qma7M7b8ZutrtTU67uesvFZY4CrDNgfjHbmveu4Yekf6Nt</nuxt-link>
-    <nuxt-link :to="'/node/QmQKPps6cETe7tNLiQQBuLLkQwYKzdwcvCZH3sGjku9Y2x'">QmQKPps6cETe7tNLiQQBuLLkQwYKzdwcvCZH3sGjku9Y2x</nuxt-link>
-    <nuxt-link :to="'/node/QmUoMchRB1xqcdVJJZgLPDR95GcraLPxJgutHmXevMgsmi'">QmUoMchRB1xqcdVJJZgLPDR95GcraLPxJgutHmXevMgsmi</nuxt-link>
-    {{ plateform }}
+    {{ properties }}
   </v-layout>
 </template>
 <script>
@@ -15,7 +12,7 @@ export default {
   data: () => {
     return {
       node: {},
-      plateform: ''
+      properties: {}
     }
   },
   mounted: async function() {
@@ -24,7 +21,8 @@ export default {
     this.logger = this.$logger //rename to fit the class
     this.node = new NODE(this, this.$route.params.id)
     await this.node.loadDb()
-    this.plateform = await this.node.getPlateform()
+    this.properties = await this.node.getDb()
+    console.log(this.properties)
     this.node.closeDb()
   }
 }
