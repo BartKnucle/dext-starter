@@ -98,6 +98,7 @@ export default {
       drawer: true,
       fixed: false,
       items: [
+        { icon: 'face', title: 'Test', to: '/test' },
         { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'all_out', title: 'Node', to: '/node' },
