@@ -7,6 +7,6 @@ export default async ({ app }, inject) => {
     await app.node.init()
     app.node.fill()
   }
-  inject('node', app.node)
+  //inject('node', app.node)
   app.logger.info('Plugin NODE loaded')
 }

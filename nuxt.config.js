@@ -37,10 +37,10 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/logger'},
-    { src: '@/plugins/ipfs'},
-    { src: '@/plugins/orbitdb'},
-    { src: '@/plugins/node'},
+    { src: '@/plugins/logger', ssr: false  },
+    { src: '@/plugins/ipfs', ssr: false  },
+    { src: '@/plugins/orbitdb', ssr: false  },
+    { src: '@/plugins/node', ssr: false  },
     //{ src: '@/plugins/swarm' },
     { src: '@/plugins/test' },
     { src: '@/plugins/vuetify' }

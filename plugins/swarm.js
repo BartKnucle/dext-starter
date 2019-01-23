@@ -12,6 +12,6 @@ export default async ({ store, app }, inject) => {
     app.swarm = new SWARM(app, store.state.swarm.dbId)
     await app.swarm.loadDb()
   }
-  inject('swarm', app.swarm)
+  //inject('swarm', app.swarm)
   app.logger.info('Swarm Plugin loaded')
 }

@@ -6,6 +6,6 @@ export default ({ app }, inject) => {
   if (!isNode) {
     app.db.create()
   }
-  inject('db', app.db)
+  //inject('db', app.db)
   app.logger.info('orbitDb Plugin loaded')
 }

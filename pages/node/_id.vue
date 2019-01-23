@@ -24,13 +24,14 @@ export default {
     }
   },
   mounted: async function() {
-    console.log(this)
-    this.db = this.$db //rename to fit the class
-    this.logger = this.$logger //rename to fit the class
-    this.node = new NODE(this, this.$route.params.id)
+    this.node = new NODE(
+      this.$app,
+      'QmdES3Fx6VhE6T96HSG2MCHBAUdqtAsswPYX8eACDWUj77'
+    ) //this.$route.params.id)
     await this.node.init()
-    this.data = this.node.all()
-    this.plateform = this.node.get('infos')[0].data.plateform
+    console.log(this.node.all())
+    this.data = await this.node.all()
+    //this.plateform = this.node.get('infos')[0].data.plateform
   }
 }
 </script>
