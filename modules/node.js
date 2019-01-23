@@ -2,9 +2,7 @@ import { NODE } from '../lib/node'
 
 module.exports = async function node() {
   this.node = new NODE(this)
-  await this.node.loadDb()
-  await this.node.setDb()
-  await this.node.closeDb()
-  this.node.announce()
+  await this.node.init()
+  this.node.fill()
   this.logger.info('Module NODE loaded')
 }

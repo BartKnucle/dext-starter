@@ -37,10 +37,10 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/logger' },
-    { src: '@/plugins/ipfs' },
-    { src: '@/plugins/orbitdb' },
-    //{ src: '@/plugins/node' },
+    { src: '@/plugins/logger'},
+    { src: '@/plugins/ipfs'},
+    { src: '@/plugins/orbitdb'},
+    { src: '@/plugins/node'},
     //{ src: '@/plugins/swarm' },
     { src: '@/plugins/test' },
     { src: '@/plugins/vuetify' }
@@ -59,7 +59,7 @@ module.exports = {
     '~/modules/logger',
     '~/modules/ipfs',
     '~/modules/orbitdb',
-    //'~/modules/node',
+    '~/modules/node',
     //'~/modules/swarm'
     '~/modules/test'
   ],
@@ -85,7 +85,9 @@ module.exports = {
       //Set server side object to empty on browser
       config.node = {
         fs: 'empty',
-        child_process: 'empty'
+        child_process: 'empty',
+        dgram: 'empty',
+        net: 'empty'
       }
     }
   }

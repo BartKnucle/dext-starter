@@ -117,6 +117,7 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js'
     }
-  }
+  },
+  mounted: function() {}
 }
 </script>
