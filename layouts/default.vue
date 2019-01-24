@@ -110,7 +110,7 @@ export default {
           title: 'Software',
           to: '/soft'
         },
-        { icon: 'bubble_chart', title: 'Hardware', to: '/hard' }
+        { icon: 'memory', title: 'Hardware', to: '/hard' }
       ],
       miniVariant: false,
       right: true,

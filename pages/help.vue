@@ -31,7 +31,7 @@
   </v-layout>
 </template>
 <script>
-import { perc2color } from '../lib/color.js'
+import { perc2color } from '../utils/color.js'
 export default {
   data: () => {
     return {

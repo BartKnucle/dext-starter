@@ -28,8 +28,7 @@ export default {
     )
     await this.test.init()
     this.data = this.test.all()
-    this.item = this.test.get('test')[0].data.variable1
-    console.log(this.data)
+    //this.item = this.test.get('test')[0].data.variable1
   }
 }
 </script>
