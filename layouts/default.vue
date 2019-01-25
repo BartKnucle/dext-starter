@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <!--<load/>-->
+    <load/>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"

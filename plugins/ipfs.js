@@ -2,7 +2,6 @@ import { isNode } from 'browser-or-node'
 import { IPFS } from '../lib/ipfs'
 
 export default async ({ store, app }, inject) => {
-  inject('app', app)
   app.ipfs = new IPFS(app)
 
   //Connect ths browser to the local node

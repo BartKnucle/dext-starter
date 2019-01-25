@@ -65,15 +65,12 @@ export default {
     }
   },
   mounted: async function() {
-    this.node = new NODE(this.$app)
-    /*,
-      'QmT7jkLfiN5K9uJP8m4JrewF2cbi45s3NfY2cTxfWfJbJF'
-    ) //this.$route.params.id)*/
+    this.node = new NODE(this.$app, this.$route.params.id)
     await this.node.init()
     let node = this.node.all()
+    console.log(node[0]._id)
     this.infos = node.find(item => item._id === 'infos')
     this.user = node.find(item => item._id === 'user')
-    console.log(this.infos)
 
     //Get local node peers
     if (!this.$route.params.id) {
