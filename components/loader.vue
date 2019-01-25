@@ -5,7 +5,7 @@
     width="300"
   >
      <v-list subheader>
-      <v-subheader>Steps</v-subheader>
+      <v-subheader>Loading</v-subheader>
       <v-list-tile
         v-for="item in steps"
         :key="item.name">
@@ -49,13 +49,13 @@ export default {
           done: false
         },
         {
-          icon: 'import_export',
-          name: 'Loading data',
+          icon: 'device_hub',
+          name: 'Connecting node',
           done: false
         },
         {
-          icon: 'device_hub',
-          name: 'Connecting node',
+          icon: 'import_export',
+          name: 'Loading data',
           done: false
         }
       ],
@@ -63,12 +63,12 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     this.dialog = true
-    setTimeout(() => (this.steps[0].done = true), 2000)
-    setTimeout(() => (this.steps[1].done = true), 4000)
-    setTimeout(() => (this.steps[2].done = true), 6000)
-    setTimeout(() => (this.dialog = false), 6500)
+    this.steps[0].done = this.$app.ipfs.started
+    this.steps[1].done = this.$app.db.started
+    this.steps[2].done = this.$app.node.started
+    //this.dialog = !this.$app.node.started
   },
   methods: {
     getValueColor(done) {

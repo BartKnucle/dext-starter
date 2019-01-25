@@ -13,3 +13,7 @@ Vue.use(Vuetify, {
     success: colors.green.accent3
   }
 })
+
+export default ({ app }, inject) => {
+  inject('app', app)
+}

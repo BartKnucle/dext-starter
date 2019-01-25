@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <load/>
+    <loader/>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -87,11 +87,8 @@
 </template>
 
 <script>
-import load from '~/components/load.vue'
 export default {
-  components: {
-    load
-  },
+  components: {},
   data() {
     return {
       clipped: false,
@@ -115,7 +112,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Dext framework'
     }
   },
   mounted: function() {}
