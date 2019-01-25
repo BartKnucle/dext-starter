@@ -43,7 +43,7 @@ module.exports = {
     { src: '@/plugins/message', ssr: false },
     { src: '@/plugins/orbitdb', ssr: false },
     { src: '@/plugins/node', ssr: false },
-    //{ src: '@/plugins/swarm' },
+    { src: '@/plugins/swarm' },
     { src: '@/plugins/test' }
   ],
 
@@ -61,7 +61,7 @@ module.exports = {
     '~/modules/message',
     '~/modules/orbitdb',
     '~/modules/node',
-    //'~/modules/swarm'
+    '~/modules/swarm',
     '~/modules/test'
   ],
   /*

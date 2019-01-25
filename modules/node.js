@@ -4,5 +4,6 @@ module.exports = async function node() {
   this.node = new NODE(this)
   await this.node.init()
   this.node.fill()
+  this.node.announce()
   this.logger.info('Module NODE loaded')
 }
