@@ -37,14 +37,14 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/vuetify' },
+    { src: '@/plugins/vuetify' }/*,
     { src: '@/plugins/logger', ssr: false },
     { src: '@/plugins/ipfs', ssr: false },
     { src: '@/plugins/message', ssr: false },
     { src: '@/plugins/orbitdb', ssr: false },
     { src: '@/plugins/node', ssr: false },
     { src: '@/plugins/swarm' },
-    { src: '@/plugins/test' }
+    { src: '@/plugins/test' }*/
   ],
 
   router: {
@@ -56,13 +56,13 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/logger',
+    /*'~/modules/logger',
     '~/modules/ipfs',
     '~/modules/message',
     '~/modules/orbitdb',
     '~/modules/node',
     '~/modules/swarm',
-    '~/modules/test'
+    '~/modules/test'*/
   ],
   /*
   
