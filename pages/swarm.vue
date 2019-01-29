@@ -14,16 +14,16 @@
         <v-subheader>Swarm nodes</v-subheader>
         <v-list-tile
           v-for="item in nodes"
-          :key="item._id">
+          :key="item.id">
           <v-list-tile-avatar 
-            :color="getValueColor(item.properties.alive)">
+            :color="getValueColor(item.alive)">
             <v-icon
               color="black">
-              {{ getTypeIcon(item.properties.type) }}
+              {{ getTypeIcon(item.type) }}
             </v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <nuxt-link :to="'/node/' + item._id">{{ item._id }}</nuxt-link>
+            <nuxt-link :to="'/node/' + item.id">{{ item.id }}</nuxt-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -32,50 +32,27 @@
 </template>
 <script>
 import { perc2color } from '../utils/color.js'
-import { NODE } from '../lib/node.js'
 export default {
   data: () => {
     return {
-      nodes: [],
-      hardware: [
-        { id: '5qsdq123', name: 'PORT0212', alive: true },
-        { id: 'qdsqds', name: 'PC12515', alive: false },
-        { id: 'qsd', name: 'LP4561', alive: false },
-        { id: 'qsdqsd', name: 'PORT02452', alive: false },
-        { id: 'qsddsfdf', name: 'PC12515', alive: true },
-        { id: 'qsdqsd', name: 'LP445451', alive: true },
-        { id: 'sdfd', name: 'PORT15412', alive: true },
-        { id: 'dfgdfg', name: 'PC15646', alive: false },
-        { id: 'zerze', name: 'LP1515', alive: true }
+      nodes: [
+        { id: '5qsdq123', type: 'computer', name: 'PORT0212', alive: true },
+        { id: 'qdsqds', type: 'computer', name: 'PC12515', alive: false },
+        { id: 'qsd', type: 'browser', name: 'LP4561', alive: false },
+        { id: 'qsdqsd', type: 'browser', name: 'PORT02452', alive: false },
+        { id: 'qsddsfdf', type: 'computer', name: 'PC12515', alive: true },
+        { id: 'qsdqssd', type: 'browser', name: 'LP445451', alive: true },
+        { id: 'sdfd', type: 'computer', name: 'PORT15412', alive: true },
+        { id: 'dfgdfg', type: 'browser', name: 'PC15646', alive: false },
+        { id: 'zerze', type: 'computer', name: 'LP1515', alive: true }
       ]
     }
   },
-  mounted: async function() {
-    this.db = this.$db //rename to fit the class
-    this.logger = this.$logger //rename to fit the class
-
-    //Load swarm db
-    var nodes = this.$swarm.db.query(doc => doc)
-
-    //Load each node db
-    nodes.forEach(async element => {
-      let node = new NODE(this, element._id.id)
-      await node.loadDb()
-
-      let tmpNode = {
-        _id: element._id.id,
-        properties: await this.node.getDb()
-      }
-
-      this.nodes.push(tmpNode)
-
-      this.node.closeDb()
-    })
-  },
+  mounted: function() {},
   methods: {
     getTypeIcon(type) {
       switch (type) {
-        case 'user':
+        case 'browser':
           return 'account_box'
         case 'computer':
           return 'desktop_windows'
