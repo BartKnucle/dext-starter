@@ -1,11 +1,11 @@
 <template>
   <v-layout>
     <appNodeChip
-      :id="infos.find(obj => obj.id == 'infos') ? infos.find(obj => obj.id == 'infos').name : ''"
-      :type="'computer'"
+      :id="nodedb.find(obj => obj.id == 'ipfs.id') ? nodedb.find(obj => obj.id == 'ipfs.id').data : ''"
+      :type="nodedb.find(obj => obj.id == 'plateform.type') ? nodedb.find(obj => obj.id == 'plateform.type').data : ''"
     />
     <appNodeInfos
-      :infos="infos"
+      :nodedb="nodedb"
     />
   </v-layout>
 </template>
@@ -18,7 +18,7 @@ export default {
     appNodeInfos: appNodeInfos
   },
   props: {
-    infos: {
+    nodedb: {
       type: Array,
       required: true,
       default: () => []

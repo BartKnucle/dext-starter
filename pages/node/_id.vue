@@ -4,7 +4,7 @@
     justify-center
     align-center>
     <appNode
-      :infos="infos"
+      :nodedb="nodeDb"
     />
     <ul 
       v-for="item in swarmPeers"
@@ -28,8 +28,7 @@ export default {
   data: () => {
     return {
       node: {},
-      infos: [],
-      user: {},
+      nodeDb: [],
       swarmPeers: []
     }
   },
@@ -52,9 +51,7 @@ export default {
   mounted: async function() {
     this.node = new NODE(this.$app, this.$route.params.id)
     await this.node.init()
-    this.infos = this.node.get('infos')
-    console.log(this.infos)
-    this.user = this.node.get('user')
+    this.nodeDb = this.node.all()
 
     //Get local node peers
     if (!this.$route.params.id) {

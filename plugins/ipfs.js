@@ -11,7 +11,7 @@ export default async ({ store, app }, inject) => {
   } else {
     await app.ipfs.create()
     await app.ipfs.connect(
-      '/ip4/127.0.0.1/tcp/4001/ws/ipfs/QmSKdUDLaQDD3zCWMwWjULyFccjoGeWdtS8yCJMA4AoFAo'
+      '/ip4/127.0.0.1/tcp/4001/ws/ipfs/QmdYjtN85PNzXf1tG7LpGsKx4P5rf5kv5bAtXg8T6vgXyg'
     )
     /*store.state.ipfs.ssrAddrs.forEach(async address => {
       await app.ipfs.connect(address)

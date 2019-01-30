@@ -31,8 +31,8 @@ export default {
   methods: {
     getTypeIcon(type) {
       switch (type) {
-        case 'browser':
-          return 'web'
+        case 'user':
+          return 'perm_identity'
         case 'computer':
           return 'desktop_windows'
       }
