@@ -3,17 +3,9 @@
     column
     justify-center
     align-center>
-    <v-icon
-      :size="iconSize"
-      color="black">
-      {{ getTypeIcon(infos.data.type) }}
-    </v-icon>
-    Type: {{ infos.data.type }}
-    <br>
-    Plateform: {{ infos.data.plateform.name }}
-    <br>
-    Plateform version: {{ infos.data.plateform.version }}
-    <br>
+    <appNode
+      :infos="infos"
+    />
     <ul 
       v-for="item in swarmPeers"
       :key="item.id">
@@ -27,23 +19,16 @@
   </v-layout>
 </template>
 <script>
-import { NODE } from '../../lib/node.js'
+import { default as appNode } from '~/components/organisms/appNode.vue'
+import { NODE } from '~/lib/node.js'
 export default {
+  components: {
+    appNode: appNode
+  },
   data: () => {
     return {
       node: {},
-      infos: {
-        _id: '',
-        data: {
-          type: '', //Node type Browser or Computer
-          plateform: {
-            //Plateform that run the node or execute the browser (Windows, Linux etc...)
-            name: '', //Name of the plateform
-            version: '', //Version of the plateform
-            userAgent: '' //userAgent string (only for the browsers)
-          }
-        }
-      },
+      infos: [],
       user: {},
       swarmPeers: []
     }
@@ -68,6 +53,7 @@ export default {
     this.node = new NODE(this.$app, this.$route.params.id)
     await this.node.init()
     this.infos = this.node.get('infos')
+    console.log(this.infos)
     this.user = this.node.get('user')
 
     //Get local node peers
@@ -87,16 +73,6 @@ export default {
           })
         }.bind(this)
       )
-    }
-  },
-  methods: {
-    getTypeIcon(type) {
-      switch (type) {
-        case 'browser':
-          return 'web'
-        case 'computer':
-          return 'desktop_windows'
-      }
     }
   }
 }

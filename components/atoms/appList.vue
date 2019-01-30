@@ -1,4 +1,4 @@
-</<template>
+<template>
   <v-list subheader>
     <v-subheader>{{ title }}</v-subheader>
   </v-list>  

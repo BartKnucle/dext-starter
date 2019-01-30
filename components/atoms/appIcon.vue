@@ -1,21 +1,16 @@
 <template>
-  <v-card>
+  <v-icon>
     <slot/>
-  </v-card>  
+  </v-icon>
 </template>
 <script>
 export default {
   props: {
-    title: {
+    icon: {
       type: String,
       required: false,
       default: ''
     }
-  },
-  data() {
-    return {}
-  },
-  mounted() {},
-  methods: {}
+  }
 }
 </script>

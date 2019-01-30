@@ -1,7 +1,8 @@
 <template>
-  <v-toolbar>
-    <v-toolbar-title>{{ title }}</v-toolbar-title>
-  </v-toolbar>
+  <v-chip>
+    <slot/>
+    {{ title }}
+  </v-chip>
 </template>
 <script>
 export default {
