@@ -61,12 +61,10 @@ export default {
     //Load database informations
     this.nodeDb = this.node.all()
     this.node.db.events.on('replicated', address => {
-      console.log('replicated')
       this.nodeDb = this.node.all()
     })
 
     this.node.db.events.on('write', address => {
-      console.log('write')
       this.nodeDb = this.node.all()
     })
   }

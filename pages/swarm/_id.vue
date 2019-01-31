@@ -13,7 +13,7 @@
       <v-list subheader>
         <v-subheader>Swarm nodes</v-subheader>
         <v-list-tile
-          v-for="item in nodes"
+          v-for="item in swarmDb"
           :key="item.id">
           <v-list-tile-avatar 
             :color="getValueColor(item.alive)">
@@ -32,28 +32,32 @@
 </template>
 <script>
 import { perc2color } from '~/utils/color.js'
+import { SWARM } from '~/lib/swarm.js'
 export default {
   data: () => {
     return {
-      nodes: [
-        { id: '5qsdq123', type: 'computer', name: 'PORT0212', alive: true },
-        { id: 'qdsqds', type: 'computer', name: 'PC12515', alive: false },
-        { id: 'qsd', type: 'browser', name: 'LP4561', alive: false },
-        { id: 'qsdqsd', type: 'browser', name: 'PORT02452', alive: false },
-        { id: 'qsddsfdf', type: 'computer', name: 'PC12515', alive: true },
-        { id: 'qsdqssd', type: 'browser', name: 'LP445451', alive: true },
-        { id: 'sdfd', type: 'computer', name: 'PORT15412', alive: true },
-        { id: 'dfgdfg', type: 'browser', name: 'PC15646', alive: false },
-        { id: 'zerze', type: 'computer', name: 'LP1515', alive: true }
-      ]
+      swarmDb: []
     }
   },
-  mounted: function() {},
+  mounted: async function() {
+    this.swarm = new SWARM(this.$app, this.$route.params.id)
+    await this.swarm.init()
+
+    //Load database informations
+    this.swarmDb = this.swarm.all()
+    this.swarm.db.events.on('replicated', address => {
+      this.swarmDb = this.swarm.all()
+    })
+
+    this.swarm.db.events.on('write', address => {
+      this.swarmDb = this.swarm.all()
+    })
+  },
   methods: {
     getTypeIcon(type) {
       switch (type) {
-        case 'browser':
-          return 'account_box'
+        case 'user':
+          return 'perm_identity'
         case 'computer':
           return 'desktop_windows'
       }
