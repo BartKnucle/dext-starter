@@ -13,10 +13,10 @@
   </v-layout>
 </template>
 <script>
-import { default as appList } from '../components/atoms/appList.vue'
-import { default as appCard } from '../components/atoms/appCard.vue'
-import { default as appChip } from '../components/atoms/appChip.vue'
-import { default as appToolBar } from '../components/atoms/appToolBar.vue'
+import { default as appList } from '~/components/atoms/appList.vue'
+import { default as appCard } from '~/components/atoms/appCard.vue'
+import { default as appChip } from '~/components/atoms/appChip.vue'
+import { default as appToolBar } from '~/components/atoms/appToolBar.vue'
 export default {
   components: {
     appList: appList,

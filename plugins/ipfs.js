@@ -1,21 +1,10 @@
-import { isNode } from 'browser-or-node'
 import { IPFS } from '../lib/ipfs'
 
-export default async ({ store, app }, inject) => {
+export default async ({ app }) => {
   app.ipfs = new IPFS(app)
-
-  //Connect ths browser to the local node
-  if (isNode) {
-    //app.store.commit('ipfs/set_ssrAddrs', app.ipfs.getAddresses())
-    //app.logger.debug('Storing Ipfs SSR adresses ' + app.ipfs.getAddresses())
-  } else {
-    await app.ipfs.create()
-    await app.ipfs.connect(
-      '/ip4/127.0.0.1/tcp/4001/ws/ipfs/QmdYjtN85PNzXf1tG7LpGsKx4P5rf5kv5bAtXg8T6vgXyg'
-    )
-    /*store.state.ipfs.ssrAddrs.forEach(async address => {
-      await app.ipfs.connect(address)
-    })*/
-  }
+  await app.ipfs.create()
+  await app.ipfs.connect(
+    '/ip4/127.0.0.1/tcp/4001/ws/ipfs/QmNbQFKdSAeE2TTRVBT4wu4JiFfhNB8X85mH7thfgoERmk'
+  )
   app.logger.info('Ipfs Plugin loaded')
 }

@@ -1,6 +1,6 @@
 import { MESSAGE } from '../lib/message'
 
-export default async ({ store, app }, inject) => {
+export default async ({ app }) => {
   app.msg = new MESSAGE(app)
   app.logger.info('Message Plugin loaded')
 }

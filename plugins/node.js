@@ -7,5 +7,6 @@ export default async ({ app }, inject) => {
   app.node.announce()
 
   app.node.started = true
+  inject('node', app.node)
   app.logger.info('Plugin NODE loaded')
 }

@@ -69,7 +69,8 @@
           left
           depressed
           large
-          color="primary">Create</v-btn>
+          color="primary"
+          @click="save">Save</v-btn>
       </v-flex>
     </v-layout>
   </div>
@@ -106,6 +107,24 @@ export default {
         case 'xl':
           return '100px'
       }
+    }
+  },
+  methods: {
+    save: async function(event) {
+      await this.$node.add({
+        id: 'user.firstname',
+        data: this.firstName
+      })
+
+      await this.$node.add({
+        id: 'user.lastname',
+        data: this.lastName
+      })
+
+      await this.$node.add({
+        id: 'name',
+        data: this.firstName + ' ' + this.lastName
+      })
     }
   }
 }

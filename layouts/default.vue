@@ -94,19 +94,12 @@ export default {
       drawer: true,
       fixed: false,
       items: [
-        { icon: 'face', title: 'Test', to: '/test' },
-        { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'apps', title: 'Welcome', to: '/' },
+        { icon: 'face', title: 'Profil', to: '/profil' },
+        { icon: 'group', title: 'Ipfs', to: '/ipfs' },
+        { icon: 'help', title: 'OrbitDb', to: '/orbitdb' },
         { icon: 'all_out', title: 'Node', to: '/node' },
-        { icon: 'group_work', title: 'Swarm new', to: '/swarm' },
-        { icon: 'group', title: 'People', to: '/people' },
-        { icon: 'help', title: 'Help', to: '/help' },
-        {
-          icon: 'bubble_chart',
-          title: 'Software',
-          to: '/soft'
-        },
-        { icon: 'memory', title: 'Hardware', to: '/hard' }
+        { icon: 'group_work', title: 'Swarm', to: '/swarm' }
       ],
       miniVariant: false,
       right: true,

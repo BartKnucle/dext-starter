@@ -3,7 +3,7 @@
     column
     justify-center
     align-center>
-    <appNode
+    <appNodeInfos
       :nodedb="nodeDb"
     />
     <ul 
@@ -19,15 +19,15 @@
   </v-layout>
 </template>
 <script>
-import { default as appNode } from '~/components/organisms/appNode.vue'
+import { default as appNodeInfos } from '~/components/organisms/appNodeInfos.vue'
 import { NODE } from '~/lib/node.js'
 export default {
   components: {
-    appNode: appNode
+    appNodeInfos: appNodeInfos
   },
   data: () => {
     return {
-      node: {},
+      //node: {},
       nodeDb: [],
       swarmPeers: []
     }
@@ -49,28 +49,26 @@ export default {
     }
   },
   mounted: async function() {
-    this.node = new NODE(this.$app, this.$route.params.id)
-    await this.node.init()
-    this.nodeDb = this.node.all()
-
-    //Get local node peers
+    //If we get the local node
     if (!this.$route.params.id) {
-      this.$app.db.ipfs.swarm.peers(
-        function(err, peerInfos) {
-          if (err) {
-            this.$app.logger.error(err)
-          }
-          const PeerId = require('peer-id')
-          const multiaddr = require('multiaddr')
-          peerInfos.forEach(element => {
-            this.swarmPeers.push({
-              id: new PeerId(element.peer.id).toB58String(),
-              addrs: multiaddr(element.addr.buffer).toString()
-            })
-          })
-        }.bind(this)
-      )
+      this.node = this.$node
+    } else {
+      //Load the remote db
+      this.node = new NODE(this.$app, this.$route.params.id)
+      await this.node.init()
     }
+
+    //Load database informations
+    this.nodeDb = this.node.all()
+    this.node.db.events.on('replicated', address => {
+      console.log('replicated')
+      this.nodeDb = this.node.all()
+    })
+
+    this.node.db.events.on('write', address => {
+      console.log('write')
+      this.nodeDb = this.node.all()
+    })
   }
 }
 </script>
