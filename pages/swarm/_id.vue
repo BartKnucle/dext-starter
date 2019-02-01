@@ -40,18 +40,15 @@ export default {
     }
   },
   mounted: async function() {
-    this.swarm = new SWARM(this.$app, this.$route.params.id)
-    await this.swarm.init()
-
     //Load database informations
-    this.swarmDb = this.swarm.all()
-    this.swarm.db.events.on('replicated', address => {
-      this.swarmDb = this.swarm.all()
+    this.swarmDb = this.$swarm.get('')
+    /*this.$swarm.db.events.on('replicated', address => {
+      this.swarmDb = this.$swarm.get('')
     })
 
-    this.swarm.db.events.on('write', address => {
-      this.swarmDb = this.swarm.all()
-    })
+    this.$swarm.db.events.on('write', address => {
+      this.swarmDb = this.$swarm.get('')
+    })*/
   },
   methods: {
     getTypeIcon(type) {

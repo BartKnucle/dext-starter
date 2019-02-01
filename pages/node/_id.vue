@@ -59,14 +59,15 @@ export default {
     }
 
     //Load database informations
-    this.nodeDb = this.node.all()
+    this.nodeDb = this.node.get('')
+    /*
     this.node.db.events.on('replicated', address => {
-      this.nodeDb = this.node.all()
+      this.nodeDb = this.node.get('')
     })
 
     this.node.db.events.on('write', address => {
-      this.nodeDb = this.node.all()
-    })
+      this.nodeDb = this.node.get('')
+    })*/
   }
 }
 </script>
