@@ -4,7 +4,6 @@ export default async ({ app }, inject) => {
   app.node = new NODE(app)
   await app.node.init()
   app.node.fill()
-  app.node.announce()
 
   app.node.started = true
   inject('node', app.node)
