@@ -42,6 +42,7 @@ export default {
   mounted: async function() {
     //Load database informations
     this.swarmDb = this.$swarm.get('')
+    console.log(this.swarmDb)
     /*this.$swarm.db.events.on('replicated', address => {
       this.swarmDb = this.$swarm.get('')
     })

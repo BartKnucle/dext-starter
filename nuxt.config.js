@@ -43,8 +43,7 @@ module.exports = {
     { src: '@/plugins/message', ssr: false },
     { src: '@/plugins/orbitdb', ssr: false },
     { src: '@/plugins/node', ssr: false },
-    { src: '@/plugins/swarm', ssr: false },
-    { src: '@/plugins/test' }
+    { src: '@/plugins/swarm', ssr: false }
   ],
 
   router: {

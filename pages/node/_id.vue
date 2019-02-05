@@ -49,7 +49,6 @@ export default {
     }
   },
   mounted: async function() {
-    window.LOG = 'Verbose'
     //If we get the local node
     if (!this.$route.params.id) {
       this.node = this.$node

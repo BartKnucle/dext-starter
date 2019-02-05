@@ -107,6 +107,8 @@ export default {
       title: 'Dext framework'
     }
   },
-  mounted: function() {}
+  mounted: function() {
+    window.LOG = 'Verbose'
+  }
 }
 </script>
