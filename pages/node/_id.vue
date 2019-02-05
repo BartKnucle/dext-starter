@@ -54,16 +54,17 @@ export default {
       this.node = this.$node
     } else {
       //Load the remote db
-      this.node = new NODE(this.$app, this.$route.params.id)
-      await this.node.init()
+      this.node = new NODE(this.$app)
+      await this.node.init(this.$route.params.id)
+
+      this.node.db.events.on('replicated', address => {
+        this.nodeDb = this.node.get('')
+      })
     }
 
     //Load database informations
     this.nodeDb = this.node.get('')
     /*
-    this.node.db.events.on('replicated', address => {
-      this.nodeDb = this.node.get('')
-    })
 
     this.node.db.events.on('write', address => {
       this.nodeDb = this.node.get('')
