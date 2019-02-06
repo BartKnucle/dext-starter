@@ -37,8 +37,10 @@ class OrbitDBAddress {
       throw new Error(`Not a valid OrbitDB address: ${address}`)
 
     address = address.toString().replace(/\\/g, '/');
-    const parts = address.split('/')
-      .filter((e, i) => !((i === 0 || i === 1) && address.indexOf('/orbit') === 0 && e === 'orbitdb'))
+    
+    const parts = address.toString()
+      .split('/')
+      .filter((e, i) => !((i === 0 || i === 1) && address.toString().indexOf('/orbit') === 0 && e === 'orbitdb'))
       .filter(e => e !== '' && e !== ' ')
 
     return new OrbitDBAddress(parts[0], parts.slice(1, parts.length).join('/'))
