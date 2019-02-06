@@ -19,11 +19,11 @@
             :color="getValueColor(item.alive)">
             <v-icon
               color="black">
-              {{ getTypeIcon(item.data.find(obj => obj.id == 'plateform.type') ? item.data.find(obj => obj.id == 'plateform.type').data : 'Unknown') }}
+              {{ getTypeIcon(item, 'plateform.type') }}
             </v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <nuxt-link :to="'/node/' + item.id">{{ item.id }}</nuxt-link>
+            <nuxt-link :to="'/node/' + item.id">{{ getName(item) }}</nuxt-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -43,17 +43,29 @@ export default {
     //Load database informations
     this.swarmDb = this.$swarm.get('')
 
+    this.$swarm.db.events.on('write', address => {
+      this.swarmDb = this.$swarm.get('')
+    })
+
     this.$swarm.db.events.on('replicated', address => {
       this.swarmDb = this.$swarm.get('')
     })
   },
   methods: {
-    getTypeIcon(type) {
-      switch (type) {
+    getTypeIcon(item, value) {
+      switch (this.getValue(item, value)) {
         case 'user':
           return 'perm_identity'
         case 'computer':
           return 'desktop_windows'
+      }
+    },
+    getName(item) {
+      let name = this.getValue(item, 'user.fullname')
+      if (name === 'Unknown') {
+        return item.id
+      } else {
+        return name
       }
     },
     getValueColor(alive) {
@@ -62,6 +74,11 @@ export default {
       } else {
         return 'red'
       }
+    },
+    getValue(item, value) {
+      return item.data.find(obj => obj.id == value)
+        ? item.data.find(obj => obj.id == value).data
+        : 'Unknown'
     }
   }
 }

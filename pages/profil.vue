@@ -122,7 +122,7 @@ export default {
       })
 
       await this.$node.add({
-        id: 'name',
+        id: 'user.fullname',
         data: this.firstName + ' ' + this.lastName
       })
     }
