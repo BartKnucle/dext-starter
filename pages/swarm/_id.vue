@@ -19,7 +19,7 @@
             :color="getValueColor(item.alive)">
             <v-icon
               color="black">
-              {{ getTypeIcon(item.type) }}
+              {{ getTypeIcon(item.data.find(obj => obj.id == 'plateform.type') ? item.data.find(obj => obj.id == 'plateform.type').data : 'Unknown') }}
             </v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
