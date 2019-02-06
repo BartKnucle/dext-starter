@@ -56,6 +56,7 @@ module.exports = {
   */
   modules: [
     '~/modules/logger',
+    '~/modules/webrtc',
     '~/modules/ipfs',
     '~/modules/message',
     '~/modules/orbitdb',

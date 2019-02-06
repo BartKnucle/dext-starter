@@ -42,14 +42,10 @@ export default {
   mounted: async function() {
     //Load database informations
     this.swarmDb = this.$swarm.get('')
-    console.log(this.swarmDb)
-    /*this.$swarm.db.events.on('replicated', address => {
+
+    this.$swarm.db.events.on('replicated', address => {
       this.swarmDb = this.$swarm.get('')
     })
-
-    this.$swarm.db.events.on('write', address => {
-      this.swarmDb = this.$swarm.get('')
-    })*/
   },
   methods: {
     getTypeIcon(type) {
