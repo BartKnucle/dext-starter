@@ -6,16 +6,6 @@
     <appNodeInfos
       :nodedb="nodeDb"
     />
-    <ul 
-      v-for="item in swarmPeers"
-      :key="item.id">
-      <li>
-        Ipfs id: {{ item.id }}
-      </li>
-      <li>
-        Address: {{ item.addrs }}
-      </li>
-    </ul>
   </v-layout>
 </template>
 <script>
@@ -27,9 +17,7 @@ export default {
   },
   data: () => {
     return {
-      //node: {},
-      nodeDb: [],
-      swarmPeers: []
+      nodeDb: []
     }
   },
   computed: {
@@ -56,19 +44,16 @@ export default {
       //Load the remote db
       this.node = new NODE(this.$app)
       await this.node.init(this.$route.params.id)
-
-      this.node.db.events.on('replicated', address => {
-        this.nodeDb = this.node.get('')
-      })
     }
-
-    //Load database informations
     this.nodeDb = this.node.get('')
-    /*
+
+    this.node.db.events.on('replicated', address => {
+      this.nodeDb = this.node.get('')
+    })
 
     this.node.db.events.on('write', address => {
       this.nodeDb = this.node.get('')
-    })*/
+    })
   }
 }
 </script>

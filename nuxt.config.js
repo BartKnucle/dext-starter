@@ -42,8 +42,8 @@ module.exports = {
     { src: '@/plugins/ipfs', ssr: false },
     { src: '@/plugins/message', ssr: false },
     { src: '@/plugins/orbitdb', ssr: false },
-    { src: '@/plugins/node', ssr: false },
-    { src: '@/plugins/swarm', ssr: false }
+    { src: '@/plugins/swarm', ssr: false },
+    { src: '@/plugins/node', ssr: false }
   ],
 
   router: {
@@ -60,9 +60,8 @@ module.exports = {
     '~/modules/ipfs',
     '~/modules/message',
     '~/modules/orbitdb',
-    '~/modules/node',
     '~/modules/swarm',
-    '~/modules/test'
+    '~/modules/node'
   ],
   /*
   

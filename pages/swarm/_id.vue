@@ -43,11 +43,11 @@ export default {
     //Load database informations
     this.swarmDb = this.$swarm.get('')
 
-    this.$swarm.db.events.on('write', address => {
+    this.$swarm.db.events.on('replicated', address => {
       this.swarmDb = this.$swarm.get('')
     })
 
-    this.$swarm.db.events.on('replicated', address => {
+    this.$swarm.db.events.on('write', address => {
       this.swarmDb = this.$swarm.get('')
     })
   },
@@ -61,11 +61,15 @@ export default {
       }
     },
     getName(item) {
-      let name = this.getValue(item, 'user.fullname')
-      if (name === 'Unknown') {
-        return item.id
+      if (this.getValue(item, 'plateform.type') === 'computer') {
+        return this.getValue(item, 'plateform.hostname')
       } else {
-        return name
+        let name = this.getValue(item, 'user.fullname')
+        if (name === 'Unknown') {
+          return item.id
+        } else {
+          return name
+        }
       }
     },
     getValueColor(alive) {
