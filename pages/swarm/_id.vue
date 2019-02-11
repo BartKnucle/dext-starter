@@ -76,7 +76,7 @@ export default {
       if (alive) {
         return 'green'
       } else {
-        return 'red'
+        return 'error'
       }
     },
     getValue(item, value) {

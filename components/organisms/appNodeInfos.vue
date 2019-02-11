@@ -12,7 +12,7 @@
       </v-flex>
       <v-flex
         xs6>
-        <appNodeInfos
+        <appNodeCard
           :nodedb="nodedb"
         />
       </v-flex>
@@ -20,12 +20,12 @@
   </v-container>
 </template>
 <script>
-import { default as appNodeChip } from '~/components/molecules/appNodeChip.vue'
-import { default as appNodeInfos } from '~/components/molecules/appNodeInfos.vue'
+import { default as appNodeChip } from './appNodeChip.vue'
+import { default as appNodeCard } from './appNodeCard.vue'
 export default {
   components: {
     appNodeChip: appNodeChip,
-    appNodeInfos: appNodeInfos
+    appNodeCard: appNodeCard
   },
   props: {
     nodedb: {

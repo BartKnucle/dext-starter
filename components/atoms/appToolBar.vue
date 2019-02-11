@@ -1,6 +1,8 @@
 <template>
-  <v-toolbar>
+  <v-toolbar
+    color="primary">
     <v-toolbar-title>{{ title }}</v-toolbar-title>
+    <slot/>
   </v-toolbar>
 </template>
 <script>

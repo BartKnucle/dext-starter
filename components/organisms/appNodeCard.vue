@@ -16,7 +16,7 @@
   </v-layout>
 </template>
 <script>
-import { default as appList } from '~/components/atoms/appList.vue'
+import { default as appList } from '~/components/molecules/appList.vue'
 import { default as appCard } from '~/components/atoms/appCard.vue'
 export default {
   components: {
