@@ -1,11 +1,19 @@
 <template>
   <v-list
     subheader>
-    <appToolBar
-      :title="title">
+    <appToolBar>
+      <v-toolbar-title>
+        {{ title }}
+      </v-toolbar-title>
       <v-spacer/>
       <appBtn
-        :title="'search'"/>
+        :icon="true"
+        @click.native="search = !search" >
+        <appIcon
+          :icon="'search'"/>
+      </appBtn>
+      <v-text-field
+        v-show="search"/>
     </appToolBar>
     <slot/>
   </v-list>  
@@ -13,10 +21,12 @@
 <script>
 import { default as appToolBar } from '~/components/atoms/appToolBar.vue'
 import { default as appBtn } from '~/components/atoms/appBtn.vue'
+import { default as appIcon } from '~/components/atoms/appIcon.vue'
 export default {
   components: {
     appToolBar: appToolBar,
-    appBtn: appBtn
+    appBtn: appBtn,
+    appIcon: appIcon
   },
   props: {
     title: {
@@ -26,7 +36,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      search: false
+    }
   },
   mounted() {},
   methods: {}

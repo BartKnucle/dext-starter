@@ -1,6 +1,8 @@
 <template>
-  <v-btn>
+  <v-btn
+    :icon="icon">
     {{ title }}
+    <slot/>
   </v-btn>
 </template>
 <script>
@@ -15,11 +17,6 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    },
-    iconName: {
-      type: String,
-      required: false,
-      default: ''
     }
   },
   data() {

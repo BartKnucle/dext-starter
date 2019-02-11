@@ -1,5 +1,6 @@
 <template>
   <v-icon>
+    {{ icon }}
     <slot/>
   </v-icon>
 </template>
