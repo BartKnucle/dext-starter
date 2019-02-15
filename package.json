@@ -13,7 +13,7 @@
   "scripts": {
     "dev-debug": "node --inspect node_modules/.bin/nuxt dev",
     "dev-debug-win": "node --inspect node_modules/nuxt/bin/nuxt dev",
-    "_dev-debug-win": "set LOG=debug && node --inspect node_modules/nuxt/bin/nuxt dev",
+    "_dev-debug-win": "set LOG=debug && node --inspect node_modules/nuxt/bin/nuxt dev --no-lock",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate --analyse",
