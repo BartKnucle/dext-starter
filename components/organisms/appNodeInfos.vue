@@ -5,10 +5,10 @@
       wrap>
       <v-flex
         xs6>
-        <appNodeChip
+        <!-- <appNodeChip
           :id="nodedb.find(obj => obj.id == 'name') ? nodedb.find(obj => obj.id == 'name').data : 'Unknown'"
           :type="nodedb.find(obj => obj.id == 'plateform.type') ? nodedb.find(obj => obj.id == 'plateform.type').data : ''"
-        />
+        /> -->
       </v-flex>
       <v-flex
         xs6>

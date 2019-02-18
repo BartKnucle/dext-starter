@@ -125,6 +125,8 @@ export default {
         id: 'user.fullname',
         data: this.firstName + ' ' + this.lastName
       })
+
+      this.$node.register()
     }
   }
 }

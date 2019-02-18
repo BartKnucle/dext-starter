@@ -15,7 +15,7 @@
           </v-icon>
         </v-list-tile-avatar>
       </td>
-      <td><nuxt-link :to="'/node/' + props.item.id">{{ getName(props.item) }}</nuxt-link></td>
+      <td><nuxt-link :to="'/node/' + props.item.id">{{ props.item.data.name }}</nuxt-link></td>
       <td>{{ props.item.id }}</td>
     </template>
   </v-data-table>
@@ -37,7 +37,7 @@ export default {
       ]
     }
   },
-  mounted: async function() {
+  created: function() {
     //Load database informations
     this.swarmDb = this.$swarm.get('')
 
@@ -78,6 +78,7 @@ export default {
       }
     },
     getValue(item, value) {
+      console.log(item)
       //return item.data.find(obj => obj.id == value).data
     }
   }
