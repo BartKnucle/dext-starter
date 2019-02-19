@@ -16,12 +16,9 @@
   </v-layout>
 </template>
 <script>
-import { default as appNodeInfos } from '~/components/organisms/appNodeInfos.vue'
 import { NODE } from '~/lib/node.js'
 export default {
-  components: {
-    appNodeInfos: appNodeInfos
-  },
+  components: {},
   data: () => {
     return {
       nodeDb: [],
