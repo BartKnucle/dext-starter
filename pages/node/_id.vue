@@ -3,9 +3,16 @@
     column
     justify-center
     align-center>
-    <appNodeInfos
-      :nodedb="nodeDb"
-    />
+    <v-data-table
+      :items="nodeDb"
+      :headers="headers">
+      <template 
+        slot="items" 
+        slot-scope="props">
+        <td>{{ props.item.id }}</td>
+        <td>{{ props.item.data }}</td>
+      </template>
+    </v-data-table>
   </v-layout>
 </template>
 <script>
@@ -17,7 +24,8 @@ export default {
   },
   data: () => {
     return {
-      nodeDb: []
+      nodeDb: [],
+      headers: [{ text: 'Id', value: 'id' }, { text: 'Data', value: 'data' }]
     }
   },
   computed: {

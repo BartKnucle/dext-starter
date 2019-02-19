@@ -1,20 +1,15 @@
 <template>
   <v-layout>
-    <v-card>
-      <v-toolbar>
-        <v-toolbar-title>Swarm connections</v-toolbar-title>
-        <v-spacer/>
-        <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn 
-            @click="connectDialog = true">
-            <v-icon>add</v-icon>
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      <v-card-text>
-        {{ swarmPeers }}
-      </v-card-text>
-    </v-card>
+    <v-data-table
+      :items="swarmPeers"
+      :headers="headers">
+      <template 
+        slot="items" 
+        slot-scope="props">
+        <td>{{ props.item.id }}</td>
+        <td>{{ props.item.addrs }}</td>
+      </template>
+    </v-data-table>
     <v-dialog
       v-model="connectDialog">
       <v-card>
@@ -41,7 +36,14 @@ export default {
   data: () => {
     return {
       connectDialog: false,
-      swarmPeers: []
+      swarmPeers: [],
+      headers: [
+        {
+          text: 'Id',
+          value: 'id'
+        },
+        { text: 'Addresses', value: 'addrs' }
+      ]
     }
   },
   mounted: async function() {
