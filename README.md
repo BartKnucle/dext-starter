@@ -1,5 +1,15 @@
 # dext-starter
 
+Windows (developpment)
+- Install Nodejs
+- npm install --global windows-build-tools
+- Install git
+- Install python with path environnement variable
+- Install visual studio code
+- Clone the repository
+
+
+
 > My badass Nuxt.js project
 
 ## Build Setup
