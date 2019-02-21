@@ -3,14 +3,48 @@
     column
     justify-center
     align-center>
+    ID: {{ $store.state.node.id }}
+    <br>
+    TYPE: {{ $store.state.node.type }}
+    <br>
+    ONLINE: {{ $store.state.node.online }}
+    <br>
+    - IPFS CONNECTIONS:
+    <ul>
+      <li
+        v-for="connection in $store.state.node.connections"
+        :key="connection">
+        {{ connection }}
+      </li>
+    </ul>
+    - DATABASES:
+    <ul>
+      <li
+        v-for="database in $store.state.node.databases"
+        :key="database.id">
+        DB ID: {{ database.id }}
+        <br>
+        DB OPEN: {{ database.open }}
+      </li>
+    </ul>
+    - PEERS:
     <v-data-table
-      :items="nodeDb"
-      :headers="headers">
+      :items="peers">
       <template 
-        slot="items" 
+        slot="items"
         slot-scope="props">
-        <td>{{ props.item.id }}</td>
-        <td>{{ props.item.data }}</td>
+        <td> {{ props.item.id }} </td>
+        <td> {{ props.item.addrs }} </td>
+      </template>
+    </v-data-table>
+    - MODULES:
+    <v-data-table
+      :items="modules">
+      <template 
+        slot="items"
+        slot-scope="props">
+        <td> {{ props.item.name }} </td>
+        <td> {{ props.item.started }} </td>
       </template>
     </v-data-table>
   </v-layout>
@@ -18,7 +52,34 @@
 <script>
 import { NODE } from '~/lib/node.js'
 export default {
-  components: {},
+  data: () => {
+    return {
+      id: '',
+      type: '',
+      modules: [],
+      peers: []
+    }
+  },
+  created: async function() {
+    this.db = await this.$node.getDb() //'QmSnervNt2mSsP2VtzRS4oZjskJ6yUMnePjrW1Nytzru2g'
+
+    this.getInfos()
+
+    this.db.events.on('replicated', address => {
+      this.getInfos()
+    })
+
+    this.db.events.on('write', address => {
+      this.getInfos()
+    })
+  },
+  methods: {
+    getInfos() {
+      this.modules = this.db.get('modules')
+      this.peers = this.db.get('peers')
+    }
+  }
+  /*  components: {},
   data: () => {
     return {
       nodeDb: [],
@@ -59,6 +120,6 @@ export default {
     this.node.db.events.on('write', address => {
       this.nodeDb = this.node.get('')
     })
-  }
+  } */
 }
 </script>

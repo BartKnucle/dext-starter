@@ -1,5 +1,15 @@
 <template>
-  <v-data-table
+  <v-layout>
+    <v-data-table
+      :items="$store.state.swarm.nodes">
+      <template 
+        slot="items"
+        slot-scope="props">
+        <td> {{ props.item }} </td>
+      </template>
+    </v-data-table>
+  </v-layout>
+  <!-- <v-data-table
     :items="swarmDb"
     :headers="headers"
   >
@@ -18,12 +28,12 @@
       <td><nuxt-link :to="'/node/' + props.item.id">{{ props.item.data.name }}</nuxt-link></td>
       <td>{{ props.item.id }}</td>
     </template>
-  </v-data-table>
+  </v-data-table> -->
 </template>
 <script>
 import { perc2color } from '~/utils/color.js'
-import { SWARM } from '~/lib/swarm.js'
 export default {
+  /*
   data: () => {
     return {
       swarmDb: [],
@@ -81,7 +91,7 @@ export default {
       console.log(item)
       //return item.data.find(obj => obj.id == value).data
     }
-  }
+  } */
 }
 </script>
 <style lang="stylus" scoped>

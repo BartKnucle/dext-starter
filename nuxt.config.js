@@ -38,11 +38,11 @@ module.exports = {
   */
   plugins: [
     { src: '@/plugins/vuetify' },
-    { src: '@/plugins/logger', ssr: false },
+    /* { src: '@/plugins/logger', ssr: false },
     { src: '@/plugins/ipfs', ssr: false },
     { src: '@/plugins/message', ssr: false },
     { src: '@/plugins/orbitdb', ssr: false },
-    { src: '@/plugins/swarm', ssr: false },
+    { src: '@/plugins/swarm', ssr: false }, */
     { src: '@/plugins/node', ssr: false }
   ],
 
@@ -55,13 +55,15 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/logger',
     '~/modules/signaling',
+    '~/modules/node'
+    /* '~/modules/logger',
+    '~/modules/signaling' ,
     '~/modules/ipfs',
     '~/modules/message',
     '~/modules/orbitdb',
     '~/modules/swarm',
-    '~/modules/node'
+    '~/modules/node'*/
   ],
   /*
   
