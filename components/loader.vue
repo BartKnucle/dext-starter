@@ -45,17 +45,17 @@ export default {
       steps: [
         {
           icon: 'list_alt',
-          name: 'Loading database',
+          name: 'Logger',
           done: false
         },
         {
           icon: 'device_hub',
-          name: 'Connecting node',
+          name: 'Ipfs',
           done: false
         },
         {
           icon: 'import_export',
-          name: 'Loading data',
+          name: 'Orbit-Db',
           done: false
         }
       ],
@@ -63,12 +63,11 @@ export default {
     }
   },
 
-  mounted() {
-    this.dialog = true
-    this.steps[0].done = this.$app.ipfs.started
-    this.steps[1].done = this.$app.db.started
-    this.steps[2].done = this.$app.node.started
-    //this.dialog = !this.$app.node.started
+  created() {
+    this.dialog = false
+    /*this.steps[0].done = this.$node.logger.started
+    this.steps[1].done = this.$node.ipfs.started
+    this.steps[2].done = this.$node.orbitdb.started*/
   },
   methods: {
     getValueColor(done) {

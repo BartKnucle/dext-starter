@@ -9,31 +9,22 @@
     <br>
     ONLINE: {{ $store.state.node.online }}
     <br>
-    - IPFS CONNECTIONS:
-    <ul>
-      <li
-        v-for="connection in $store.state.node.connections"
-        :key="connection">
-        {{ connection }}
-      </li>
-    </ul>
     - DATABASES:
-    <ul>
-      <li
-        v-for="database in $store.state.node.databases"
-        :key="database.id">
-        DB ID: {{ database.id }}
-        <br>
-        DB OPEN: {{ database.open }}
-      </li>
-    </ul>
+    <v-data-table
+      :items="databases">
+      <template 
+        slot="items"
+        slot-scope="props">
+        <td> {{ props.item }} </td>
+      </template>
+    </v-data-table>
     - PEERS:
     <v-data-table
       :items="peers">
       <template 
         slot="items"
         slot-scope="props">
-        <td> {{ props.item.id }} </td>
+        <td>{{ props.item.id }}</td>
         <td> {{ props.item.addrs }} </td>
       </template>
     </v-data-table>
@@ -56,28 +47,25 @@ export default {
     return {
       id: '',
       type: '',
-      modules: [],
-      peers: []
+      databases: [],
+      peers: [],
+      modules: []
     }
   },
-  created: async function() {
-    this.db = await this.$node.getDb() //'QmSnervNt2mSsP2VtzRS4oZjskJ6yUMnePjrW1Nytzru2g'
-
-    this.getInfos()
-
-    this.db.events.on('replicated', address => {
-      this.getInfos()
-    })
-
-    this.db.events.on('write', address => {
-      this.getInfos()
-    })
+  watch: {
+    data() {
+      console.log(this.data)
+    }
+  },
+  mounted: async function() {
+    var data = await this.$node.getData() //'QmSnervNt2mSsP2VtzRS4oZjskJ6yUMnePjrW1Nytzru2g' this.$route.params.id
+    this.modules = data.modules
+    this.peers = data.peers
+    this.databases = data.databases
+    console.log(this.modules)
   },
   methods: {
-    getInfos() {
-      this.modules = this.db.get('modules')
-      this.peers = this.db.get('peers')
-    }
+    getInfos() {}
   }
   /*  components: {},
   data: () => {
