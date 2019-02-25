@@ -35,12 +35,11 @@
         slot="items"
         slot-scope="props">
         <td> {{ props.item.name }} </td>
-        <td> {{ props.item.started }} 
+        <td>
           <v-switch            
             :input-value="props.item.started"
-            @click.stop="switchModule(props.item.name, !props.item.started)">
-            Started
-          </v-switch>
+            :disabled="!props.item.isStoppable"
+            @click.stop="switchModule(props.item.name, !props.item.started)"/>
         </td>
       </template>
     </v-data-table>
