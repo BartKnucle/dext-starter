@@ -60,6 +60,10 @@ export const actions = {
       id: db.id,
       databases: db.database.get('databases')
     })
+  },
+  async switchModule({}, payload) {
+    console.log(payload)
+    this.$node.switchModule(payload.id, payload.name, payload.value)
   }
 }
 
@@ -69,7 +73,9 @@ export const mutations = {
     if (!node) {
       state.push({
         id: db.id,
-        peers: []
+        peers: [],
+        modules: [],
+        databases: []
       })
     }
   },

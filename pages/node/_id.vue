@@ -35,7 +35,13 @@
         slot="items"
         slot-scope="props">
         <td> {{ props.item.name }} </td>
-        <td> {{ props.item.started }} </td>
+        <td> {{ props.item.started }} 
+          <v-switch            
+            :input-value="props.item.started"
+            @click.stop="switchModule(props.item.name, !props.item.started)">
+            Started
+          </v-switch>
+        </td>
       </template>
     </v-data-table>
   </v-layout>
@@ -45,13 +51,7 @@ import { NODE } from '~/lib/node.js'
 export default {
   data: () => {
     return {
-      id: '',
-      peers: []
-    }
-  },
-  watch: {
-    data() {
-      console.log(this.data)
+      id: ''
     }
   },
   mounted: async function() {
@@ -62,6 +62,23 @@ export default {
     }
 
     this.$store.dispatch('nodes/getNode', this.id)
+  },
+  methods: {
+    //Turn the module on/off
+    switchModule(name, value) {
+      //If we are on the local module
+      if (this.id === this.$node.db.database.address.root) {
+        let payload = {
+          id: this.id,
+          name: name,
+          value: value
+        }
+        this.$store.dispatch('nodes/switchModule', payload)
+      } else {
+        //To be done
+        console.log('update remote module')
+      }
+    }
   }
 }
 </script>
