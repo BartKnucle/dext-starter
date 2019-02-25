@@ -3,15 +3,15 @@
     column
     justify-center
     align-center>
-    ID: {{ $store.state.node.id }}
+    ID: {{ $store.getters['nodes/id'](id) }}
     <br>
-    TYPE: {{ $store.state.node.type }}
+    TYPE:
     <br>
-    ONLINE: {{ $store.state.node.online }}
+    ONLINE:
     <br>
     - DATABASES:
     <v-data-table
-      :items="databases">
+      :items="$store.getters['nodes/databasesByID'](id)">
       <template 
         slot="items"
         slot-scope="props">
@@ -20,7 +20,7 @@
     </v-data-table>
     - PEERS:
     <v-data-table
-      :items="peers">
+      :items="$store.getters['nodes/peersByID'](id)">
       <template 
         slot="items"
         slot-scope="props">
@@ -30,7 +30,7 @@
     </v-data-table>
     - MODULES:
     <v-data-table
-      :items="modules">
+      :items="$store.getters['nodes/modulesByID'](id)">
       <template 
         slot="items"
         slot-scope="props">
@@ -46,10 +46,7 @@ export default {
   data: () => {
     return {
       id: '',
-      type: '',
-      databases: [],
-      peers: [],
-      modules: []
+      peers: []
     }
   },
   watch: {
@@ -58,56 +55,13 @@ export default {
     }
   },
   mounted: async function() {
-    var data = await this.$node.getData() //'QmSnervNt2mSsP2VtzRS4oZjskJ6yUMnePjrW1Nytzru2g' this.$route.params.id
-    this.modules = data.modules
-    this.peers = data.peers
-    this.databases = data.databases
-    console.log(this.modules)
-  },
-  methods: {
-    getInfos() {}
-  }
-  /*  components: {},
-  data: () => {
-    return {
-      nodeDb: [],
-      headers: [{ text: 'Id', value: 'id' }, { text: 'Data', value: 'data' }]
-    }
-  },
-  computed: {
-    iconSize() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return '70px'
-        case 'sm':
-          return '80px'
-        case 'md':
-          return '90px'
-        case 'lg':
-          return '100px'
-        case 'xl':
-          return '100px'
-      }
-    }
-  },
-  mounted: async function() {
-    //If we get the local node
-    if (!this.$route.params.id) {
-      this.node = this.$node
+    if (this.$route.params.id) {
+      this.id = this.$route.params.id
     } else {
-      //Load the remote db
-      this.node = new NODE(this.$app)
-      await this.node.init(this.$route.params.id)
+      this.id = this.$node.db.database.address.root
     }
-    this.nodeDb = this.node.get('')
 
-    this.node.db.events.on('replicated', address => {
-      this.nodeDb = this.node.get('')
-    })
-
-    this.node.db.events.on('write', address => {
-      this.nodeDb = this.node.get('')
-    })
-  } */
+    this.$store.dispatch('nodes/getNode', this.id)
+  }
 }
 </script>
