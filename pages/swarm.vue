@@ -7,6 +7,7 @@
         slot="items"
         slot-scope="props">
         <td> {{ props.item.id }} </td>
+        <td v-if="props.item.updated"> {{ new Date(props.item.updated).toString() }} </td>
       </template>
     </v-data-table>
   </v-layout>
