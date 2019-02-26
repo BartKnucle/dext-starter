@@ -1,8 +1,8 @@
 <template>
   <v-layout>
-    {{ $store.state.swarm.items }}
+    {{ $store.state.swarm.nodes }}
     <v-data-table
-      :items="$store.state.swarm">
+      :items="$store.state.swarm.nodes">
       <template 
         slot="items"
         slot-scope="props">
