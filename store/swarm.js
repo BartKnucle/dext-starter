@@ -4,16 +4,19 @@ export const state = () => ({
 })
 
 export const actions = {
-  async getSwarm({ commit }) {
-    //Get the Swarm database
-    var db = await this.$node.swarm.db
-    //Fill the store with the Swarm database
-    commit('setSwarm', db)
-    //Subscribe to the changes to the swarm database
-    db.events.subscribe(() => {
-      //update the data
+  async getSwarm({ state, commit }) {
+    //If store has not been filled
+    if (state.nodes.length === 0) {
+      //Get the Swarm database
+      var db = await this.$node.swarm.db
+      //Fill the store with the Swarm database
       commit('setSwarm', db)
-    })
+      //Subscribe to the changes to the swarm database
+      db.events.subscribe(() => {
+        //update the data
+        commit('setSwarm', db)
+      })
+    }
   }
 }
 
