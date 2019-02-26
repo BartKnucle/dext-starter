@@ -1,15 +1,17 @@
 <template>
   <v-layout>
+    {{ $store.state.swarm.items }}
     <v-data-table
-      :items="$store.state.swarm.nodes">
+      :items="$store.state.swarm">
       <template 
         slot="items"
         slot-scope="props">
-        <td> {{ props.item }} </td>
+        <td> {{ props.item.id }} </td>
       </template>
     </v-data-table>
   </v-layout>
-  <!-- <v-data-table
+  <!-- 
+   <v-data-table
     :items="swarmDb"
     :headers="headers"
   >
@@ -33,6 +35,9 @@
 <script>
 import { perc2color } from '~/utils/color.js'
 export default {
+  created: function() {
+    this.$store.dispatch('swarm/getSwarm')
+  }
   /*
   data: () => {
     return {

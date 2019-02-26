@@ -1,5 +1,7 @@
 <template>
   <v-layout>
+    <v-btn
+      @click="connectDialog = !connectDialog">Connect</v-btn>
     <v-data-table
       :items="swarmPeers"
       :headers="headers">
@@ -17,12 +19,13 @@
           Connect to remote ipfs node
         </v-card-title>
         <v-text-field
+          v-model="remoteNode"
           label="Remote address"
           required
         />
         <v-card-actions>
           <v-btn
-            @click="connectDialog = false">
+            @click="connect()">
             Connect
           </v-btn>
         </v-card-actions>
@@ -36,6 +39,7 @@ export default {
   data: () => {
     return {
       connectDialog: false,
+      remoteNode: '',
       swarmPeers: [],
       headers: [
         {
@@ -47,7 +51,14 @@ export default {
     }
   },
   mounted: async function() {
-    this.swarmPeers = this.$app.ipfs.getSwarmPeers()
+    this.swarmPeers = this.$node.ipfs.getSwarmPeers()
+  },
+  methods: {
+    //Connect to a remote node
+    connect() {
+      this.$node.ipfs.connect(this.remoteNode)
+      this.connectDialog = !this.connectDialog
+    }
   }
 }
 </script>
