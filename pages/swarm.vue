@@ -1,7 +1,8 @@
 <template>
   <v-layout>
     <v-data-table
-      :items="$store.state.swarm.nodes">
+      :items="$store.state.swarm.nodes"
+      :headers="[{ text: 'ID', value: 'id' }]">>
       <template 
         slot="items"
         slot-scope="props">

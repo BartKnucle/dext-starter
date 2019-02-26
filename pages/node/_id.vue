@@ -11,16 +11,18 @@
     <br>
     - DATABASES:
     <v-data-table
-      :items="$store.getters['nodes/databasesByID'](id)">
+      :items="$store.getters['nodes/databasesByID'](id)"
+      :headers="[{ text: 'ID', value: 'id' }]">
       <template 
         slot="items"
         slot-scope="props">
-        <td> {{ props.item }} </td>
+        <td> {{ props.item.id }} </td>
       </template>
     </v-data-table>
     - PEERS:
     <v-data-table
-      :items="$store.getters['nodes/peersByID'](id)">
+      :items="$store.getters['nodes/peersByID'](id)"
+      :headers="[{ text: 'ID', value: 'id' }, { text: 'Addresses', value: 'addrs' }]">
       <template 
         slot="items"
         slot-scope="props">
@@ -30,7 +32,8 @@
     </v-data-table>
     - MODULES:
     <v-data-table
-      :items="$store.getters['nodes/modulesByID'](id)">
+      :items="$store.getters['nodes/modulesByID'](id)"
+      :headers="[{ text: 'Name', value: 'name' }, { text: 'Started', value: 'started' }]">>
       <template 
         slot="items"
         slot-scope="props">
