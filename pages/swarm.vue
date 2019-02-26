@@ -2,11 +2,12 @@
   <v-layout>
     <v-data-table
       :items="$store.state.swarm.nodes"
-      :headers="[{ text: 'ID', value: 'id' }]">>
+      :headers="[{ text: 'ID', value: 'id' }, { text: 'DB ID', value: 'dbId' }, { text: 'Updated', value: 'updated' }]">>
       <template 
         slot="items"
         slot-scope="props">
         <td> {{ props.item.id }} </td>
+        <td><nuxt-link :to="'/node/' + props.item.dbId">{{ props.item.dbId }}</nuxt-link></td>
         <td v-if="props.item.updated"> {{ new Date(props.item.updated).toString() }} </td>
       </template>
     </v-data-table>

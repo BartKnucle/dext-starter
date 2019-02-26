@@ -3,19 +3,24 @@
     column
     justify-center
     align-center>
-    ID: {{ $store.getters['nodes/id'](id) }}
-    <br>
-    TYPE:
-    <br>
-    ONLINE:
-    <br>
+    <table>
+      <tr v-if="$store.getters['nodes/ipfsId'](id)">
+        <td>Ipfs ID:</td>
+        <td>{{ $store.getters['nodes/ipfsId'](id).id }}</td>
+      </tr>
+      <tr>
+        <td>DB ID:</td>
+        <td>{{ $store.getters['nodes/id'](id) }}</td>
+      </tr>
+    </table>
     - DATABASES:
     <v-data-table
       :items="$store.getters['nodes/databasesByID'](id)"
-      :headers="[{ text: 'ID', value: 'id' }]">
+      :headers="[{ text: 'Name', value: 'name' }, { text: 'ID', value: 'id' }]">
       <template 
         slot="items"
         slot-scope="props">
+        <td> {{ props.item.name }} </td>
         <td> {{ props.item.id }} </td>
       </template>
     </v-data-table>
