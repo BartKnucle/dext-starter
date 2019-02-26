@@ -1,6 +1,5 @@
 <template>
   <v-layout>
-    {{ $store.state.swarm.nodes }}
     <v-data-table
       :items="$store.state.swarm.nodes">
       <template 
