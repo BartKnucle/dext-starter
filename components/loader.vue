@@ -1,10 +1,9 @@
-</<template>
+<template>
   <v-dialog
     v-model="dialog"
     persistent
-    width="300"
-  >
-     <v-list subheader>
+    width="300">
+    <v-list subheader>
       <v-subheader>Loading</v-subheader>
       <v-list-tile
         v-for="item in steps"
@@ -32,8 +31,7 @@
         <v-progress-linear
           indeterminate
           color="white"
-          class="mb-0"
-        ></v-progress-linear>
+          class="mb-0"/>
       </v-card-text>
     </v-card>
   </v-dialog>  

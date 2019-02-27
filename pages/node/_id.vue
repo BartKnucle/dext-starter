@@ -16,12 +16,24 @@
     - DATABASES:
     <v-data-table
       :items="$store.getters['nodes/databasesByID'](id)"
-      :headers="[{ text: 'Name', value: 'name' }, { text: 'ID', value: 'id' }]">
+      :headers="[{ text: 'Name', value: 'name' }, { text: 'ID', value: 'id' }, { text: 'Open', value: 'opened' }]">
       <template 
         slot="items"
         slot-scope="props">
         <td> {{ props.item.name }} </td>
         <td> {{ props.item.id }} </td>
+        <td>
+          <v-switch            
+            :input-value="props.item.open"
+            @click.stop="switchDbOpened(props.item.id, props.item.open)"/>
+        </td>
+        <td>
+          <v-btn
+            icon
+            @click.stop="deleteDb(props.item.id)">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </td>
       </template>
     </v-data-table>
     - PEERS:
@@ -85,6 +97,17 @@ export default {
         //To be done
         console.log('update remote module')
       }
+    },
+    switchDbOpened(id, open) {
+      //If the database is open we close it else we load it
+      if (open) {
+        this.$node.orbitdb.close(id)
+      } else {
+        this.$node.orbitdb.load(id)
+      }
+    },
+    deleteDb(id) {
+      this.$node.orbitdb.delete(id)
     }
   }
 }

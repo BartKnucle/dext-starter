@@ -9,6 +9,13 @@
         <td> {{ props.item.id }} </td>
         <td><nuxt-link :to="'/node/' + props.item.dbId">{{ props.item.dbId }}</nuxt-link></td>
         <td v-if="props.item.updated"> {{ new Date(props.item.updated).toString() }} </td>
+        <td>
+          <v-btn
+            icon
+            @click.stop="deleteNode(props.item.id)">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </td>
       </template>
     </v-data-table>
   </v-layout>
@@ -39,6 +46,11 @@ import { perc2color } from '~/utils/color.js'
 export default {
   created: function() {
     this.$store.dispatch('swarm/getSwarm')
+  },
+  methods: {
+    deleteNode(id) {
+      this.$node.swarm.delete(id)
+    }
   }
   /*
   data: () => {

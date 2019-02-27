@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <loader/>
+    <alert/>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -87,9 +88,11 @@
 </template>
 <script>
 import loader from '../components/loader.vue'
+import alert from '../components/alert.vue'
 export default {
   components: {
-    loader
+    loader,
+    alert
   },
   data() {
     return {
