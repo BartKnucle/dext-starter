@@ -101,6 +101,7 @@ export default {
       fixed: false,
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
+        { icon: 'face', title: 'Setup', to: '/setup' },
         { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'group', title: 'Ipfs', to: '/ipfs' },
         { icon: 'help', title: 'OrbitDb', to: '/orbitdb' },
