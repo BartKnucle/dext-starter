@@ -1,4 +1,6 @@
 <template>
+    Construct  a QR code with a callback adresse with a random id.
+    The user who add the device will sign is response with is public key to certify
   <v-stepper v-model="e1">
     <v-stepper-header>
       <v-stepper-step
