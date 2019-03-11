@@ -12,6 +12,8 @@
         <td>{{ props.item.addrs }}</td>
       </template>
     </v-data-table>
+    <v-text-field
+      label="Ipfs private key"/>
     <v-dialog
       v-model="connectDialog">
       <v-card>

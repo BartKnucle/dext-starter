@@ -12,6 +12,10 @@
         <td>DB ID:</td>
         <td>{{ $store.getters['nodes/id'](id) }}</td>
       </tr>
+      <tr>
+        <td>MESSAGES DB ID:</td>
+        <td>{{ $store.getters['nodes/messagesDbId'](id) }}</td>
+      </tr>
     </table>
     - DATABASES:
     <v-data-table

@@ -19,6 +19,12 @@ export const getters = {
       return node.ipfsId
     }
   },
+  messagesDbId: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node) {
+      return node.messagesDbId
+    }
+  },
   databasesByID: state => id => {
     let node = state.find(node => node.id === id)
     if (node) {
@@ -59,6 +65,10 @@ export const actions = {
   },
   updateNode({ commit }, db) {
     commit('setIpfsId', { id: db.id, ipfsId: db.database.get('ipfsId') })
+    commit('setMessagesDbId', {
+      id: db.id,
+      messagesDbId: db.database.get('messagesDbId')
+    })
     commit('setModules', { id: db.id, modules: db.database.get('modules') })
     commit('setPeers', { id: db.id, peers: db.database.get('peers') })
     commit('setDatabases', {
@@ -78,6 +88,7 @@ export const mutations = {
     if (!node) {
       state.push({
         id: db.id,
+        messagesDbId: '',
         peers: [],
         modules: [],
         databases: []
@@ -87,6 +98,10 @@ export const mutations = {
   setIpfsId(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.ipfsId = payload.ipfsId
+  },
+  setMessagesDbId(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.messagesDbId = payload.messagesDbId
   },
   setModules(state, payload) {
     var node = state.find(node => node.id === payload.id)
