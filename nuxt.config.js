@@ -48,13 +48,14 @@ module.exports = {
 
   router: {
     //middleware: ['database']
-    //middleware: ['_test']
+    middleware: ['setup']
   },
-  //serverMiddleware: ['~/middleware/_test-server'],
+  serverMiddleware: ['~/api/index.js'],
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
     '~/modules/signaling',
     '~/modules/node'
     /* '~/modules/logger',

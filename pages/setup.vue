@@ -1,7 +1,7 @@
 <template>
-    Construct  a QR code with a callback adresse with a random id.
-    The user who add the device will sign is response with is public key to certify
   <v-stepper v-model="e1">
+    <!-- Construct  a QR code with a callback adresse with a random id.
+    The user who add the device will sign is response with is public key to certify -->
     <v-stepper-header>
       <v-stepper-step
         :complete="e1 > 1"
@@ -34,8 +34,17 @@
           </v-tab-item>
           <v-tab-item>
             Create a new organisation
+            {{ $store.state.setup.serverSetup }}
+            {{ $store.state.setup.serverKey }}
+            {{ $store.state.setup.browserSetup }}
+            {{ $store.state.setup.browserKey }}
             <v-text-field
               label="Organisation name"/>
+            <v-btn
+              color="primary"
+              @click="newOrg()">
+              Create
+            </v-btn>
           </v-tab-item>
         </v-tabs>
         <v-btn
@@ -74,6 +83,18 @@ export default {
   data() {
     return {
       e1: 0
+    }
+  },
+  mounted: async function() {
+    var key = await this.$axios.$get('http://localhost:3000/api/getkey')
+    console.log(key)
+    this.$store.dispatch('setup/setServerSetup', key)
+    this.$store.dispatch('setup/setBrowserSetup')
+  },
+  methods: {
+    async newOrg() {
+      await this.$axios.$get('http://localhost:3000/api/setkey')
+      this.$setup.createKey()
     }
   }
 }
