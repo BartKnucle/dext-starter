@@ -12,10 +12,6 @@
         <td>DB ID:</td>
         <td>{{ $store.getters['nodes/id'](id) }}</td>
       </tr>
-      <tr>
-        <td>MESSAGES DB ID:</td>
-        <td>{{ $store.getters['nodes/messagesDbId'](id) }}</td>
-      </tr>
     </table>
     - DATABASES:
     <v-data-table
@@ -54,17 +50,28 @@
     - MODULES:
     <v-data-table
       :items="$store.getters['nodes/modulesByID'](id)"
-      :headers="[{ text: 'Name', value: 'name' }, { text: 'Started', value: 'started' }]">>
+      :headers="[{ text: 'Name', value: 'name' }, { text: 'Type', value: 'type' }, { text: 'Started', value: 'started' }]">>
       <template 
         slot="items"
         slot-scope="props">
         <td> {{ props.item.name }} </td>
+        <td> {{ props.item.type }} </td>
         <td>
           <v-switch            
             :input-value="props.item.started"
             :disabled="!props.item.isStoppable"
             @click.stop="switchModule(props.item.name, !props.item.started)"/>
         </td>
+      </template>
+    </v-data-table>
+    - MESSAGES: {{ $store.getters['nodes/messagesDbId'](id) }}
+    <v-data-table
+      :items="$store.getters['nodes/messagesByID'](id)"
+      :headers="[{ text: 'From', value: 'from' }]">>
+      <template 
+        slot="items"
+        slot-scope="props">
+        <td> {{ props.item.from }} </td>
       </template>
     </v-data-table>
   </v-layout>

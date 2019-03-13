@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+    Private Key: {{ $node.ipfs.privateKey }}
     <v-btn
       @click="connectDialog = !connectDialog">Connect</v-btn>
     <v-data-table

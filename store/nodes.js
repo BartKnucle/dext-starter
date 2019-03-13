@@ -42,13 +42,19 @@ export const getters = {
     if (node) {
       return node.peers
     }
+  },
+  messagesByID: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node) {
+      return node.messages
+    }
   }
 }
 
 export const actions = {
   async getNode({ state, commit, dispatch }, id) {
     //Check it the node exist in the store
-    let node = state.find(node => node.id === id)
+    var node = state.find(node => node.id === id)
     if (!node) {
       //Get the node database
       var db = await this.$node.getDb(id)
@@ -75,23 +81,29 @@ export const actions = {
       id: db.id,
       databases: db.database.get('databases')
     })
+    commit('setMessages', {
+      id: db.id,
+      messages: db.database.get('messages')
+    })
   },
   async switchModule({}, payload) {
-    console.log(payload)
     this.$node.switchModule(payload.id, payload.name, payload.value)
   }
 }
 
 export const mutations = {
+  //Set the initial node state
   setNode(state, db) {
     let node = state.find(node => node.id === db.id)
     if (!node) {
       state.push({
         id: db.id,
+        ipfsId: '',
         messagesDbId: '',
         peers: [],
         modules: [],
-        databases: []
+        databases: [],
+        messages: []
       })
     }
   },
@@ -114,5 +126,9 @@ export const mutations = {
   setDatabases(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.databases = payload.databases
+  },
+  setMessages(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.messages = payload.messages
   }
 }
