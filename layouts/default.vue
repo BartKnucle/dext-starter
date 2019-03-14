@@ -38,8 +38,16 @@
       <v-text-field
         placeholder="Search"/>
       <v-btn
+        icon
         @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>notifications</v-icon>
+        <v-badge
+          left
+          overlap>
+          <span slot="badge">6</span>
+          <v-icon>
+            notifications
+          </v-icon>
+        </v-badge>
       </v-btn>
     </v-toolbar>
     <v-content>
