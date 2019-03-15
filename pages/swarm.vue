@@ -6,8 +6,8 @@
       <template 
         slot="items"
         slot-scope="props">
-        <td> {{ props.item.id }} </td>
-        <td><nuxt-link :to="'/settings/' + props.item.dbId">{{ props.item.dbId }}</nuxt-link></td>
+        <td><nuxt-link :to="'/settings/' + props.item.id">{{ props.item.id }}</nuxt-link></td>
+        <td> {{ props.item.dbId }} </td>
         <td> {{ props.item.messagesDbId }} </td>
         <td>
           <v-btn

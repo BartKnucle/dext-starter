@@ -3,14 +3,15 @@
     column
     justify-center
     align-center>
+    {{ $store.state.node }}
     <table>
-      <tr v-if="$store.getters['nodes/ipfsId'](id)">
-        <td>Ipfs ID:</td>
-        <td>{{ $store.getters['nodes/ipfsId'](id).id }}</td>
+      <tr v-if="$store.getters['nodes/id'](id)">
+        <td>ID:</td>
+        <td>{{ $store.getters['nodes/id'](id) }}</td>
       </tr>
       <tr>
         <td>DB ID:</td>
-        <td>{{ $store.getters['nodes/id'](id) }}</td>
+        <td>{{ $store.getters['nodes/dbId'](id) }}</td>
       </tr>
     </table>
     - DATABASES:
@@ -88,7 +89,7 @@ export default {
     if (this.$route.params.id) {
       this.id = this.$route.params.id
     } else {
-      this.id = this.$node.db.database.address.root
+      this.id = this.$node.ipfs.id.id
     }
 
     this.$store.dispatch('nodes/getNode', this.id)

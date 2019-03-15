@@ -7,16 +7,22 @@ export const getters = {
       return node
     }
   },
+  loaded: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node) {
+      return node.loaded
+    }
+  },
   id: state => id => {
     let node = state.find(node => node.id === id)
     if (node) {
       return node.id
     }
   },
-  ipfsId: state => id => {
+  dbId: state => id => {
     let node = state.find(node => node.id === id)
     if (node) {
-      return node.ipfsId
+      return node.dbId
     }
   },
   messagesDbId: state => id => {
@@ -56,33 +62,41 @@ export const actions = {
     //Check it the node exist in the store
     var node = state.find(node => node.id === id)
     if (!node) {
+      //Fill the store with empty data
+      commit('setNode', id)
+      //Get the node database ID from the swarm
+      var dbId = this.$node.swarm.get(id).dbId
       //Get the node database
-      var db = await this.$node.getDb(id)
-      //Fill the store with the node database
-      commit('setNode', db)
+      var db = await this.$node.getDb(dbId)
+      dispatch('updateNode', db)
       //Subscribe to the changes
       db.events.subscribe(() => {
         //update the data
         dispatch('updateNode', db)
       })
-      //Fill the data
-      dispatch('updateNode', db)
     }
   },
   updateNode({ commit }, db) {
-    commit('setIpfsId', { id: db.id, ipfsId: db.database.get('ipfsId') })
+    commit('setLoaded', { id: db.database.get('id') })
+    commit('setDbId', { id: db.database.get('id'), dbId: db.id })
     commit('setMessagesDbId', {
-      id: db.id,
+      id: db.database.get('id'),
       messagesDbId: db.database.get('messagesDbId')
     })
-    commit('setModules', { id: db.id, modules: db.database.get('modules') })
-    commit('setPeers', { id: db.id, peers: db.database.get('peers') })
+    commit('setModules', {
+      id: db.database.get('id'),
+      modules: db.database.get('modules')
+    })
+    commit('setPeers', {
+      id: db.database.get('id'),
+      peers: db.database.get('peers')
+    })
     commit('setDatabases', {
-      id: db.id,
+      id: db.database.get('id'),
       databases: db.database.get('databases')
     })
     commit('setMessages', {
-      id: db.id,
+      id: db.database.get('id'),
       messages: db.database.get('messages')
     })
   },
@@ -93,12 +107,13 @@ export const actions = {
 
 export const mutations = {
   //Set the initial node state
-  setNode(state, db) {
-    let node = state.find(node => node.id === db.id)
+  setNode(state, id) {
+    let node = state.find(node => node.id === id)
     if (!node) {
       state.push({
-        id: db.id,
-        ipfsId: '',
+        id: id,
+        loaded: false,
+        dbId: '',
         messagesDbId: '',
         peers: [],
         modules: [],
@@ -107,9 +122,13 @@ export const mutations = {
       })
     }
   },
-  setIpfsId(state, payload) {
+  setLoaded(state, payload) {
     var node = state.find(node => node.id === payload.id)
-    node.ipfsId = payload.ipfsId
+    node.loaded = true
+  },
+  setDbId(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.dbId = payload.dbId
   },
   setMessagesDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)
