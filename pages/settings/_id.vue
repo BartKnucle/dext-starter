@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <dataLoader :dialog="!$store.getters['nodes/loaded'](id)"/>
-    <v-tabs grow>
+    <v-tabs
+      active-class="black"
+      color="primary"
+      grow>
       <v-tab>
         Modules
       </v-tab>
