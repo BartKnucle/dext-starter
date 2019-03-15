@@ -83,7 +83,6 @@ export default {
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'settings', title: 'Settings', to: '/settings' },
-        { icon: 'face', title: 'Profil', to: '/profil' },
         { icon: 'group', title: 'Ipfs', to: '/ipfs' },
         { icon: 'help', title: 'OrbitDb', to: '/orbitdb' },
         { icon: 'all_out', title: 'Node', to: '/node' },

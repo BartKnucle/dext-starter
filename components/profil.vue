@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     save: async function(event) {
-      await this.$node.add({
+      /*await this.$node.add({
         id: 'user.firstname',
         data: this.firstName
       })
@@ -119,14 +119,9 @@ export default {
       await this.$node.add({
         id: 'user.lastname',
         data: this.lastName
-      })
+      })*/
 
-      await this.$node.add({
-        id: 'user.fullname',
-        data: this.firstName + ' ' + this.lastName
-      })
-
-      this.$node.register()
+      this.$node.setName(this.firstName + ' ' + this.lastName)
     }
   }
 }

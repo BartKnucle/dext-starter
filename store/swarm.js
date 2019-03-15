@@ -3,6 +3,15 @@ export const state = () => ({
   nodes: []
 })
 
+export const getters = {
+  nameByID: state => id => {
+    let node = state.nodes.find(node => node.id === id)
+    if (node) {
+      return node.name
+    }
+  }
+}
+
 export const actions = {
   async getSwarm({ state, commit }) {
     //If store has not been filled

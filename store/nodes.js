@@ -19,6 +19,12 @@ export const getters = {
       return node.id
     }
   },
+  name: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node) {
+      return node.name
+    }
+  },
   dbId: state => id => {
     let node = state.find(node => node.id === id)
     if (node) {
@@ -79,6 +85,10 @@ export const actions = {
   updateNode({ commit }, db) {
     commit('setLoaded', { id: db.database.get('id') })
     commit('setDbId', { id: db.database.get('id'), dbId: db.id })
+    commit('setName', {
+      id: db.database.get('id'),
+      name: db.database.get('name')
+    })
     commit('setMessagesDbId', {
       id: db.database.get('id'),
       messagesDbId: db.database.get('messagesDbId')
@@ -114,6 +124,7 @@ export const mutations = {
         id: id,
         loaded: false,
         dbId: '',
+        name: '',
         messagesDbId: '',
         peers: [],
         modules: [],
@@ -129,6 +140,10 @@ export const mutations = {
   setDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.dbId = payload.dbId
+  },
+  setName(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.dbId = payload.name
   },
   setMessagesDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)

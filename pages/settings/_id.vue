@@ -6,6 +6,12 @@
       color="primary"
       grow>
       <v-tab>
+        Profil
+      </v-tab>
+      <v-tab-item>
+        <profil/>
+      </v-tab-item>
+      <v-tab>
         Modules
       </v-tab>
       <v-tab-item>
@@ -78,7 +84,7 @@
               <v-card :color="networkServerColor(extractConnection(props.item.addrs)[6])">
                 <v-card-title>
                   <v-chip>
-                    <nuxt-link :to="'/settings/' + props.item.id">{{ $node.swarm.get(props.item.id).name }}</nuxt-link>
+                    <nuxt-link :to="'/settings/' + props.item.id">{{ $store.getters['swarm/nameByID'](props.item.id) }}</nuxt-link>
                   </v-chip>
                   <v-spacer/>
                   <v-chip
@@ -163,9 +169,11 @@
 </template>
 <script>
 import dataLoader from '~/components/dataLoader.vue'
+import profil from '~/components/profil.vue'
 export default {
   components: {
-    dataLoader
+    dataLoader,
+    profil
   },
   data: () => {
     return {

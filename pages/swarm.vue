@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+    {{ $store.state.swarm.nodes }}
     <v-data-table
       :items="$store.state.swarm.nodes"
       :headers="[{ text: 'ID', value: 'id' }, { text: 'DB ID', value: 'dbId' }, { text: 'MSG DB ID', value: 'messagesDbId' }]">>
