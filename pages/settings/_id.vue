@@ -150,7 +150,13 @@
                   <v-card-actions>
                     <v-switch
                       :input-value="props.item.open"
-                      light/>
+                      light
+                      @click.stop="switchDbOpened(props.item.id, props.item.open)"/>
+                    <v-btn 
+                      icon
+                      @click.stop="deleteDb(props.item.id)">
+                      <v-icon color="red">delete</v-icon>
+                    </v-btn>
                   </v-card-actions>
                 </v-card-title>
               </v-card>
@@ -179,6 +185,9 @@ export default {
     return {
       id: ''
     }
+  },
+  created: function() {
+    this.$store.dispatch('swarm/getSwarm')
   },
   mounted: async function() {
     if (this.$route.params.id) {
@@ -250,6 +259,17 @@ export default {
         default:
           break
       }
+    },
+    switchDbOpened(id, open) {
+      //If the database is open we close it else we load it
+      if (open) {
+        this.$node.orbitdb.close(id)
+      } else {
+        this.$node.orbitdb.load(id)
+      }
+    },
+    deleteDb(id) {
+      this.$node.orbitdb.delete(id)
     }
   }
 }

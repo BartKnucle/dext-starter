@@ -91,7 +91,6 @@ export default {
     } else {
       this.id = this.$node.ipfs.id.id
     }
-
     this.$store.dispatch('nodes/getNode', this.id)
   },
   methods: {
