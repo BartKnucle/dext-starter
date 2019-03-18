@@ -9,12 +9,24 @@
         Profil
       </v-tab>
       <v-tab-item>
-        <profil/>
+        <v-toolbar>
+          <v-toolbar-title>
+            {{ $store.getters['swarm/nameByID'](id) }}
+          </v-toolbar-title>
+        </v-toolbar>
+        <v-text-field
+          v-model="name"
+          label="Name"/>
       </v-tab-item>
       <v-tab>
         Modules
       </v-tab>
       <v-tab-item>
+        <v-toolbar>
+          <v-toolbar-title>
+            {{ $store.getters['swarm/nameByID'](id) }}
+          </v-toolbar-title>
+        </v-toolbar>
         <v-container
           fluid
           grid-list-md>
@@ -65,6 +77,11 @@
         Network
       </v-tab>
       <v-tab-item>
+        <v-toolbar>
+          <v-toolbar-title>
+            {{ $store.getters['swarm/nameByID'](id) }}
+          </v-toolbar-title>
+        </v-toolbar>
         <v-container
           fluid
           grid-list-md>
@@ -175,15 +192,23 @@
 </template>
 <script>
 import dataLoader from '~/components/dataLoader.vue'
-import profil from '~/components/profil.vue'
 export default {
   components: {
-    dataLoader,
-    profil
+    dataLoader
   },
   data: () => {
     return {
       id: ''
+    }
+  },
+  computed: {
+    name: {
+      set(name) {
+        this.$node.setName(name)
+      },
+      get() {
+        return this.$store.getters['swarm/nameByID'](this.id)
+      }
     }
   },
   created: function() {

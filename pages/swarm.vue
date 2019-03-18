@@ -1,32 +1,46 @@
 <template>
-  <v-layout>
-    {{ $store.state.swarm.nodes }}
-    <v-data-table
-      :items="$store.state.swarm.nodes"
-      :headers="[{ text: 'ID', value: 'id' }, { text: 'DB ID', value: 'dbId' }, { text: 'MSG DB ID', value: 'messagesDbId' }]">>
-      <template 
-        slot="items"
-        slot-scope="props">
-        <td><nuxt-link :to="'/settings/' + props.item.id">{{ props.item.id }}</nuxt-link></td>
-        <td> {{ props.item.dbId }} </td>
-        <td> {{ props.item.messagesDbId }} </td>
-        <td>
-          <v-btn
-            icon
-            @click.stop="deleteNode(props.item.id)">
-            <v-icon>delete</v-icon>
-          </v-btn>
-        </td>
-        <td>
-          <v-btn
-            icon
-            @click.stop="sendMsg(props.item.id)">
-            <v-icon>send</v-icon>
-          </v-btn>
-        </td>
-      </template>
-    </v-data-table>
-  </v-layout>
+  <v-container>
+    <v-tabs
+      active-class="black"
+      color="primary"
+      grow>
+      <v-tab>
+        All
+      </v-tab>
+      <v-tab-item>
+        <v-container
+          fluid
+          grid-list-md>
+          <v-data-iterator
+            :items="$store.getters['swarm/nodes']"
+            content-tag="v-layout"
+            hide-actions
+            row
+            wrap>
+            <v-flex
+              slot="item"
+              slot-scope="props"
+              xs12
+              sm6
+              md4
+              lg3>
+              <v-card>
+                <v-card-title>
+                  <h4>{{ props.item.name }}</h4>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-data-iterator>
+        </v-container>
+      </v-tab-item>
+      <v-tab>
+        Computer
+      </v-tab>
+      <v-tab-item>
+        Computers
+      </v-tab-item>
+    </v-tabs>
+  </v-container>
 </template>
 <script>
 import { perc2color } from '~/utils/color.js'

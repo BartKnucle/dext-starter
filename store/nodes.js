@@ -25,6 +25,22 @@ export const getters = {
       return node.name
     }
   },
+  firstName: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node.firstName) {
+      return node.firstName
+    } else {
+      return ''
+    }
+  },
+  lastName: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node.lastName) {
+      return node.lastName
+    } else {
+      return ''
+    }
+  },
   dbId: state => id => {
     let node = state.find(node => node.id === id)
     if (node) {

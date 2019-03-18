@@ -1,3 +1,4 @@
+import TerserPlugin from 'terser-webpack-plugin'
 const pkg = require('./package')
 
 module.exports = {
@@ -75,6 +76,9 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    optimization: {
+      minimize: false //For removing the 91% build hang...
+    },
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {

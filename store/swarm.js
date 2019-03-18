@@ -4,6 +4,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  nodes: state => {
+    return state.nodes
+  },
   nameByID: state => id => {
     let node = state.nodes.find(node => node.id === id)
     if (node) {
