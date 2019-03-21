@@ -39,10 +39,16 @@
         </v-container>
       </v-tab-item>
       <v-tab>
-        Computer
+        Computers
       </v-tab>
       <v-tab-item>
         Computers
+      </v-tab-item>
+      <v-tab>
+        Users
+      </v-tab>
+      <v-tab-item>
+        Users
       </v-tab-item>
     </v-tabs>
   </v-container>
