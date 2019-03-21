@@ -24,10 +24,10 @@
               sm6
               md4
               lg3>
-              <v-card>
+              <v-card
+                :color="nodeTypeColor(props.item.type)">
                 <v-card-title>
                   <v-icon
-                    :color="nodeTypeColor(props.item.type)"
                     large>
                     {{ nodeTypeIcon(props.item.type) }}
                   </v-icon>
