@@ -75,7 +75,7 @@ export default {
     nodeTypeIcon(type) {
       switch (type) {
         case 'computer':
-          return 'settings'
+          return 'computer'
           break
         case 'user':
           return 'perm_identity'
