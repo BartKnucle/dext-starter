@@ -1,7 +1,7 @@
 //import { WEBRTC } from '../lib/webrtc'
-import { WEBSOCKET } from '../lib/websocket'
+import { websocket } from '../lib/websocket'
 
 module.exports = function webrtc() {
-  this.websocket = new WEBSOCKET()
+  this.websocket = new websocket()
   console.log('Module WEBSOCKET loaded')
 }

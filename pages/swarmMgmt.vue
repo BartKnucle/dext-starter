@@ -12,7 +12,7 @@
           fluid
           grid-list-md>
           <v-data-iterator
-            :items="$store.getters['swarm/nodes']"
+            :items="$store.getters['swarmMgmt/nodes']"
             content-tag="v-layout"
             hide-actions
             row
@@ -26,6 +26,11 @@
               lg3>
               <v-card>
                 <v-card-title>
+                  <v-icon
+                    :color="nodeTypeColor(props.item.type)"
+                    large>
+                    {{ nodeTypeIcon(props.item.type) }}
+                  </v-icon>
                   <h4>{{ props.item.name }}</h4>
                 </v-card-title>
               </v-card>
@@ -46,7 +51,7 @@
 import { perc2color } from '~/utils/color.js'
 export default {
   created: function() {
-    this.$store.dispatch('swarm/getSwarm')
+    this.$store.dispatch('swarmMgmt/getSwarmMgmt')
   },
   methods: {
     deleteNode(id) {
@@ -54,6 +59,30 @@ export default {
     },
     sendMsg(id) {
       this.$node.messages.send(id)
+    },
+    nodeTypeColor(type) {
+      switch (type) {
+        case 'computer':
+          return 'primary'
+          break
+        case 'user':
+          return 'secondary'
+          break
+        default:
+          break
+      }
+    },
+    nodeTypeIcon(type) {
+      switch (type) {
+        case 'computer':
+          return 'settings'
+          break
+        case 'user':
+          return 'perm_identity'
+          break
+        default:
+          break
+      }
     }
   }
 }

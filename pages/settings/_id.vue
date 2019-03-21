@@ -2,6 +2,7 @@
   <v-container>
     <dataLoader :dialog="!$store.getters['nodes/loaded'](id)"/>
     <v-tabs
+      v-model="tabs"
       active-class="black"
       color="primary"
       grow>
@@ -22,6 +23,25 @@
         Modules
       </v-tab>
       <v-tab-item>
+        <v-dialog
+          v-model="moduleDialog">
+          <v-card>
+            <v-card-title>
+              Type the module name to add
+            </v-card-title>
+            <v-text-field
+              v-model="moduleName"
+              label="Module name"
+              required
+            />
+            <v-card-actions>
+              <v-btn
+                @click="moduleAdd(moduleName)">
+                Add
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-toolbar>
           <v-toolbar-title>
             {{ $store.getters['swarm/nameByID'](id) }}
@@ -64,14 +84,6 @@
             </v-flex>
           </v-data-iterator>
         </v-container>
-        <v-btn
-          color="red"
-          fab
-          fixed
-          bottom
-          right>
-          <v-icon>add</v-icon>
-        </v-btn>
       </v-tab-item>
       <v-tab>
         Network
@@ -129,14 +141,6 @@
             </v-flex>
           </v-data-iterator>
         </v-container>
-        <v-btn
-          color="indigo"
-          fab
-          fixed
-          bottom
-          right>
-          <v-icon>share</v-icon>
-        </v-btn>
       </v-tab-item>
       <v-tab>
         Databases
@@ -188,6 +192,19 @@
         Security management
       </v-tab-item>
     </v-tabs>
+    <v-fab-transition v-if="activeFab">
+      <v-btn
+        :key="activeFab.icon"
+        :color="activeFab.color"
+        fab
+        fixed
+        bottom
+        right
+        @click="activeFab.onClick"
+      >
+        <v-icon>{{ activeFab.icon }}</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-container>
 </template>
 <script>
@@ -198,7 +215,10 @@ export default {
   },
   data: () => {
     return {
-      id: ''
+      tabs: null,
+      id: '',
+      moduleDialog: false,
+      moduleName: ''
     }
   },
   computed: {
@@ -208,6 +228,24 @@ export default {
       },
       get() {
         return this.$store.getters['swarm/nameByID'](this.id)
+      }
+    },
+    activeFab: function() {
+      switch (this.tabs) {
+        case 1:
+          return {
+            color: 'red',
+            icon: 'add',
+            onClick: this.showModuleDialog
+          }
+        case 2:
+          return {
+            color: 'indigo',
+            icon: 'share',
+            onClick: this.peerConnect
+          }
+        default:
+          return false
       }
     }
   },
@@ -269,6 +307,16 @@ export default {
       } else {
         return 'red'
       }
+    },
+    showModuleDialog() {
+      this.moduleDialog = true
+    },
+    async moduleAdd() {
+      this.moduleDialog = false
+      await this.$node.addCustomModule('swarmMgmt')
+    },
+    peerConnect() {
+      this.$node.addCustomModule('swarmMgmt')
     },
     extractConnection(connectionString) {
       return connectionString.split('/')

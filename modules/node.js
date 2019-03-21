@@ -1,6 +1,6 @@
-import { NODE } from '../lib/node'
+import { Node } from '../lib/node'
 
 module.exports = async function node() {
-  this.node = new NODE(this)
+  this.node = new Node(this)
   await this.node.init()
 }

@@ -83,10 +83,7 @@ export default {
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'settings', title: 'Settings', to: '/settings' },
-        { icon: 'group', title: 'Ipfs', to: '/ipfs' },
-        { icon: 'help', title: 'OrbitDb', to: '/orbitdb' },
-        { icon: 'all_out', title: 'Node', to: '/node' },
-        { icon: 'group_work', title: 'Swarm', to: '/swarm' }
+        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' }
       ],
       miniVariant: true,
       right: true,
