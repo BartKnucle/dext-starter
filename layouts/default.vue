@@ -59,7 +59,9 @@
       :right="right"
       v-model="rightDrawer"
       temporary
-      fixed/>
+      fixed>
+      <messages/>
+    </v-navigation-drawer>
     <v-footer
       :fixed="fixed"
       app>
@@ -70,10 +72,12 @@
 <script>
 import loader from '../components/loader.vue'
 import alert from '../components/alert.vue'
+import messages from '../components/messages.vue'
 export default {
   components: {
     loader,
-    alert
+    alert,
+    messages
   },
   data() {
     return {
@@ -83,7 +87,8 @@ export default {
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'settings', title: 'Settings', to: '/settings' },
-        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' }
+        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' },
+        { icon: 'message', title: 'Message', to: '/message' }
       ],
       miniVariant: true,
       right: true,
