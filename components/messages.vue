@@ -3,17 +3,20 @@
     <v-layout
       column>
       <v-data-iterator
-        :items="$store.getters['messages/messages']"
+        :items="$store.getters['messages/received']"
         hide-actions>
         <v-flex
           slot="item"
           slot-scope="props">
-          <v-card
+          {{ props.item }}
+          <v-toolbar
             color="primary">
-            <v-card-text>
-              <h4>{{ props.item.data }}</h4>
-            </v-card-text>
-          </v-card>
+            <v-toolbar-title>{{ props.item.data }}</v-toolbar-title>
+            <v-spacer/>
+            <v-btn icon>
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-toolbar>
         </v-flex>
       </v-data-iterator>
     </v-layout>
@@ -23,9 +26,6 @@
 export default {
   data() {
     return {}
-  },
-  created: function() {
-    this.$store.dispatch('messages/getMessages')
   }
 }
 </script>

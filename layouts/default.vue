@@ -43,7 +43,7 @@
         <v-badge
           left
           overlap>
-          <span slot="badge">6</span>
+          <span slot="badge">{{ $store.getters['messages/notifCount'] }}</span>
           <v-icon>
             notifications
           </v-icon>
@@ -87,14 +87,17 @@ export default {
       items: [
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'settings', title: 'Settings', to: '/settings' },
-        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' },
-        { icon: 'message', title: 'Message', to: '/message' }
+        { icon: 'message', title: 'Message', to: '/message' },
+        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' }
       ],
       miniVariant: true,
       right: true,
       rightDrawer: false,
       title: 'Dext framework'
     }
+  },
+  created: function() {
+    this.$store.dispatch('messages/getMessages')
   },
   mounted: function() {
     //window.LOG = 'Verbose'

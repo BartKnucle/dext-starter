@@ -251,6 +251,7 @@ export default {
   },
   created: function() {
     this.$store.dispatch('swarm/getSwarm')
+    this.$store.dispatch('messages/getMessages')
   },
   mounted: async function() {
     if (this.$route.params.id) {

@@ -6,6 +6,19 @@ export const state = () => ({
 export const getters = {
   messages: state => {
     return state.messages
+  },
+  received: state => {
+    return state.messages.filter(msg => msg.message.type === 'in')
+  },
+  unread: state => {
+    return state.messages.filter(msg => msg.message.read === false)
+  },
+  notification: state => {
+    return state.messages.filter(msg => msg.message.notification === true)
+  },
+  notifCount: state => {
+    return state.messages.filter(msg => msg.message.notification === true)
+      .length
   }
 }
 
@@ -14,7 +27,7 @@ export const actions = {
     //If store has not been filled
     if (state.messages.length === 0) {
       //Get the Swarm database
-      var db = await this.$node.messages.db
+      var db = await this.$node.messages.msgDb
       //Fill the store with the Swarm database
       commit('setMessages', db)
       //Subscribe to the changes to the swarm database
@@ -28,10 +41,8 @@ export const actions = {
 
 export const mutations = {
   setMessages(state, db) {
-    const messages = db.database
-      .iterator({ limit: -1 })
-      .collect()
-      .map(e => e.payload.value)
+    const messages = db.database.get('')
     Vue.set(state, 'messages', messages)
-  }
+  },
+  setNotification(state, payload) {}
 }
