@@ -39,13 +39,14 @@
               single-line/>
             <v-divider/>
             <v-text-field
+              v-model="subject"
               label="Subject"
-              value="Plans for the weekend"
               single-line
               full-width
               hide-details/>
             <v-divider/>
             <v-textarea
+              v-model="message"
               label="Message"
               counter
               maxlength="120"
@@ -58,13 +59,77 @@
         Received
       </v-tab>
       <v-tab-item>
-        received
+        <v-container
+          fluid
+          grid-list-md>
+          <v-data-iterator
+            :items="$store.getters['messages/received']"
+            content-tag="v-layout"
+            hide-actions
+            row
+            wrap>
+            <v-flex
+              slot="item"
+              slot-scope="props"
+              xs12
+              sm6
+              md4
+              lg4>
+              <v-card>
+                <v-card-title>
+                  Date: {{ new Date(props.item.message.date).toString() }}
+                  <br>
+                  From: {{ $store.getters['swarm/nameByID'](props.item.message.from) }}
+                  <br>
+                  To: {{ $store.getters['swarm/nameByID'](props.item.message.to) }}
+                  <br>
+                  Subject: {{ props.item.message.data.subject }}
+                  <br>
+                  Message: {{ props.item.message.data.message }}
+                  <br>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-data-iterator>
+        </v-container>
       </v-tab-item>
       <v-tab>
         Sent
       </v-tab>
       <v-tab-item>
-        Sent
+        <v-container
+          fluid
+          grid-list-md>
+          <v-data-iterator
+            :items="$store.getters['messages/sent']"
+            content-tag="v-layout"
+            hide-actions
+            row
+            wrap>
+            <v-flex
+              slot="item"
+              slot-scope="props"
+              xs12
+              sm6
+              md4
+              lg4>
+              <v-card>
+                <v-card-title>
+                  Date: {{ new Date(props.item.message.date).toString() }}
+                  <br>
+                  From: {{ $store.getters['swarm/nameByID'](props.item.message.from) }}
+                  <br>
+                  To: {{ $store.getters['swarm/nameByID'](props.item.message.to) }}
+                  <br>
+                  Subject: {{ props.item.message.data.subject }}
+                  <br>
+                  Message: {{ props.item.message.data.message }}
+                  <br>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-data-iterator>
+        </v-container>
       </v-tab-item>
       <v-tab>
         All
@@ -88,7 +153,16 @@
               lg4>
               <v-card>
                 <v-card-title>
-                  {{ props.item }}
+                  Date: {{ new Date(props.item.message.date).toString() }}
+                  <br>
+                  From: {{ $store.getters['swarm/nameByID'](props.item.message.from) }}
+                  <br>
+                  To: {{ $store.getters['swarm/nameByID'](props.item.message.to) }}
+                  <br>
+                  Subject: {{ props.item.message.data.subject }}
+                  <br>
+                  Message: {{ props.item.message.data.message }}
+                  <br>
                 </v-card-title>
               </v-card>
             </v-flex>
@@ -104,7 +178,9 @@ export default {
     return {
       tabs: null,
       selected: [],
-      recipients: []
+      recipients: [],
+      subject: '',
+      message: ''
     }
   },
   created: function() {
@@ -115,7 +191,11 @@ export default {
   methods: {
     //Send the message
     send() {
-      var data = 'test'
+      var data = {
+        type: 'message',
+        subject: this.subject,
+        message: this.message
+      }
       this.selected.forEach(element => {
         this.$node.messages.send(element, data)
       })

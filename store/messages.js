@@ -10,6 +10,9 @@ export const getters = {
   received: state => {
     return state.messages.filter(msg => msg.message.type === 'in')
   },
+  sent: state => {
+    return state.messages.filter(msg => msg.message.type === 'out')
+  },
   unread: state => {
     return state.messages.filter(msg => msg.message.read === false)
   },
