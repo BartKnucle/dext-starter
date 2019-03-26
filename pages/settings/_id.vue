@@ -189,7 +189,19 @@
         Security
       </v-tab>
       <v-tab-item>
-        Security management
+        <v-autocomplete
+          v-model="selectednodes"
+          :items="nodes"
+          item-text="name"
+          item-value="id"
+          chips
+          label="Nodes"
+          full-width
+          hide-details
+          hide-no-data
+          hide-selected
+          multiple
+          single-line/>
       </v-tab-item>
     </v-tabs>
     <v-fab-transition v-if="activeFab">
@@ -218,7 +230,9 @@ export default {
       tabs: null,
       id: '',
       moduleDialog: false,
-      moduleName: ''
+      moduleName: '',
+      selectednodes: [],
+      nodes: []
     }
   },
   computed: {
@@ -244,6 +258,12 @@ export default {
             icon: 'share',
             onClick: this.peerConnect
           }
+        case 4:
+          return {
+            color: 'red',
+            icon: 'add',
+            onClick: this.addPermission
+          }
         default:
           return false
       }
@@ -252,6 +272,7 @@ export default {
   created: function() {
     this.$store.dispatch('swarm/getSwarm')
     this.$store.dispatch('messages/getMessages')
+    this.nodes = this.$store.getters['swarm/nodes']
   },
   mounted: async function() {
     if (this.$route.params.id) {
@@ -318,6 +339,9 @@ export default {
     },
     peerConnect() {
       this.$node.addCustomModule('swarmMgmt')
+    },
+    addPermission() {
+      this.$node.getModulesFunctions()
     },
     extractConnection(connectionString) {
       return connectionString.split('/')

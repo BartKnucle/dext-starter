@@ -100,7 +100,7 @@ export default {
     this.$store.dispatch('messages/getMessages')
   },
   mounted: function() {
-    window.LOG = 'Verbose'
+    //window.LOG = 'Verbose'
   }
 }
 </script>
