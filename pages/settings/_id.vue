@@ -186,7 +186,7 @@
         </v-container>
       </v-tab-item>
       <v-tab>
-        Security
+        Permissions
       </v-tab>
       <v-tab-item>
         <v-autocomplete
@@ -194,14 +194,23 @@
           :items="nodes"
           item-text="name"
           item-value="id"
-          chips
           label="Nodes"
+          chips
           full-width
-          hide-details
-          hide-no-data
-          hide-selected
           multiple
           single-line/>
+        <v-treeview
+          v-model="selectedPermissions"
+          :items="permissionsTree"
+          selected-color="primary"
+          activatable
+          open-on-click
+          selectable
+          expand-icon="chevron_right"
+          on-icon="check_box_blank"
+          off-icon="check_box_outline_blank"
+          indeterminate-icon="indeterminate_check_box"/>
+        {{ $store.getters['permissions/permissions'] }}
       </v-tab-item>
     </v-tabs>
     <v-fab-transition v-if="activeFab">
@@ -230,12 +239,30 @@ export default {
       tabs: null,
       id: '',
       moduleDialog: false,
+      permissionsDialog: false,
       moduleName: '',
       selectednodes: [],
-      nodes: []
+      nodes: [],
+      selectedPermissions: []
     }
   },
   computed: {
+    permissionsTree() {
+      var modules = this.$node.getModules()
+      var tree = []
+      modules.forEach(leaf => {
+        tree.push({
+          id: leaf.name,
+          name: leaf.name,
+          children: Object.getOwnPropertyNames(
+            this.$node.getFunctions(leaf.name)
+          ).map(value => {
+            return { name: value, id: leaf.name + '/' + value }
+          })
+        })
+      })
+      return tree
+    },
     name: {
       set(name) {
         this.$node.setName(name)
@@ -272,6 +299,7 @@ export default {
   created: function() {
     this.$store.dispatch('swarm/getSwarm')
     this.$store.dispatch('messages/getMessages')
+    this.$store.dispatch('permissions/getPermissions')
     this.nodes = this.$store.getters['swarm/nodes']
   },
   mounted: async function() {
@@ -341,7 +369,22 @@ export default {
       this.$node.addCustomModule('swarmMgmt')
     },
     addPermission() {
-      this.$node.getModulesFunctions()
+      this.selectednodes.forEach(node => {
+        var permissions = {
+          id: node,
+          permissions: []
+        }
+        this.selectedPermissions.forEach(permission => {
+          let tblPerm = permission.split('/')
+          if (tblPerm.length === 2) {
+            permissions.permissions.push({
+              module: tblPerm[0],
+              function: tblPerm[1]
+            })
+          }
+        })
+        this.$node.permissions.add(permissions)
+      })
     },
     extractConnection(connectionString) {
       return connectionString.split('/')

@@ -121,10 +121,6 @@ export const actions = {
       id: db.database.get('id'),
       databases: db.database.get('databases')
     })
-    commit('setMessages', {
-      id: db.database.get('id'),
-      messages: db.database.get('messages')
-    })
   },
   async switchModule({}, payload) {
     this.$node.switchModule(payload.id, payload.name, payload.value)
@@ -144,8 +140,7 @@ export const mutations = {
         messagesDbId: '',
         peers: [],
         modules: [],
-        databases: [],
-        messages: []
+        databases: []
       })
     }
   },
@@ -176,9 +171,5 @@ export const mutations = {
   setDatabases(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.databases = payload.databases
-  },
-  setMessages(state, payload) {
-    var node = state.find(node => node.id === payload.id)
-    node.messages = payload.messages
   }
 }

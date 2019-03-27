@@ -1,3 +1,4 @@
+import { isNode } from 'browser-or-node'
 import Vue from 'vue'
 export const state = () => ({
   messages: []
@@ -27,17 +28,19 @@ export const getters = {
 
 export const actions = {
   async getMessages({ state, commit }) {
-    //If store has not been filled
-    if (state.messages.length === 0) {
-      //Get the Swarm database
-      var db = await this.$node.messages.msgDb
-      //Fill the store with the Swarm database
-      commit('setMessages', db)
-      //Subscribe to the changes to the swarm database
-      db.events.subscribe(() => {
-        //update the data
+    if (!isNode) {
+      //If store has not been filled
+      if (state.messages.length === 0) {
+        //Get the Swarm database
+        var db = await this.$node.messages.msgDb
+        //Fill the store with the Swarm database
         commit('setMessages', db)
-      })
+        //Subscribe to the changes to the swarm database
+        db.events.subscribe(() => {
+          //update the data
+          commit('setMessages', db)
+        })
+      }
     }
   }
 }
