@@ -241,7 +241,7 @@
                     <template v-slot:activator>
                       <v-list-tile
                         v-for="item in props.item.permissions"
-                        :key="item"
+                        :key="item.permissions"
                         no-action>
                         <v-list-tile-content>
                           <v-list-tile-title>{{ item.module }} {{ item.function }}</v-list-tile-title>
