@@ -199,18 +199,61 @@
           full-width
           multiple
           single-line/>
-        <v-treeview
-          v-model="selectedPermissions"
-          :items="permissionsTree"
-          selected-color="primary"
-          activatable
-          open-on-click
-          selectable
-          expand-icon="chevron_right"
-          on-icon="check_box_blank"
-          off-icon="check_box_outline_blank"
-          indeterminate-icon="indeterminate_check_box"/>
-        {{ $store.getters['permissions/permissions'] }}
+        <v-layout>
+          <v-flex
+            xs12
+            md6
+            xl3>
+            <v-treeview
+              v-model="selectedPermissions"
+              :items="permissionsTree"
+              selected-color="primary"
+              activatable
+              open-on-click
+              selectable
+              expand-icon="chevron_right"
+              on-icon="check_box_blank"
+              off-icon="check_box_outline_blank"
+              indeterminate-icon="indeterminate_check_box"/>
+          </v-flex>
+          <v-divider vertical/>
+          <v-container
+            fluid
+            grid-list-md>
+            <v-data-iterator
+              :items="$store.getters['permissions/permissions']"
+              content-tag="v-layout"
+              hide-actions
+              row
+              wrap>
+              <v-flex
+                slot="item"
+                slot-scope="props"
+                xs12
+                sm6
+                md4
+                lg4>
+                <v-card>
+                  <v-card-title>
+                    {{ $store.getters['swarm/nameByID'](props.item.id) }}
+                  </v-card-title>
+                  <v-list>
+                    <template v-slot:activator>
+                      <v-list-tile
+                        v-for="item in props.item.permissions"
+                        :key="item"
+                        no-action>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ item.module }} {{ item.function }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </template>
+                  </v-list>
+                </v-card>
+              </v-flex>
+            </v-data-iterator>
+          </v-container>
+        </v-layout>
       </v-tab-item>
     </v-tabs>
     <v-fab-transition v-if="activeFab">
@@ -259,6 +302,17 @@ export default {
           ).map(value => {
             return { name: value, id: leaf.name + '/' + value }
           })
+        })
+      })
+
+      //Add the node (not a module)
+      tree.push({
+        id: 'node',
+        name: 'node',
+        children: Object.getOwnPropertyNames(
+          Object.getPrototypeOf(this.$node)
+        ).map(value => {
+          return { name: value, id: 'node/' + value }
         })
       })
       return tree
@@ -362,8 +416,18 @@ export default {
       this.moduleDialog = true
     },
     async moduleAdd() {
-      this.moduleDialog = false
-      await this.$node.addCustomModule('swarmMgmt')
+      if (this.$route.params.id) {
+        var data = {
+          type: 'action',
+          module: 'node',
+          function: 'addCustomModule',
+          payload: 'swarmMgmt'
+        }
+        this.$node.messages.send(this.$route.params.id, data)
+      } else {
+        this.moduleDialog = false
+        await this.$node.addCustomModule('swarmMgmt')
+      }
     },
     peerConnect() {
       this.$node.addCustomModule('swarmMgmt')
