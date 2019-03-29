@@ -85,7 +85,7 @@
 import { perc2color } from '~/utils/color.js'
 export default {
   created: function() {
-    this.$store.dispatch('swarmMgmt/getSwarmMgmt')
+    this.$store.dispatch('swarmMgmt/openDb')
   },
   methods: {
     deleteNode(id) {

@@ -1,3 +1,4 @@
+import { isNode } from 'browser-or-node'
 export const state = () => []
 
 export const getters = {
@@ -80,22 +81,24 @@ export const getters = {
 }
 
 export const actions = {
-  async getNode({ state, commit, dispatch }, id) {
-    //Check it the node exist in the store
-    var node = state.find(node => node.id === id)
-    if (!node) {
-      //Fill the store with empty data
-      commit('setNode', id)
-      //Get the node database ID from the swarm
-      var dbId = this.$node.swarm.get(id).dbId
-      //Get the node database
-      var db = await this.$node.getDb(dbId)
-      dispatch('updateNode', db)
-      //Subscribe to the changes
-      db.events.subscribe(() => {
-        //update the data
+  async openDb({ state, commit, dispatch }, id) {
+    if (!isNode) {
+      //Check it the node exist in the store
+      var node = state.find(node => node.id === id)
+      if (!node) {
+        //Fill the store with empty data
+        commit('setNode', id)
+        //Get the node database ID from the swarm
+        var dbId = this.$node.swarm.get(id).dbId
+        //Get the node database
+        var db = await this.$node.getDb(dbId)
         dispatch('updateNode', db)
-      })
+        //Subscribe to the changes
+        db.events.subscribe(() => {
+          //update the data
+          dispatch('updateNode', db)
+        })
+      }
     }
   },
   updateNode({ commit }, db) {

@@ -27,7 +27,7 @@ export const getters = {
 }
 
 export const actions = {
-  async getMessages({ state, commit }) {
+  async openDb({ state, commit }) {
     if (!isNode) {
       //If store has not been filled
       if (state.messages.length === 0) {

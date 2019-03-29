@@ -184,7 +184,7 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('swarm/getSwarm')
+    this.$store.dispatch('swarm/openDb')
     this.recipients = this.$store.getters['swarm/nodes']
   },
   mounted: function() {},

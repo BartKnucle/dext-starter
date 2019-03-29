@@ -351,9 +351,9 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('swarm/getSwarm')
-    this.$store.dispatch('messages/getMessages')
-    this.$store.dispatch('permissions/getPermissions')
+    this.$store.dispatch('swarm/openDb')
+    this.$store.dispatch('messages/openDb')
+    this.$store.dispatch('permissions/openDb')
     this.nodes = this.$store.getters['swarm/nodes']
   },
   mounted: async function() {
@@ -363,7 +363,7 @@ export default {
       this.id = this.$node.ipfs.id.id
     }
 
-    this.$store.dispatch('nodes/getNode', this.id)
+    this.$store.dispatch('nodes/openDb', this.id)
   },
   methods: {
     //Turn the module on/off
@@ -426,7 +426,7 @@ export default {
         this.$node.messages.send(this.$route.params.id, data)
       } else {
         this.moduleDialog = false
-        await this.$node.addCustomModule('swarmMgmt')
+        await this.$node.addCustomModule(this.moduleName)
       }
     },
     peerConnect() {

@@ -97,7 +97,7 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('messages/getMessages')
+    this.$store.dispatch('messages/openDb')
   },
   mounted: function() {
     //window.LOG = 'Verbose'
