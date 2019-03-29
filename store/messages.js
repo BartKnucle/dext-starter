@@ -32,7 +32,7 @@ export const actions = {
       //If store has not been filled
       if (state.messages.length === 0) {
         //Get the Swarm database
-        var db = await this.$node.messages.msgDb
+        var db = await this.$node.messages.db
         //Fill the store with the Swarm database
         commit('setMessages', db)
         //Subscribe to the changes to the swarm database
@@ -49,6 +49,5 @@ export const mutations = {
   setMessages(state, db) {
     const messages = db.database.get('')
     Vue.set(state, 'messages', messages)
-  },
-  setNotification(state, payload) {}
+  }
 }
