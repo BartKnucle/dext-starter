@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <dataLoader :dialog="!$store.getters['nodes/loaded'](id)"/>
+    <loader :dialog="!$store.getters['nodes/loaded'](id)"/>
     <v-tabs
       v-model="tabs"
       active-class="black"
@@ -272,10 +272,10 @@
   </v-container>
 </template>
 <script>
-import dataLoader from '~/components/dataLoader.vue'
+import loader from '~/components/loader.vue'
 export default {
   components: {
-    dataLoader
+    loader
   },
   data: () => {
     return {

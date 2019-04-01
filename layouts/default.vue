@@ -1,7 +1,14 @@
 <template>
   <v-app dark>
-    <loader/>
-    <alert/>
+    <loader
+      :dialog="!$store.state.node.started"
+      :info="'node'"/>
+    <v-dialog
+      :v-model="setName()">
+      <v-card>
+        <profil/>
+      </v-card>
+    </v-dialog>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -35,6 +42,7 @@
         v-show="!$vuetify.breakpoint.xs"
         v-text="title"/>
       <v-spacer/>
+      {{ setName() }}
       <v-text-field
         placeholder="Search"/>
       <v-btn
@@ -52,7 +60,7 @@
     </v-toolbar>
     <v-content>
       <v-container>
-        <nuxt />
+        <nuxt/>
       </v-container>
     </v-content>
     <v-navigation-drawer
@@ -73,11 +81,13 @@
 import loader from '../components/loader.vue'
 import alert from '../components/alert.vue'
 import messages from '../components/messages.vue'
+import profil from '../components/profil.vue'
 export default {
   components: {
     loader,
     alert,
-    messages
+    messages,
+    profil
   },
   data() {
     return {
@@ -101,6 +111,13 @@ export default {
   },
   mounted: function() {
     //window.LOG = 'Verbose'
+  },
+  methods: {
+    setName() {
+      return
+      this.$store.state.node.name === 'Anonymous' &&
+        this.$store.state.node.started
+    }
   }
 }
 </script>

@@ -49,7 +49,7 @@ module.exports = {
 
   router: {
     //middleware: ['database']
-    middleware: ['setup']
+    middleware: ['loading']
   },
   serverMiddleware: ['~/api/index.js'],
   /*

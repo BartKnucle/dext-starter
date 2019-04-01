@@ -81,15 +81,15 @@ export const getters = {
 }
 
 export const actions = {
-  async openDb({ state, commit, dispatch }, id) {
+  async openDb({ state, commit, dispatch }, NodeId) {
     if (!isNode) {
       //Check it the node exist in the store
-      var node = state.find(node => node.id === id)
+      var node = state.find(node => node.id === NodeId)
       if (!node) {
         //Fill the store with empty data
-        commit('setNode', id)
+        commit('setNode', NodeId)
         //Get the node database ID from the swarm
-        var dbId = this.$node.swarm.get(id).dbId
+        var dbId = this.$node.swarm.get(NodeId).dbId
         //Get the node database
         var db = await this.$node.getDb(dbId)
         dispatch('updateNode', db)
