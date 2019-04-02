@@ -32,10 +32,8 @@ export const actions = {
     if (name !== 'Anonymous') {
       commit('setNameSetup', false)
       commit('setName', db.database.get('name'))
-      console.log(name)
     } else {
       commit('setNameSetup', true)
-      console.log(name)
     }
   }
 }
