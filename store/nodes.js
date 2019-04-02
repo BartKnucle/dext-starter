@@ -103,28 +103,30 @@ export const actions = {
   },
   updateNode({ commit }, db) {
     var id = db.database.get('id')
-    commit('setDbId', { id: id, dbId: db.id })
-    commit('setName', {
-      id: id,
-      name: db.database.get('name')
-    })
-    commit('setMessagesDbId', {
-      id: id,
-      messagesDbId: db.database.get('messagesDbId')
-    })
-    commit('setModules', {
-      id: id,
-      modules: db.database.get('modules')
-    })
-    commit('setPeers', {
-      id: id,
-      peers: db.database.get('peers')
-    })
-    commit('setDatabases', {
-      id: id,
-      databases: db.database.get('databases')
-    })
-    commit('setLoaded', { id: id })
+    if (id) {
+      commit('setDbId', { id: id, dbId: db.id })
+      commit('setName', {
+        id: id,
+        name: db.database.get('name')
+      })
+      commit('setMessagesDbId', {
+        id: id,
+        messagesDbId: db.database.get('messagesDbId')
+      })
+      commit('setModules', {
+        id: id,
+        modules: db.database.get('modules')
+      })
+      commit('setPeers', {
+        id: id,
+        peers: db.database.get('peers')
+      })
+      commit('setDatabases', {
+        id: id,
+        databases: db.database.get('databases')
+      })
+      commit('setLoaded', { id: id })
+    }
   },
   async switchModule({}, payload) {
     this.$node.switchModule(payload.id, payload.name, payload.value)
@@ -158,7 +160,7 @@ export const mutations = {
   },
   setName(state, payload) {
     var node = state.find(node => node.id === payload.id)
-    node.dbId = payload.name
+    node.name = payload.name
   },
   setMessagesDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)

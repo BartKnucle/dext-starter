@@ -115,7 +115,7 @@ export default {
     this.$store.dispatch('messages/openDb')
   },
   mounted: function() {
-    //window.LOG = 'Verbose'
+    window.LOG = 'Verbose'
     this.dialog = this.$store.state.node.nameSetup
   },
   updated: function() {
