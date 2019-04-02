@@ -3,12 +3,17 @@
     <loader
       :dialog="!$store.state.node.started"
       :info="'node'"/>
-    <v-dialog
-      :v-model="setName()">
-      <v-card>
-        <profil/>
-      </v-card>
-    </v-dialog>
+    <v-container
+      v-if="$store.state.node.nameSetup">
+      <v-dialog
+        :value="true"
+        persistent
+        max-width="300">
+        <v-card>
+          <profil/>
+        </v-card>
+      </v-dialog>
+    </v-container>
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -42,7 +47,6 @@
         v-show="!$vuetify.breakpoint.xs"
         v-text="title"/>
       <v-spacer/>
-      {{ setName() }}
       <v-text-field
         placeholder="Search"/>
       <v-btn
@@ -103,7 +107,8 @@ export default {
       miniVariant: true,
       right: true,
       rightDrawer: false,
-      title: 'Dext framework'
+      title: 'Dext framework',
+      dialog: false
     }
   },
   created: function() {
@@ -111,13 +116,11 @@ export default {
   },
   mounted: function() {
     //window.LOG = 'Verbose'
+    this.dialog = this.$store.state.node.nameSetup
   },
-  methods: {
-    setName() {
-      return
-      this.$store.state.node.name === 'Anonymous' &&
-        this.$store.state.node.started
-    }
+  updated: function() {
+    //window.LOG = 'Verbose'
+    this.dialog = this.$store.state.node.nameSetup
   }
 }
 </script>
