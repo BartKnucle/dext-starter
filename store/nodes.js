@@ -102,28 +102,29 @@ export const actions = {
     }
   },
   updateNode({ commit }, db) {
-    commit('setLoaded', { id: db.database.get('id') })
-    commit('setDbId', { id: db.database.get('id'), dbId: db.id })
+    var id = db.database.get('id')
+    commit('setDbId', { id: id, dbId: db.id })
     commit('setName', {
-      id: db.database.get('id'),
+      id: id,
       name: db.database.get('name')
     })
     commit('setMessagesDbId', {
-      id: db.database.get('id'),
+      id: id,
       messagesDbId: db.database.get('messagesDbId')
     })
     commit('setModules', {
-      id: db.database.get('id'),
+      id: id,
       modules: db.database.get('modules')
     })
     commit('setPeers', {
-      id: db.database.get('id'),
+      id: id,
       peers: db.database.get('peers')
     })
     commit('setDatabases', {
-      id: db.database.get('id'),
+      id: id,
       databases: db.database.get('databases')
     })
+    commit('setLoaded', { id: id })
   },
   async switchModule({}, payload) {
     this.$node.switchModule(payload.id, payload.name, payload.value)
