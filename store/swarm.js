@@ -1,6 +1,7 @@
 import { isNode } from 'browser-or-node'
 import Vue from 'vue'
 export const state = () => ({
+  loaded: false,
   nodes: []
 })
 
@@ -20,7 +21,7 @@ export const actions = {
   async openDb({ state, commit }) {
     if (!isNode) {
       //If store has not been filled
-      if (state.nodes.length === 0) {
+      if (!state.loaded) {
         //Get the Swarm database
         var db = await this.$node.swarm.db
         //Fill the store with the Swarm database
@@ -38,5 +39,6 @@ export const actions = {
 export const mutations = {
   setSwarm(state, db) {
     Vue.set(state, 'nodes', db.database.get(''))
+    state.loaded = true
   }
 }
