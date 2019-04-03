@@ -18,6 +18,7 @@
         <v-text-field
           v-model="name"
           label="Name"/>
+        <profil/>
       </v-tab-item>
       <v-tab>
         Modules
@@ -256,26 +257,27 @@
         </v-layout>
       </v-tab-item>
     </v-tabs>
-    <v-fab-transition v-if="activeFab">
-      <v-btn
-        :key="activeFab.icon"
-        :color="activeFab.color"
-        fab
-        fixed
-        bottom
-        right
-        @click="activeFab.onClick"
-      >
-        <v-icon>{{ activeFab.icon }}</v-icon>
-      </v-btn>
-    </v-fab-transition>
+    <v-btn
+      v-if="activeFab"
+      :key="activeFab.icon"
+      :color="activeFab.color"
+      fab
+      fixed
+      bottom
+      right
+      @click="activeFab.onClick"
+    >
+      <v-icon>{{ activeFab.icon }}</v-icon>
+    </v-btn>
   </v-container>
 </template>
 <script>
 import loader from '~/components/loader.vue'
+import profil from '~/components/profil.vue'
 export default {
   components: {
-    loader
+    loader,
+    profil
   },
   data: () => {
     return {
@@ -415,6 +417,7 @@ export default {
     showModuleDialog() {
       this.moduleDialog = true
     },
+    saveProfile() {},
     async moduleAdd() {
       if (this.$route.params.id) {
         var data = {

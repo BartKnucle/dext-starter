@@ -2,6 +2,27 @@
   <v-layout 
     column>
     <v-flex>
+      <v-avatar
+        slot="activator"
+        :size="avatarSize"
+        color="red"
+      >
+        <img
+          v-if="avatar"
+          :src="avatar"
+          alt="Avatar"
+        >
+        <span
+          v-else-if="lastName && firstName"
+          class="white--text headline">{{ lastName.charAt(0) + firstName.charAt(0) }}</span>
+        <v-icon
+          v-else
+          :size="avatarSize">
+          face
+        </v-icon>
+      </v-avatar>
+    </v-flex>
+    <v-flex>
       <v-text-field
         v-model="firstName"
         :counter="15"
@@ -16,19 +37,15 @@
         label="Last name"
         required
       />
-      <v-text-field
-        label="Full name"
-      />
     </v-flex>
-    <v-btn
-      color="red"
-      fab
-      fixed
-      bottom
-      right
-      @click="save">
-      <v-icon>save</v-icon>
-    </v-btn>
+    <v-flex>
+      <v-btn
+        left
+        depressed
+        large
+        color="primary"
+        @click="save">Save</v-btn>
+    </v-flex>
   </v-layout>
 </template>
 <script>
