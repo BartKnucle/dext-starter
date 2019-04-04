@@ -418,18 +418,8 @@ export default {
     },
     saveProfile() {},
     async moduleAdd() {
-      if (this.$route.params.id) {
-        var data = {
-          type: 'action',
-          module: 'node',
-          function: 'addCustomModule',
-          payload: 'swarmMgmt'
-        }
-        this.$node.messages.send(this.$route.params.id, data)
-      } else {
-        this.moduleDialog = false
-        await this.$node.addCustomModule(this.moduleName)
-      }
+      this.$node.execute('node', 'addCustomModule', 'swarmMgmt', this.id)
+      this.moduleDialog = false
     },
     peerConnect() {
       this.$node.addCustomModule('swarmMgmt')
