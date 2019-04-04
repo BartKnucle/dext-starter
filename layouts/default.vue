@@ -10,7 +10,9 @@
         persistent
         max-width="300">
         <v-card>
-          <profil :id="$node.ipfs.id.id"/>
+          <profil 
+            :id="$node.ipfs.id.id"
+            :type="$store.state.node.type"/>
         </v-card>
       </v-dialog>
     </v-container>

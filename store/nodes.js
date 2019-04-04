@@ -26,6 +26,12 @@ export const getters = {
       return node.name
     }
   },
+  type: state => id => {
+    let node = state.find(node => node.id === id)
+    if (node) {
+      return node.type
+    }
+  },
   firstName: state => id => {
     let node = state.find(node => node.id === id)
     if (node.firstName) {
@@ -109,6 +115,10 @@ export const actions = {
         id: id,
         name: db.database.get('name')
       })
+      commit('setType', {
+        id: id,
+        type: db.database.get('type')
+      })
       commit('setMessagesDbId', {
         id: id,
         messagesDbId: db.database.get('messagesDbId')
@@ -143,6 +153,7 @@ export const mutations = {
         loaded: false,
         dbId: '',
         name: '',
+        type: '',
         messagesDbId: '',
         peers: [],
         modules: [],
@@ -161,6 +172,10 @@ export const mutations = {
   setName(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.name = payload.name
+  },
+  setType(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.type = payload.type
   },
   setMessagesDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)

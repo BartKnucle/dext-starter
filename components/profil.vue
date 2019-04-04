@@ -3,6 +3,7 @@
     column>
     <v-flex>
       <v-text-field
+        v-if="$store.getters['nodes/type'](id) === 'user'"
         v-model="firstName"
         :counter="15"
         :rules="nameRules"
@@ -10,6 +11,7 @@
         required
       />
       <v-text-field
+        v-if="$store.getters['nodes/type'](id) === 'user'"
         v-model="lastName"
         :rules="nameRules && lastNameRules"
         :counter="15"

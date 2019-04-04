@@ -3,6 +3,7 @@ export const state = () => ({
   started: false,
   myId: '',
   name: '',
+  type: '',
   nameSetup: false
 })
 
@@ -36,6 +37,8 @@ export const actions = {
     } else {
       commit('setNameSetup', true)
     }
+    var type = db.database.get('type')
+    commit('setType', type)
   }
 }
 
@@ -48,5 +51,8 @@ export const mutations = {
   },
   setName(state, payload) {
     state.name = payload
+  },
+  setType(state, payload) {
+    state.type = payload
   }
 }

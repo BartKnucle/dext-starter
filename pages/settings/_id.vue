@@ -19,7 +19,8 @@
           v-model="name"
           label="Name"/>
         <profil
-          :id="id"/>
+          :id="id"
+          :type="$store.getters['nodes/type'](id)"/>
       </v-tab-item>
       <v-tab>
         Modules
