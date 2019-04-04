@@ -9,6 +9,12 @@ export const getters = {
   nodes: state => {
     return state.nodes
   },
+  users: state => {
+    let nodes = state.nodes.filter(node => node.type === 'user')
+    if (nodes) {
+      return nodes
+    }
+  },
   nameByID: state => id => {
     let node = state.nodes.find(node => node.id === id)
     if (node) {

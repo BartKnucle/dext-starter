@@ -354,9 +354,6 @@ export default {
     }
   },
   created: function() {
-    this.$store.dispatch('swarm/openDb')
-    this.$store.dispatch('messages/openDb')
-    this.$store.dispatch('permissions/openDb')
     this.nodes = this.$store.getters['swarm/nodes']
   },
   mounted: async function() {
