@@ -57,8 +57,11 @@ export default {
   },
   methods: {
     save: async function(event) {
-      this.$node.setFirstName(this.firstName)
-      this.$node.setLastName(this.lastName)
+      if ($store.getters['nodes/type'](id) === 'user') {
+        this.$node.setFirstName(this.firstName)
+        this.$node.setLastName(this.lastName)
+      }
+
       this.$node.setName(this.firstName + ' ' + this.lastName)
     }
   }
