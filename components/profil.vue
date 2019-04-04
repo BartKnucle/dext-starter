@@ -33,10 +33,14 @@
 </template>
 <script>
 export default {
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data: () => {
     return {
-      //avatar: 'https://cdn.vuetifyjs.com/images/john.jpg',
-      avatar: '',
       firstName: '',
       nameRules: [
         v => !!v || 'Field is required',
@@ -46,38 +50,13 @@ export default {
           'First caracter must be uppercase'
       ],
       lastName: '',
-      lastNameRules: [v => v == v.toUpperCase() || 'Name must be uppercase'],
-      dialog: true
-    }
-  },
-  computed: {
-    avatarSize() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return '70px'
-        case 'sm':
-          return '80px'
-        case 'md':
-          return '90px'
-        case 'lg':
-          return '100px'
-        case 'xl':
-          return '100px'
-      }
+      lastNameRules: [v => v == v.toUpperCase() || 'Name must be uppercase']
     }
   },
   methods: {
     save: async function(event) {
-      /*await this.$node.add({
-        id: 'user.firstname',
-        data: this.firstName
-      })
-
-      await this.$node.add({
-        id: 'user.lastname',
-        data: this.lastName
-      })*/
-
+      this.$node.setFirstName(this.firstName)
+      this.$node.setLastName(this.lastName)
       this.$node.setName(this.firstName + ' ' + this.lastName)
     }
   }

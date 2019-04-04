@@ -18,7 +18,8 @@
         <v-text-field
           v-model="name"
           label="Name"/>
-        <profil/>
+        <profil
+          :id="id"/>
       </v-tab-item>
       <v-tab>
         Modules

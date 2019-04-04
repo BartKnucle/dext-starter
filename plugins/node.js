@@ -6,5 +6,4 @@ export default async ({ app, redirect }, inject) => {
   inject('node', app.node)
   console.log(app.node.modules)
   app.store.dispatch('node/openDb')
-  app.store.dispatch('node/loaded')
 }

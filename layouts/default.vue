@@ -10,7 +10,7 @@
         persistent
         max-width="300">
         <v-card>
-          <profil/>
+          <profil :id="$node.ipfs.id.id"/>
         </v-card>
       </v-dialog>
     </v-container>
