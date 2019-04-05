@@ -8,11 +8,10 @@
       <v-dialog
         :value="true"
         persistent
-        max-width="300">
+        fullscreen>
         <v-card>
           <profil 
-            :id="$node.ipfs.id.id"
-            :type="$store.state.node.type"/>
+            :id="$node.ipfs.id.id"/>
         </v-card>
       </v-dialog>
     </v-container>

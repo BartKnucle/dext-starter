@@ -439,7 +439,8 @@ export default {
             })
           }
         })
-        this.$node.permissions.add(permissions)
+        //this.$node.execute('permissions', 'add', permissions, this.id)
+        //this.$node.permissions.add(permissions)
       })
     },
     extractConnection(connectionString) {
