@@ -70,7 +70,7 @@
                   <v-card-actions>
                     <v-switch
                       :input-value="props.item.started"
-                      :disabled="!props.item.isStoppable"
+                      :disabled="!props.item.stoppable"
                       light
                       @click.stop="switchModule(props.item.name, !props.item.started)"/>
                   </v-card-actions>
