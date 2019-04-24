@@ -116,11 +116,11 @@ export default {
     this.$store.dispatch('messages/openDb')
   },
   mounted: function() {
-    window.LOG = 'debug'
+    //window.LOG = 'debug'
     this.dialog = this.$store.state.node.nameSetup
   },
   updated: function() {
-    window.LOG = 'debug'
+    //window.LOG = 'debug'
     this.dialog = this.$store.state.node.nameSetup
   }
 }
