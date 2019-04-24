@@ -49,8 +49,12 @@
         v-show="!$vuetify.breakpoint.xs"
         v-text="title"/>
       <v-spacer/>
-      <v-text-field
-        placeholder="Search"/>
+      <v-autocomplete
+        :items="$store.getters['swarm/nodes']"
+        item-text="name"
+        item-value="id"
+        label="Search"
+        dense/>
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer">
