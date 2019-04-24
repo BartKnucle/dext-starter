@@ -18,16 +18,13 @@
         label="Last name"
         required
       />
-      <v-text-field
-        label="Full name"
-      />
     </v-flex>
     <v-btn
+      :fab="!$store.state.node.nameSetup"
+      :fixed="!$store.state.node.nameSetup"
+      :bottom="!$store.state.node.nameSetup"
+      :right="!$store.state.node.nameSetup"
       color="red"
-      fab
-      fixed
-      bottom
-      right
       @click="save">
       <v-icon>save</v-icon>
     </v-btn>
@@ -60,9 +57,8 @@ export default {
       if (this.$store.getters['nodes/type'](this.id) === 'user') {
         this.$node.setFirstName(this.firstName)
         this.$node.setLastName(this.lastName)
+        this.$node.setName(this.firstName + ' ' + this.lastName)
       }
-
-      this.$node.setName(this.firstName + ' ' + this.lastName)
     }
   }
 }

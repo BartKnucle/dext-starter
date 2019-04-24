@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <loader :dialog="!$store.getters['nodes/loaded'](id)"/>
+    <v-toolbar>
+      <v-toolbar-title>
+        {{ $store.getters['swarm/nameByID'](id) }}
+      </v-toolbar-title>
+    </v-toolbar>
     <v-tabs
       v-model="tabs"
       active-class="black"
@@ -10,14 +15,6 @@
         Profil
       </v-tab>
       <v-tab-item>
-        <v-toolbar>
-          <v-toolbar-title>
-            {{ $store.getters['swarm/nameByID'](id) }}
-          </v-toolbar-title>
-        </v-toolbar>
-        <v-text-field
-          v-model="name"
-          label="Name"/>
         <profil
           :id="id"
           :type="$store.getters['nodes/type'](id)"/>
@@ -45,11 +42,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-toolbar>
-          <v-toolbar-title>
-            {{ $store.getters['swarm/nameByID'](id) }}
-          </v-toolbar-title>
-        </v-toolbar>
         <v-container
           fluid
           grid-list-md>
@@ -92,11 +84,6 @@
         Network
       </v-tab>
       <v-tab-item>
-        <v-toolbar>
-          <v-toolbar-title>
-            {{ $store.getters['swarm/nameByID'](id) }}
-          </v-toolbar-title>
-        </v-toolbar>
         <v-container
           fluid
           grid-list-md>
@@ -113,7 +100,7 @@
               sm6
               md4
               lg4>
-              <v-card :color="networkServerColor(extractConnection(props.item.addrs)[6])">
+              <v-card :color="networkServerColor(extractConnection(props.item.addrs)[5])">
                 <v-card-title>
                   <v-chip>
                     <nuxt-link :to="'/settings/' + props.item.id">{{ $store.getters['swarm/nameByID'](props.item.id) }}</nuxt-link>
@@ -165,7 +152,7 @@
               sm6
               md4
               lg4>
-              <v-card>
+              <v-card :color="databaseColor(props.item.open)">
                 <v-card-title>
                   <v-chip>
                     {{ props.item.name }}
@@ -451,7 +438,19 @@ export default {
         case 'ipfs':
           return 'primary'
           break
-        case 'p2p-websocket-star':
+        case 'ws':
+          return 'secondary'
+          break
+        default:
+          break
+      }
+    },
+    databaseColor(server) {
+      switch (server) {
+        case true:
+          return 'primary'
+          break
+        case false:
           return 'secondary'
           break
         default:

@@ -7,8 +7,9 @@
       v-if="$store.state.node.nameSetup">
       <v-dialog
         :value="true"
-        persistent
-        fullscreen>
+        max-width="600px"
+        no-click-animation
+        persistent>
         <v-card>
           <profil 
             :id="$node.ipfs.id.id"/>
