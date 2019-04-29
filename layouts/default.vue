@@ -78,7 +78,7 @@
       v-model="rightDrawer"
       temporary
       fixed>
-      <messages/>
+      <notif/>
     </v-navigation-drawer>
     <v-footer
       :fixed="fixed"
@@ -90,13 +90,13 @@
 <script>
 import loader from '../components/loader.vue'
 import alert from '../components/alert.vue'
-import messages from '../components/messages.vue'
+import notif from '../components/notif.vue'
 import profil from '../components/profil.vue'
 export default {
   components: {
     loader,
     alert,
-    messages,
+    notif,
     profil
   },
   data() {
