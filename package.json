@@ -21,8 +21,6 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.4.1",
-    "auto-bind": "^2.1.0",
     "browser-or-node": "^1.2.1",
     "cross-env": "^5.2.0",
     "ipfs": "^0.34.4",

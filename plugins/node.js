@@ -1,4 +1,5 @@
 import { Node } from '../lib/node'
+import { isNode } from 'browser-or-node'
 
 export default async ({ app, redirect }, inject) => {
   app.node = new Node()

@@ -56,7 +56,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios',
     '~/modules/signaling',
     '~/modules/node'
     /* '~/modules/logger',

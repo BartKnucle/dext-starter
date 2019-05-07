@@ -139,7 +139,7 @@ export const actions = {
     }
   },
   async switchModule({}, payload) {
-    this.$node.switchModule(payload.id, payload.name, payload.value)
+    this.$node.switchModule(payload.id, payload.name)
   }
 }
 
