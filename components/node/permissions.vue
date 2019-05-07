@@ -141,8 +141,8 @@ export default {
             })
           }
         })
-        //this.$node.execute('permissions', 'add', permissions, this.id)
-        this.$node.permissions.add(permissions)
+        this.$node.execute('permissions', 'add', permissions, this.id)
+        //this.$node.permissions.add(permissions)
       })
     }
   }

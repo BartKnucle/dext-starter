@@ -75,7 +75,8 @@ export default {
   },
   data: () => {
     return {
-      moduleDialog: false
+      moduleDialog: false,
+      moduleName: ''
     }
   },
   methods: {
@@ -124,7 +125,7 @@ export default {
       }
     },
     async moduleAdd() {
-      this.$node.execute('node', 'addCustomModule', 'swarmMgmt', this.id)
+      this.$node.execute('node', 'addCustomModule', this.moduleName, this.id)
       this.moduleDialog = false
     }
   }

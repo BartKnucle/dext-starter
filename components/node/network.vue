@@ -51,7 +51,7 @@
       bottom
       right
       color="indigo"
-      @click="addPermission">
+      @click="connect">
       <v-icon>share</v-icon>
     </v-btn>
   </v-container>
@@ -82,6 +82,9 @@ export default {
     },
     extractConnection(connectionString) {
       return connectionString.split('/')
+    },
+    connect() {
+      this.$node.execute('ipfs', 'connect', '', this.id)
     }
   }
 }
