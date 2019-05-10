@@ -82,3 +82,6 @@ dist
 
 #data directory
 data/
+
+#PWA
+sw.*

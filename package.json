@@ -21,6 +21,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
     "browser-or-node": "^1.2.1",
     "cross-env": "^5.2.0",
     "ipfs": "^0.34.4",

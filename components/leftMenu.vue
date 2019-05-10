@@ -24,7 +24,8 @@ export default {
         { icon: 'apps', title: 'Welcome', to: '/' },
         { icon: 'settings', title: 'Settings', to: '/settings' },
         { icon: 'message', title: 'Message', to: '/message' },
-        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' }
+        { icon: 'group_work', title: 'Swarm', to: '/swarmMgmt' },
+        { icon: 'drag_indicator', title: 'Sandbox', to: '/sandbox' }
       ]
     }
   }

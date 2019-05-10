@@ -2,7 +2,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -56,6 +56,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/pwa',
     '~/modules/signaling',
     '~/modules/node'
     /* '~/modules/logger',
