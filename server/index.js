@@ -1,3 +1,4 @@
+process.env.DEBUG = 'nuxt:*'
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')

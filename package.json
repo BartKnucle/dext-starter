@@ -16,6 +16,7 @@
     "_dev-debug-win": "set LOG=debug && node --inspect node_modules/nuxt/bin/nuxt dev --no-lock",
     "build": "nuxt build",
     "start": "nuxt start",
+    "start1": "node server/index.js",
     "generate": "nuxt generate --analyse",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"

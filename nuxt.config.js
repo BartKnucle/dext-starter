@@ -1,4 +1,3 @@
-import TerserPlugin from 'terser-webpack-plugin'
 const pkg = require('./package')
 
 module.exports = {
@@ -76,6 +75,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    analyze: true,
     optimization: {
       minimize: false //For removing the 91% build hang...
     },
