@@ -85,3 +85,6 @@ data/
 
 #PWA
 sw.*
+
+#Package lock
+package-lock.json
