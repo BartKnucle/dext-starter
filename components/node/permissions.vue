@@ -19,13 +19,8 @@
           v-model="selectedPermissions"
           :items="permissionsTree"
           selected-color="primary"
-          activatable
           open-on-click
-          selectable
-          expand-icon="chevron_right"
-          on-icon="check_box_blank"
-          off-icon="check_box_outline_blank"
-          indeterminate-icon="indeterminate_check_box"/>
+          selectable/>
       </v-flex>
       <v-divider vertical/>
       <v-container
