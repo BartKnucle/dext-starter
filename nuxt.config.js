@@ -50,7 +50,7 @@ module.exports = {
     //middleware: ['database']
     middleware: ['loading']
   },
-  serverMiddleware: ['~/api/index.js'],
+  //serverMiddleware: ['~/api/index.js'],
   /*
   ** Nuxt.js modules
   */
@@ -92,7 +92,7 @@ module.exports = {
       //Set server side object to empty on browser
       config.node = {
         fs: 'empty',
-        child_process: 'empty',
+        //child_process: 'empty',
         dgram: 'empty',
         net: 'empty'
       }
