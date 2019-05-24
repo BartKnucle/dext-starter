@@ -55,22 +55,13 @@ export default {
   methods: {
     save: async function(event) {
       if (this.$store.getters['nodes/type'](this.id) === 'user') {
-        this.$node.execute(
-          'node',
-          'setFirstName',
-          this.firstName
-        )
-        
+        this.$node.execute('node', 'setFirstName', this.firstName, this.id)
+        this.$node.execute('node', 'setName', this.lastName, this.id)
         this.$node.execute(
           'node',
           'setName',
-          this.lastName
-        )
-
-        this.$node.execute(
-          'node',
-          'setName',
-          this.firstName + ' ' + this.lastName
+          this.firstName + ' ' + this.lastName,
+          this.id
         )
       }
     }
