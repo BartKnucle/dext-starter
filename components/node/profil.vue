@@ -4,19 +4,21 @@
     <v-flex>
       <v-text-field
         v-if="$store.getters['nodes/type'](id) === 'user'"
-        v-model="firstName"
+        :value="$store.getters['nodes/firstName'](id)"
         :counter="15"
         :rules="nameRules"
         label="First name"
         required
+        @change="v => $node.execute('node', 'setFirstName', v, id)"
       />
       <v-text-field
         v-if="$store.getters['nodes/type'](id) === 'user'"
-        v-model="lastName"
+        :value="$store.getters['nodes/lastName'](id)"
         :rules="nameRules && lastNameRules"
         :counter="15"
         label="Last name"
         required
+        @change="v => $node.execute('node', 'setLastName', v, id)"
       />
     </v-flex>
     <v-btn
@@ -50,30 +52,6 @@ export default {
       ],
       //lastName: '',
       lastNameRules: [v => v == v.toUpperCase() || 'Name must be uppercase']
-    }
-  },
-  computed: {
-    firstName: {
-      get() {
-        return this.$store.getters['nodes/firstName'](this.id)
-      },
-      set(value) {
-        this.$store.commit('nodes/setFirstName', {
-          id: this.id,
-          firstName: value
-        })
-      }
-    },
-    lastName: {
-      get() {
-        return this.$store.getters['nodes/lastName'](this.id)
-      },
-      set(value) {
-        this.$store.commit('nodes/setLastName', {
-          id: this.id,
-          lastName: value
-        })
-      }
     }
   },
   methods: {
