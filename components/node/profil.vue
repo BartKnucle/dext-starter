@@ -40,7 +40,7 @@ export default {
   },
   data: () => {
     return {
-      firstName: '',
+      //firstName: '',
       nameRules: [
         v => !!v || 'Field is required',
         v => v.length <= 15 || 'Name must be less than 15 characters',
@@ -48,16 +48,45 @@ export default {
           v.charAt(0) == v.charAt(0).toUpperCase() ||
           'First caracter must be uppercase'
       ],
-      lastName: '',
+      //lastName: '',
       lastNameRules: [v => v == v.toUpperCase() || 'Name must be uppercase']
     }
   },
+  computed: {
+    firstName: {
+      get() {
+        return this.$store.getters['nodes/firstName'](this.id)
+      },
+      set(value) {
+        this.$store.commit('nodes/setFirstName', {
+          id: this.id,
+          firstName: value
+        })
+      }
+    },
+    lastName: {
+      get() {
+        return this.$store.getters['nodes/lastName'](this.id)
+      },
+      set(value) {
+        this.$store.commit('nodes/setLastName', {
+          id: this.id,
+          lastName: value
+        })
+      }
+    }
+  },
   methods: {
-    save: async function(event) {
+    save: async function() {
       if (this.$store.getters['nodes/type'](this.id) === 'user') {
-        this.$node.execute('node', 'setFirstName', this.firstName, this.id)
-        this.$node.execute('node', 'setName', this.lastName, this.id)
-        this.$node.execute(
+        await this.$node.execute(
+          'node',
+          'setFirstName',
+          this.firstName,
+          this.id
+        )
+        await this.$node.execute('node', 'setLastName', this.lastName, this.id)
+        await this.$node.execute(
           'node',
           'setName',
           this.firstName + ' ' + this.lastName,

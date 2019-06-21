@@ -3,7 +3,7 @@
     <loader :dialog="!$store.getters['nodes/loaded'](id)"/>
     <v-toolbar>
       <v-toolbar-title>
-        {{ $store.getters['swarm/nameByID'](id) }}
+        {{ $store.getters['nodes/name'](id) }}
       </v-toolbar-title>
     </v-toolbar>
     <v-tabs

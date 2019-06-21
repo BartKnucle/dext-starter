@@ -31,7 +31,9 @@
                     large>
                     {{ nodeTypeIcon(props.item.type) }}
                   </v-icon>
-                  <nuxt-link :to="'/settings/' + props.item.id">{{ $store.getters['swarm/nameByID'](props.item.id) }}</nuxt-link>
+                  <nuxt-link
+                    :to="'/settings/' + props.item.id">{{ $store.getters['swarm/nameByID'](props.item.id) }}
+                  </nuxt-link>
                 </v-card-title>
               </v-card>
             </v-flex>

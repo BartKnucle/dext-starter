@@ -34,7 +34,7 @@ export const getters = {
   },
   firstName: state => id => {
     let node = state.find(node => node.id === id)
-    if (node.firstName) {
+    if (node) {
       return node.firstName
     } else {
       return ''
@@ -42,7 +42,7 @@ export const getters = {
   },
   lastName: state => id => {
     let node = state.find(node => node.id === id)
-    if (node.lastName) {
+    if (node) {
       return node.lastName
     } else {
       return ''
@@ -111,6 +111,14 @@ export const actions = {
     var id = db.database.get('id')
     if (id) {
       commit('setDbId', { id: id, dbId: db.id })
+      commit('setFirstName', {
+        id: id,
+        firstName: db.database.get('firstName')
+      })
+      commit('setLastName', {
+        id: id,
+        lastName: db.database.get('lastName')
+      })
       commit('setName', {
         id: id,
         name: db.database.get('name')
@@ -152,6 +160,8 @@ export const mutations = {
         id: id,
         loaded: false,
         dbId: '',
+        firstName: '',
+        lastName: '',
         name: '',
         type: '',
         messagesDbId: '',
@@ -168,6 +178,14 @@ export const mutations = {
   setDbId(state, payload) {
     var node = state.find(node => node.id === payload.id)
     node.dbId = payload.dbId
+  },
+  setLastName(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.lastName = payload.lastName
+  },
+  setFirstName(state, payload) {
+    var node = state.find(node => node.id === payload.id)
+    node.firstName = payload.firstName
   },
   setName(state, payload) {
     var node = state.find(node => node.id === payload.id)
