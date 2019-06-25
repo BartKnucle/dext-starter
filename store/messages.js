@@ -20,6 +20,9 @@ export const getters = {
   notification: state => {
     return state.messages.filter(msg => msg.message.notification === true)
   },
+  actions: state => {
+    return state.messages.filter(msg => msg.data.type === 'action')
+  },
   notifCount: state => {
     return state.messages.filter(msg => msg.message.notification === true)
       .length

@@ -15,7 +15,7 @@
                 {{ typeIcon(props.item.message.data.type) }}
               </v-icon>
             </v-toolbar-side-icon>
-            <v-toolbar-title>{{ title(props.item.message.data.type, props.item) }}</v-toolbar-title>
+            {{ title(props.item.message.data.type, props.item) }}
             <v-spacer/>
             <v-btn icon>
               <v-icon>close</v-icon>
@@ -38,6 +38,9 @@ export default {
         case 'message':
           return 'email'
           break
+        case 'action':
+          return 'system_update'
+          break
         default:
           break
       }
@@ -46,6 +49,9 @@ export default {
       switch (type) {
         case 'message':
           return item.message.data.subject
+          break
+        case 'action':
+          return item.message.data.function + ' -> ' + item.message.data.payload
           break
         default:
           break
