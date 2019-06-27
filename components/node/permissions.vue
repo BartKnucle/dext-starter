@@ -40,20 +40,25 @@
             md4
             lg4>
             <v-card>
-              <v-card-title>
-                {{ $store.getters['swarm/nameByID'](props.item.id) }}
-              </v-card-title>
+              <v-toolbar>
+                <v-card-title>
+                  {{ $store.getters['swarm/nameByID'](props.item.id) }}
+                </v-card-title>
+              </v-toolbar>
               <v-list>
-                <template v-slot:activator>
-                  <v-list-tile
-                    v-for="item in props.item.permissions"
-                    :key="item.permissions"
-                    no-action>
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ item.module }} {{ item.function }}</v-list-tile-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </template>
+                <v-list-tile
+                  v-for="item in props.item.permissions"
+                  :key="item.module + '/' + item.function">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.module }}</v-list-tile-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-list-tile-title>{{ item.function }}</v-list-tile-title>
+                  </v-list-tile-action>
+                  <v-list-tile-action>
+                    <v-icon>delete</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
               </v-list>
             </v-card>
           </v-flex>
@@ -98,12 +103,15 @@ export default {
           name: leaf.name,
           children: Object.getOwnPropertyNames(
             this.$node.getFunctions(leaf.name)
-          ).map(value => {
-            return { name: value, id: leaf.name + '/' + value }
-          })
+          )
+            .map(value => {
+              return { name: value, id: leaf.name + '/' + value }
+            })
+            .filter(
+              value => value.name !== 'init' && value.name !== 'constructor'
+            )
         })
       })
-
       //Add the node (not a module)
       tree.push({
         id: 'node',
