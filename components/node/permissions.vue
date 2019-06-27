@@ -55,9 +55,6 @@
                   <v-list-tile-action>
                     <v-list-tile-title>{{ item.function }}</v-list-tile-title>
                   </v-list-tile-action>
-                  <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                  </v-list-tile-action>
                 </v-list-tile>
               </v-list>
             </v-card>
@@ -145,7 +142,6 @@ export default {
           }
         })
         this.$node.execute('permissions', 'add', permissions, this.id)
-        //this.$node.permissions.add(permissions)
       })
     }
   }
