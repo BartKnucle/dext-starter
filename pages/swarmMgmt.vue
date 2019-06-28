@@ -34,6 +34,10 @@
                   <nuxt-link
                     :to="'/settings/' + props.item.id">{{ $store.getters['swarm/nameByID'](props.item.id) }}
                   </nuxt-link>
+                  <v-icon 
+                    :color="onlineColor($store.getters['swarm/onlineByID'](props.item.id))">
+                    location_off
+                  </v-icon>
                 </v-card-title>
               </v-card>
             </v-flex>
@@ -143,6 +147,18 @@ export default {
           break
         case 'user':
           return 'perm_identity'
+          break
+        default:
+          break
+      }
+    },
+    onlineColor(online) {
+      switch (online) {
+        case true:
+          return 'green'
+          break
+        case false:
+          return 'red'
           break
         default:
           break

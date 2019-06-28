@@ -20,6 +20,12 @@ export const getters = {
     if (node) {
       return node.name
     }
+  },
+  onlineByID: state => id => {
+    let node = state.nodes.find(node => node.id === id)
+    if (node) {
+      return node.online
+    }
   }
 }
 
