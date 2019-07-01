@@ -10,4 +10,5 @@ export default async ({ app, redirect }, inject) => {
   app.store.dispatch('swarm/openDb')
   app.store.dispatch('messages/openDb')
   app.store.dispatch('permissions/openDb')
+  app.store.dispatch('files/openDb')
 }

@@ -7,11 +7,38 @@
         type="file"
         multiple
         class="input-file"
-        @change="filesChange($event.target.files)">
+        @change="upload($event.target.files)">
       <p>
         Drag your file(s) here to begin<br> or click to browse
       </p>
     </div>
+    <v-container
+      fluid
+      grid-list-md>
+      <v-data-iterator
+        :items="$store.getters['files/files']"
+        content-tag="v-layout"
+        hide-actions
+        row
+        wrap>
+        <v-flex
+          slot="item"
+          slot-scope="props"
+          xs12
+          sm6
+          md4
+          lg4>
+          <v-card>
+            <v-card-title>
+              <v-chip
+                @click="download(props.item)">
+                {{ props.item.name }}
+              </v-chip>
+            </v-card-title>
+          </v-card>
+        </v-flex>
+      </v-data-iterator>
+    </v-container>
   </v-layout>
 </template>
 <script>
@@ -34,7 +61,7 @@ export default {
     }
   },
   methods: {
-    filesChange(fileList) {
+    upload(fileList) {
       for (let index = 0; index < Object.keys(fileList).length; index++) {
         let reader = new FileReader()
 
@@ -47,13 +74,28 @@ export default {
             }
             //Add file to database
             let file = {
-              id: result[0].hash
+              id: result[0].hash,
+              name: fileList[index].name,
+              size: fileList[index].size
             }
+            console.log(fileList[index])
             this.$node.execute('files', 'add', file, this.id)
           })
         }.bind(this)
         reader.readAsArrayBuffer(fileList[index])
       }
+    },
+    download(file) {
+      this.$node.ipfs.ipfs.get(file.id, (err, files) => {
+        files.forEach(file => {
+          let data = Buffer.from(file.content)
+          let fileDownload = new Blob([data], {
+            type: 'application/octet-stream'
+          })
+          let fileURL = URL.createObjectURL(fileDownload)
+          window.open(fileURL)
+        })
+      })
     }
   }
 }
