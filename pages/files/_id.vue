@@ -85,15 +85,26 @@ export default {
         reader.readAsArrayBuffer(fileList[index])
       }
     },
-    download(file) {
-      this.$node.ipfs.ipfs.get(file.id, (err, files) => {
-        files.forEach(file => {
-          let data = Buffer.from(file.content)
+    download(files) {
+      var a = document.createElement('a')
+      document.body.appendChild(a)
+      a.style = 'display: none'
+
+      this.$node.ipfs.ipfs.get(files.id, (err, ipfsFiles) => {
+        ipfsFiles.forEach(ipfsfile => {
+          console.log(ipfsfile)
+          //Create a hidden A tag
+
+          let data = Buffer.from(ipfsfile.content)
           let fileDownload = new Blob([data], {
             type: 'application/octet-stream'
           })
           let fileURL = URL.createObjectURL(fileDownload)
-          window.open(fileURL)
+          a.href = fileURL
+          a.download = files.name
+          a.click()
+          //window.URL.revokeObjectURL(fileURL)
+          //window.open(fileURL)
         })
       })
     }
