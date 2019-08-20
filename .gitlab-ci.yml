@@ -1,0 +1,6 @@
+deploy_app:
+  stage: generate
+  tags:
+    - git
+  script:
+    - pkg .
