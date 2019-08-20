@@ -3,4 +3,5 @@ deploy_app:
   tags:
     - ansible
   script:
+    - npm install
     - pkg .
