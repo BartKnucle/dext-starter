@@ -1,5 +1,5 @@
 deploy_app:
-  stage: generate
+  stage: build
   tags:
     - ansible
   script:
