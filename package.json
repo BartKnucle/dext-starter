@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "My badass Nuxt.js project",
   "author": "BartKnucle",
+  "bin": "server/index.js",
   "private": true,
   "config": {
     "nuxt": {
