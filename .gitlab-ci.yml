@@ -1,5 +1,8 @@
 deploy_app:
   stage: build
+  cache:
+    paths:
+      - node_modules/
   tags:
     - ansible
   script:
