@@ -2,15 +2,14 @@ stages:
   - build
   - test
 
-tags:
-  - ansible
-
 cache:
   paths:
     - node_modules/
 
 install_dependencies:
   stage: build
+  tags:
+    - ansible
   script:
     - npm install
     - pkg .
