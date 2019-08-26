@@ -1,10 +1,20 @@
-deploy_app:
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
   stage: build
-  cache:
-    paths:
-      - node_modules/
-  tags:
-    - ansible
   script:
     - npm install
     - pkg .
+  artifacts:
+    paths:
+      - node_modules/
+
+testing_testing:
+  stage: test
+  script: npm test
