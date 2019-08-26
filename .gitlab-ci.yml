@@ -2,6 +2,9 @@ stages:
   - build
   - test
 
+tags:
+    - ansible
+
 cache:
   paths:
     - node_modules/
