@@ -13,9 +13,9 @@ install_dependencies:
   script:
     - npm install --verbose
     - pkg .
-  artifacts:
-    paths:
-      - node_modules/
+#  artifacts:
+#    paths:
+#      - node_modules/
 
 testing_testing:
   stage: test
